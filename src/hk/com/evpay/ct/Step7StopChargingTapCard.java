@@ -19,14 +19,7 @@ import hk.com.cstl.evcs.ocpp.eno.TranStatus;
 import hk.com.evpay.ct.i18n.I18nLabel;
 import hk.com.evpay.ct.util.CtUtil;
 import hk.com.evpay.ct.util.LangUtil;
-import hk.com.evpay.ct.wp.WpCheckerThread;
-import hk.com.evpay.ct.wp.WpRespUtil;
 import hk.com.evpay.ct.ws.CtWebSocketClient;
-import model.CardDetailResp;
-import model.SaleResp;
-import model.element.CardData;
-import model.element.ReceiptData;
-import wisepay.WisepayUtil;
 
 public class Step7StopChargingTapCard extends CommonPanelOctopus{
 	private static final Logger logger = Logger.getLogger(Step7StopChargingTapCard.class);
@@ -114,7 +107,7 @@ public class Step7StopChargingTapCard extends CommonPanelOctopus{
 	}
 	
 	private void pollCardContactless(TranModel tran) {
-		try {
+		/*try {
 			CardDetailResp resp = WisepayUtil.cardDetail();
 			if(resp != null && WpRespUtil.isRespSuccess(resp.getStatus(), resp.getResultCode())) {
 				if(resp.getCardData() != null) {
@@ -137,7 +130,7 @@ public class Step7StopChargingTapCard extends CommonPanelOctopus{
 			}
 		}catch(Exception e) {
 			logger.error("Failed to poll card bbpos!", e);
-		}
+		}*/
 	}
 	
 	private void stopChargingContactless() {

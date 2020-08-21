@@ -46,7 +46,6 @@ import hk.com.cstl.evcs.lms.LmsCons;
 import hk.com.cstl.evcs.lms.LmsServEvent;
 import hk.com.cstl.evcs.lms.LmsServEventType;
 import hk.com.cstl.evcs.model.CpModel;
-import hk.com.cstl.evcs.model.CtModel;
 import hk.com.cstl.evcs.model.TranModel;
 import hk.com.cstl.evcs.ocpp.CpWebSocket;
 import hk.com.cstl.evcs.ocpp.CpWebSocketEventListener;
@@ -58,13 +57,10 @@ import hk.com.evpay.ct.i18n.I18nLabel;
 import hk.com.evpay.ct.i18n.I18nSupport;
 import hk.com.evpay.ct.util.CtUtil;
 import hk.com.evpay.ct.util.LangUtil;
-import hk.com.evpay.ct.wp.WpCheckerThread;
-import hk.com.evpay.ct.wp.WpCons;
-import hk.com.evpay.ct.wp.WpStatusChangeListener;
 import hk.com.evpay.ct.ws.CtWebSocketClient;
 
 public class CtrlPanel extends CommonPanel implements CpWebSocketEventListener, MouseListener, OctEventListener, 
-	WpStatusChangeListener, ScanEventListener{
+	ScanEventListener{
 	
 	private static final Logger logger = Logger.getLogger(CtrlPanel.class);
 	
@@ -140,7 +136,6 @@ public class CtrlPanel extends CommonPanel implements CpWebSocketEventListener, 
 		CURRENCT_INSTANCE = this;
 		
 		CpWebSocket.addListener(this);
-		WpCheckerThread.addListener(this);
 	}
 	
 	public static void updateCtUi() {
@@ -944,23 +939,6 @@ public class CtrlPanel extends CommonPanel implements CpWebSocketEventListener, 
 		
 		CtWebSocketClient.uploadOctEvent(data);
 	}
-
-	@Override
-	public void statusChanged(String status, String state) {
-		String s = CtModel.DEVICE_STATUS_UNKNOWN;
-		if(WpCons.STATUS_NOT_YET_LOGGED_IN.equals(status)) {
-			s = CtModel.DEVICE_STATUS_NOT_AVAILABLE;
-		}
-		else if(WpCons.STATUS_LOGGED_IN.equals(status)) {
-			s = CtModel.DEVICE_STATUS_AVAILABLE;
-		}
-		
-		ct.setContactlessDeviceStatus(s);
-		ct.setContactlessDeviceStatusDttm(new Date());
-		CtWebSocketClient.updateCt();
-		CtUtil.saveCurrentCt();
-	}
-
 	@Override
 	public void labelDetected(String portName, String text) {
 		logger.info("Recevied QR:" + text + ", port:" + portName);

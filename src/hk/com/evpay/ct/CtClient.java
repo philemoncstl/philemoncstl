@@ -48,11 +48,8 @@ import hk.com.evpay.ct.tool.TranHistCtrl;
 import hk.com.evpay.ct.util.CtUtil;
 import hk.com.evpay.ct.util.PrinterCheckerThread;
 import hk.com.evpay.ct.util.UiUtil;
-import hk.com.evpay.ct.wp.WpCheckerThread;
 import hk.com.evpay.ct.ws.CtOcppHandler;
 import hk.com.evpay.ct.ws.CtWebSocketClient;
-import model.LogoutResp;
-import wisepay.WisepayUtil;
 
 public class CtClient extends JFrame{
 	private static final Logger logger = Logger.getLogger(CtClient.class);
@@ -62,7 +59,6 @@ public class CtClient extends JFrame{
 	private OctCheckerThread octCheckerThread;
 	private PrinterCheckerThread printerCheckerThread;
 	private WsConnCheckerThread wsConnCheckerThread;
-	private WpCheckerThread bbposCheckerThread;
 	
 	private LmsSpecAdapter lmsAdapter = null;
 	
@@ -175,20 +171,6 @@ public class CtClient extends JFrame{
 			
 			if(wsConnCheckerThread != null) {
 				wsConnCheckerThread.setCont(false);
-			}
-			
-			if(bbposCheckerThread != null) {
-				bbposCheckerThread.setCont(false);
-				try {
-					LogoutResp resp = WisepayUtil.logout();
-					if(resp != null) {
-						logger.info("Logout bbpos, status:" + resp.getStatus() + ", resultCode:" + resp.getResultCode() + 
-								", error:" + resp.getErrorMessage());
-					}
-					logger.info("");
-				} catch(Exception e) {
-					logger.error("Failed to logout bbpos", e);
-				}			
 			}
 			
 			logger.info("Application will be exited after 2 sec.");
@@ -409,16 +391,6 @@ public class CtClient extends JFrame{
 			printerCheckerThread = new PrinterCheckerThread();
 			printerCheckerThread.start();
 		}
-		
-		logger.info("ContactlessDevice:" + cfg.getContactlessDevice());
-		if(CtUtil.isContactlessBbpos()) {
-			WisepayUtil.url_prefix = cfg.getContactlessDeviceUrl();
-			//WisepayUtil.HTTP_READ_TIMEOUT_MS = (cfg.getGoHomeDelaySec() - 1) * 1000;
-			//logger.info("URL prefix:" + cfg.getContactlessDeviceUrl() + ", http read timeout:" + WisepayUtil.HTTP_READ_TIMEOUT_MS);
-			bbposCheckerThread = new WpCheckerThread(cfg.getContactlessDeviceUsername(), cfg.getContactlessDevicePassword(), cfg.getContactlessDeviceCheckMs());
-			bbposCheckerThread.start();
-		}
-		
 		
 		wsConnCheckerThread = new WsConnCheckerThread(pnlCt);
 		wsConnCheckerThread.start();
