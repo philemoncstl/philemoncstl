@@ -1,0 +1,21 @@
+1. Smart Octopus
+2. Card replacement
+3. Max service fee for post-paid
+
+
+
+
+Update items
+---------------------------------------
+1. Update file libOctCtrl.so & rwl.a to v3026
+	sudo cp libOctCtrl.so /usr/lib/jvm/java-8-openjdk-i386/jre/lib/i386/
+	sudo cp rwl.a /usr/lib/jvm/java-8-openjdk-i386/jre/lib/i386/
+	
+2. Update Octopus firmware to version "FIRM.128-00771"
+	cp FIRM.128-00771 /home/ct/octopus/download
+3. Generate a settlement file and verify the update of item 1 & 2.
+	Desktop/CDXF/rwl_ver.bat
+	
+4. Test case change -35 to -50, verify the test card first.	
+
+5. 7CM

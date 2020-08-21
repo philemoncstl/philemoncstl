@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<ctConfig>
+    <checkCpHeartbeatResponseTimeoutMs>2000</checkCpHeartbeatResponseTimeoutMs>
+    <checkOperationResultTimeoutMs>10000</checkOperationResultTimeoutMs>
+    <checkWebSocketIntervalMs>120000</checkWebSocketIntervalMs>
+    <contactlessDevice>none</contactlessDevice>
+    <contactlessDeviceCheckMs>60000</contactlessDeviceCheckMs>
+    <contactlessDevicePassword>88888888</contactlessDevicePassword>
+    <contactlessDeviceUrl>http://192.168.1.12</contactlessDeviceUrl>
+    <contactlessDeviceUsername>cornerstone</contactlessDeviceUsername>
+    <cpHeight>182</cpHeight>
+    <cpHgap>30</cpHgap>
+    <cpVgap>30</cpVgap>
+    <cpWidth>163</cpWidth>
+    <ctHeight>800</ctHeight>
+    <ctId>3</ctId>
+    <ctWidth>1280</ctWidth>
+    <debugUi>false</debugUi>
+    <disableDeviceCheck>false</disableDeviceCheck>
+    <fullScreen>false</fullScreen>
+    <goHomeDelaySec>30</goHomeDelaySec>
+    <housekeepingTimeForNonResponseCsRequest>1200000</housekeepingTimeForNonResponseCsRequest>
+    <locationReceipt>CSTL</locationReceipt>
+    <northHeight>230</northHeight>
+    <octopusPollTimeoutSec>28</octopusPollTimeoutSec>
+    <postpaidMaxServiceFee>500</postpaidMaxServiceFee>
+    <postpaidShowReceiptDelayMs>10000</postpaidShowReceiptDelayMs>
+    <remoteStartStopTimeCheckMs>10000</remoteStartStopTimeCheckMs>
+    <southHeight>120</southHeight>
+    <takeReceiptDelayMs>5000</takeReceiptDelayMs>
+    <webSocketUrl>ws://test.evpay.com.hk:8082/ev/ctws/</webSocketUrl>
+    <westWidth>130</westWidth>
+</ctConfig>

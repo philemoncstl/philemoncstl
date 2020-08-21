@@ -1,0 +1,3 @@
+export LD_LIBRARY_PATH="/usr/lib/jvm/java-8-oracle/jre/lib/arm"
+cd ~/evpay
+sudo java -jar ct.jar

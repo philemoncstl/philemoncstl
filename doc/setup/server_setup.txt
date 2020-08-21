@@ -1,0 +1,45 @@
+1. Add Octopus Account
+sudo useradd octopus
+sudo passwd octopus
+Wy!^2LBbuN#F^%{L
+
+su octopus
+mkdir ~/download
+mkdir ~/download_outdated
+mkdir ~/upload
+mkdir ~/upload_finished
+
+chmod 777 ~/download
+chmod 777 ~/download_outdated
+chmod 777 ~/upload
+chmod 777 ~/upload_finished
+
+
+2. Create ct account for storing the log
+sudo useradd ct
+sudo passwd ct
+CCuL.v^9fv']PfXT
+su ct
+mkdir ~/test
+
+
+***Test Only Start***
+sudo useradd octopustest
+sudo passwd octopustest
+Wy!^2LBbuN#F^%{L
+
+su octopustest
+mkdir ~/download
+mkdir ~/download_outdated
+mkdir ~/upload
+mkdir ~/upload_finished
+
+chmod 777 ~/download
+chmod 777 ~/download_outdated
+chmod 777 ~/upload
+chmod 777 ~/upload_finished
+
+
+su ct
+mkdir ~/test
+***Test Only End***

@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
+<properties>
+	<entry key="key">Value</entry>
+	<entry key="connected">Connected</entry>
+	<entry key="cpNo">CP No. %s</entry>	
+	<entry key="selectCp">Please select your&lt;br/&gt;charging point no.</entry>
+</properties> 

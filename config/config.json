@@ -1,0 +1,36 @@
+{
+  "ctId": 3,
+  "name": "CSTL-CT02",
+  "nameChi": "CSTL-CT02",
+  "address": "Office",
+  "enableFlag": "Y",
+  "maxPowerOutput": 120.00,
+  "heartbeatIntervalSec": 60,
+  "minChargingUnit": 1,
+  "maxChargingUnit": 40,
+  "defaultChargingUnit": 4,
+  "adminCardList": "1234567",
+  "mode": "Prepaid",
+  "postpaidAllowanceMin": 1,
+  "postpaidMinCharge": 1.00,
+  "receiptPrintMerchantCopy": "N",
+  "rate": {
+    "chargingUnitCode": "15MIN",
+    "mins": 15,
+    "minChargingUnit": 1,
+    "details": [
+      {
+        "rateDtlId": 4,
+        "effDate": "2018-05-09 00:00:00",
+        "onPeakStartTime": "09:00",
+        "onPeakEndTime": "20:00",
+        "onPeakTimeRate": 16.00,
+        "offPeakTimeRate": 12.00,
+        "onPeakEnergyRate": 2.00,
+        "offPeakEnergyRate": 1.00,
+        "timeChargeEnableFlag": "Y",
+        "energyChargeEnableFlag": "Y"
+      }
+    ]
+  }
+}

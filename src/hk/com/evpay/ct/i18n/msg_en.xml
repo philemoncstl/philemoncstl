@@ -1,0 +1,272 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
+<properties>
+<entry key="lang">中文</entry>
+<entry key="selectCp">Please select charging point</entry>
+<entry key="cpTitle">No. %s</entry>
+<entry key="i18nLabel">%s</entry>
+<entry key="selectCpReprint">Please select charging point no.</entry>
+<entry key="cpNo">No. %s</entry>
+<entry key="cpNoLabel">No.</entry>
+<entry key="cpStatusAvailable">Ready</entry>
+<entry key="cpStatusPreparing">Connected</entry>
+<entry key="cpStatusCharging">In Use</entry>
+<entry key="cpStatusSuspendedEVSE">Expired</entry>
+<entry key="cpStatusSuspendedEV">In Use</entry>
+<entry key="cpStatusFinishing">Finished</entry>
+<entry key="cpStatusUnavailable">Not in Service</entry>
+<entry key="cpStatusFaulted">Not in Service</entry>
+<entry key="cpStatusReserved">Reserved</entry>
+<entry key="cpStatusDescAvailable">Ready for use</entry>
+<entry key="cpStatusDescPreparing">Ready for
+charging</entry>
+<entry key="cpStatusDescSuspenedEVSE">End of
+charging period</entry>
+<entry key="cpStatusDescCharging">Charging</entry>
+<entry key="noNetworkDesc">No network</entry>
+<entry key="noCp"> </entry>
+<entry key="noCpDesc">No charger
+available</entry>
+<entry key="cpStatusUnavailableHelp">Not in
+Service</entry>
+<entry key="cpStatusDescUnavailable">Disable/
+standalone mode</entry>
+<entry key="chargingServiceFeeHelp">Charging Service Fee
+HKD %s/%s mins</entry>
+<entry key="chargingServiceFeeHelpOnOffPeak">Charging Service Fee
+HKD %s/%s mins %s
+HKD %s/%s mins %s</entry>
+<entry key="chargingServiceFeeHelpEnergy">Charging Service Fee
+HKD %s/kWH</entry>
+<entry key="chargingServiceFeeHelpEnergyOnOffPeak">Charging Service Fee
+HKD %s/kWH %s
+HKD %s/kWH %s</entry>
+<entry key="chargingServiceFeeHelpBoth">Charging Service Fee
+HKD %s/%s mins, %s/kWH</entry>
+<entry key="chargingServiceFeeHelpBothOnOffPeak">Charging Service Fee
+HKD %s/%s mins, %s/kWH %s
+HKD %s/%s mins, %s/kWH %s</entry>
+<entry key="selectChargingTime">Please select charging time</entry>
+<entry key="back">Back</entry>
+<entry key="startCharging">Start Charging</entry>
+<entry key="hkd">HKD</entry>
+<entry key="hkdWithVal2">HKD %s</entry>
+<entry key="hkdWithVal">HKD 
+%s</entry>
+<entry key="chargingTime">Charging Time</entry>
+<entry key="chargingTimeVal">%s hr %s min</entry>
+<entry key="energyConsumed">Energy Consumed</entry>
+<entry key="energyConsumedVal">%s kWH</entry>
+<entry key="offPeakPeriodTimeUnit">Off-Peak Charging Fee HKD %s/%s mins</entry>
+<entry key="onPeakPeriodTimeUnit">On-Peak Charging Fee HKD %s/%s mins</entry>
+<entry key="serviceFeeTimeUnit">Charging Fee HKD %s/%s mins</entry>
+<entry key="offPeakChargingFee">Off-Peak Charging Fee</entry>
+<entry key="onPeakChargingFee">On-Peak Charging Fee</entry>
+<entry key="chargingFee">Charging Fee</entry>
+<entry key="timeUnit">HKD %s/%s mins</entry>
+<entry key="energyUnit">HKD %s/kWH</entry>
+<entry key="offPeakPeriodEnergyUnit">Off-Peak Period HKD %s/kWH</entry>
+<entry key="onPeakPeriodEnergyUnit">On-Peak Period HKD %s/kWH</entry>
+<entry key="serviceFeeEnergyUnit">Service Fee HKD %s/kWH</entry>
+<entry key="totalAmount">Total Amount</entry>
+<entry key="payInstContactless">Please tap your card or mobile payment device 
+to the reader and start charging.
+&lt;span style=&quot;font-size: 60%;&quot;&gt;Please note that all service fee is non-refundable.
+Charging cable will be locked after starting charging.&lt;/span&gt;</entry>
+<entry key="payInstOct">Please tap your Octopus to pay and
+start charging.
+&lt;span style=&quot;font-size: 60%;&quot;&gt;Please note that all service fee is non-refundable.
+Charging cable will be locked after starting charging.&lt;/span&gt;</entry>
+<entry key="payInstQR">Please present your QR code to the 
+QR reader and start charging.
+&lt;span style=&quot;font-size: 60%;&quot;&gt;Please note that all service fee is non-refundable.
+Charging cable will be locked after starting charging.&lt;/span&gt;</entry>
+<entry key="contactless">Contactless
+Payment</entry>
+<entry key="octopus">Octopus</entry>
+<entry key="printReceipt">Print receipt?</entry>
+<entry key="no">No</entry>
+<entry key="yes">Yes</entry>
+<entry key="takeReceipt">Please 
+take receipt.</entry>
+<entry key="octopusNo">Octopus no.</entry>
+<entry key="octopusIdStart">Octopus no. (start)</entry>
+<entry key="octopusIdEnd">Octopus no. (end)</entry>
+<entry key="tranDatetime">Date/Time</entry>
+<entry key="originalValue">Original Value</entry>
+<entry key="deductAmount">Amount Deducted</entry>
+<entry key="remainingValue">Remaining Value</entry>
+<entry key="deviceNo">Device no.</entry>
+<entry key="receiptNo">Receipt no.</entry>
+<entry key="remainingChargingTime">Remaining Charging Time</entry>
+<entry key="stopCharging">Stop Charging</entry>
+<entry key="stopChargingInstContactless">Please tap your card or mobile payment device 
+to the reader to stop charging.
+&lt;span style=&quot;font-size: 60%;&quot;&gt;&lt;br&gt;Charging cable will be unlocked after stopping charging.&lt;/span&gt;</entry>
+<entry key="stopChargingInstOct">Please tap your Octopus to stop charging.
+&lt;span style=&quot;font-size: 60%;&quot;&gt;&lt;br&gt;Charging cable will be unlocked after stopping charging.&lt;/span&gt;</entry>
+<entry key="stopChargingInstQR">Please present your QR code to the 
+QR reader to stop charging.
+&lt;span style=&quot;font-size: 60%;&quot;&gt;&lt;br&gt;Charging cable will be unlocked after stopping charging.&lt;/span&gt;</entry>
+<entry key="chargingRecord">Charging Record</entry>
+<entry key="chargingDuration">Charging Duration</entry>
+<entry key="chargingStatus">Charging Status</entry>
+<entry key="hr">hr</entry>
+<entry key="min">min</entry>
+<entry key="sec">sec</entry>
+<entry key="paymentMethod">Payment Method</entry>
+<entry key="selectPaymentMethod">Please select payment method</entry>
+<entry key="selectPaymentMethodInst">Please select payment method</entry>
+<entry key="startChargingInstPostpaid">Please tap your Octopus to start charging.
+&lt;span style=&quot;font-size: 60%;&quot;&gt;&lt;br&gt;Service fee will be charged when stopping charging.
+Charging cable will be locked after starting charging.&lt;/span&gt;</entry>
+<entry key="stopChargingInstPostpaid">Please tap your Octopus to pay and
+stop charging.
+&lt;span style=&quot;font-size: 60%;&quot;&gt;&lt;br&gt;Please note that all service fee is non-refundable.
+Charging cable will be unlocked after stopping charging.&lt;/span&gt;</entry>
+<entry key="startChargingInstPostpaidQR">Please present your QR code to the 
+QR reader and start charging.
+&lt;span style=&quot;font-size: 60%;&quot;&gt;&lt;br&gt;Service fee will be charged when stopping charging.
+Charging cable will be locked after starting charging.&lt;/span&gt;</entry>
+<entry key="stopChargingInstPostpaidQR">Please present your QR code to the 
+QR reader to stop charging.
+&lt;span style=&quot;font-size: 60%;&quot;&gt;&lt;br&gt;Please note that all service fee is non-refundable.
+Charging cable will be unlocked after stopping charging.&lt;/span&gt;</entry>
+<entry key="startTime">Start Charging Time</entry>
+<entry key="stopTime">Stop Time</entry>
+<entry key="endTime">End Time</entry>
+<entry key="closeConfirm">Close Application Confirmation</entry>
+<entry key="closeConfirmMsg">Are you sure to close the application?</entry>
+<entry key="unplugChargingCable">Please unplug charging cable.
+Thank you for using charging service.</entry>
+<entry key="tools">Tool</entry>
+<entry key="enquireOctopusTran">Enquire Octopus Transaction</entry>
+<entry key="reprintReceipt">Reprint Receipt</entry>
+<entry key="reprint">Reprint</entry>
+<entry key="presentSameCard">This is not the same Octopus.
+Please tap the same Octopus in
+10 seconds to stop charging.
+Octopus number %s</entry>
+<entry key="presentSameCardContactless">&lt;span style=&quot;font-size: 80%;&quot;&gt;This is not the same card or mobile payment device.
+Please tap the same card or mobile payment device 
+in 10 seconds to stop charging.
+Card or mobile payment device number %s&lt;/span&gt;</entry>
+<entry key="presentSameQR">This is not the same QR code.
+Please present the same QR code in
+10 seconds to stop charging.</entry>
+<entry key="noReceiptAvailable">No receipt
+is available.
+Confirm to start 
+charging?</entry>
+<entry key="noReceiptAvailableReprint">No receipt is available.</entry>
+<entry key="confirm">Confirm</entry>
+<entry key="cancel">Cancel</entry>
+<entry key="stopChargingConfirmMsg">Are you sure to stop charging?</entry>
+<entry key="ERR9000">Error encountered. Please try again later or
+contact staff for assistance.
+Reference no.: %s</entry>
+<entry key="ERR9100">Failed to start charging. (%s)
+Please contact staff for assistance.</entry>
+<entry key="ERR9200">Failed to stop charging. (%s)
+Please contact staff for assistance.</entry>
+<entry key="ERR9300">Network connection error. Please contact staff for assistance.
+Reference no.: %s</entry>
+<entry key="ERR9001">Contactless payment not available!
+Please try to use other payment method
+or contact staff for assistance.
+Reference no.: %s</entry>
+<entry key="ERR9002">Failed to complete contactless payment.
+Please try again later 
+or contact staff for assistance.
+Error code: %s</entry>
+
+<entry key="ERR100001">MOP connection failure.</entry>
+<entry key="ERR100005">MOP connection failure.</entry>
+<entry key="ERR100016">Please tap card again.</entry>
+<entry key="ERR100016AfterRetry">Please tap card again.
+Retry please (Octopus no. %s)</entry>
+<entry key="ERR100017">Please tap card again.</entry>
+<entry key="ERR100017AfterRetry">Please tap card again.
+Retry please (Octopus no. %s)</entry>
+<entry key="ERR100019">Invalid Octopus. 
+Please use another Octopus.</entry>
+<entry key="ERR100019AfterRetry">Invalid Octopus. 
+Please use another Octopus.
+Retry please (Octopus no. %s)</entry>
+<entry key="ERR100020">Please tap card again.</entry>
+<entry key="ERR100020AfterRetry">Please tap card again.
+Retry please (Octopus no. %s)</entry>
+<entry key="ERR100021">Invalid Octopus. 
+Please use another Octopus.</entry>
+<entry key="ERR100021AfterRetry">Invalid Octopus. 
+Please use another Octopus.
+Retry please (Octopus no. %s)</entry>
+<entry key="ERR100022">Incomplete transaction. 
+Please retry with the same Octopus.</entry>
+<entry key="ERR100022AfterRetry">Incomplete transaction. 
+Please retry with the same Octopus.
+Retry please (Octopus no. %s)</entry>
+<entry key="ERR100024">Invalid Octopus. 
+Please use another Octopus.</entry>
+<entry key="ERR100024AfterRetry">Invalid Octopus. 
+Please use another Octopus.
+Retry please (Octopus no. %s)</entry>
+<entry key="ERR100025">Incomplete transaction. 
+Please retry with the same Octopus.</entry>
+<entry key="ERR100025AfterRetry">Incomplete transaction. 
+Please retry with the same Octopus.
+Retry please (Octopus no. %s)</entry>
+<entry key="ERR100032">Please tap card again.</entry>
+<entry key="ERR100032AfterRetry">Please tap card again.
+Retry please (Octopus no. %s)</entry>
+<entry key="ERR100034">Please tap card again.</entry>
+<entry key="ERR100034AfterRetry">Please tap card again.
+Retry please (Octopus no. %s)</entry>
+<entry key="ERR100035">Invalid Octopus. 
+Please use another Octopus.</entry>
+<entry key="ERR100035AfterRetry">Invalid Octopus. 
+Please use another Octopus.
+Retry please (Octopus no. %s)</entry>
+<entry key="ERR100048">Insufficient value on card. 
+Transaction cancelled. 
+Please add value first.</entry>
+<entry key="ERR100048AfterRetry">Insufficient value on card. 
+Transaction cancelled. 
+Please add value first.</entry>
+<entry key="ERR100049">Stored value on card exceeds limit. 
+Please use another Octopus.</entry>
+<entry key="ERR100049AfterRetry">Stored value on card exceeds limit. 
+Please use another Octopus.</entry>
+<entry key="ERR100051">Invalid POS controller ID.</entry>
+<entry key="ERROctopusOthers">Machine out of order. 
+Please contact staff for assistance.</entry>
+<entry key="presentOctopusForEnquiry">Please tap your card on the Octopus reader</entry>
+<entry key="close">Close</entry>
+
+<entry key="octopusNo">Octopus no.</entry>
+<entry key="octopusRemainingValue">Octopus Remaining Value</entry>
+<entry key="number">No.</entry>
+<entry key="transactionDatetime">Transaction Date Time</entry>
+<entry key="amount">Amount</entry>
+<entry key="deviceId">Device ID</entry>
+<entry key="chargingServiceFee">Charging Service Fee
+HKD %s/hr (%s - %s)
+HKD %s/hr (%s - %s)</entry>
+<entry key="ctError">Machine out of order. 
+Please contact staff for assistance.
+Error code: %s</entry>
+
+<entry key="startOrStopCharging">Start/Stop Charging</entry>
+<entry key="statusDttm">Last Status Date/Time</entry>
+<entry key="sentStartChargingSuccess">%s: Sent start charging command successfully</entry>
+<entry key="sentStopChargingSuccess">%s: Sent stop charging command successfully</entry>
+<entry key="EMPTY"> </entry>
+
+<entry key="changePaymentMethod">Change Payment Method</entry>
+<entry key="currentPaymentMethod">Current Payment Method</entry>
+<entry key="prepay">Pre-pay</entry>
+<entry key="postpay">Post-pay</entry>
+<entry key="changePaymentMethodTo">Change to %s</entry>
+<entry key="instruction">Please restart CT to take effect.</entry>
+<entry key="maxServiceFeeDisplay">*</entry>
+</properties>

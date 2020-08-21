@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.8"/>
+	<classpathentry kind="src" path="src"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/kzone-evcs-lib"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/kzone-lib"/>
+	<classpathentry kind="lib" path="lib/alpn-api-1.1.3.v20160715.jar"/>
+	<classpathentry kind="lib" path="lib/cdi-core-9.4.7.v20170914.jar"/>
+	<classpathentry kind="lib" path="lib/cdi-servlet-9.4.7.v20170914.jar"/>
+	<classpathentry kind="lib" path="lib/jetty-alpn-java-server-9.4.7.v20170914.jar"/>
+	<classpathentry kind="lib" path="lib/jetty-alpn-server-9.4.7.v20170914.jar"/>
+	<classpathentry kind="lib" path="lib/jetty-annotations-9.4.7.v20170914.jar"/>
+	<classpathentry kind="lib" path="lib/jetty-client-9.4.7.v20170914.jar"/>
+	<classpathentry kind="lib" path="lib/jetty-continuation-9.4.7.v20170914.jar"/>
+	<classpathentry kind="lib" path="lib/jetty-deploy-9.4.7.v20170914.jar"/>
+	<classpathentry kind="lib" path="lib/jetty-gcloud-session-manager-9.4.7.v20170914.jar"/>
+	<classpathentry kind="lib" path="lib/jetty-hazelcast-9.4.7.v20170914.jar"/>
+	<classpathentry kind="lib" path="lib/jetty-http-9.4.7.v20170914.jar"/>
+	<classpathentry kind="lib" path="lib/jetty-infinispan-9.4.7.v20170914.jar"/>
+	<classpathentry kind="lib" path="lib/jetty-io-9.4.7.v20170914.jar"/>
+	<classpathentry kind="lib" path="lib/jetty-jaas-9.4.7.v20170914.jar"/>
+	<classpathentry kind="lib" path="lib/jetty-jaspi-9.4.7.v20170914.jar"/>
+	<classpathentry kind="lib" path="lib/jetty-jmx-9.4.7.v20170914.jar"/>
+	<classpathentry kind="lib" path="lib/jetty-jndi-9.4.7.v20170914.jar"/>
+	<classpathentry kind="lib" path="lib/jetty-memcached-sessions-9.4.7.v20170914.jar"/>
+	<classpathentry kind="lib" path="lib/jetty-nosql-9.4.7.v20170914.jar"/>
+	<classpathentry kind="lib" path="lib/jetty-plus-9.4.7.v20170914.jar"/>
+	<classpathentry kind="lib" path="lib/jetty-proxy-9.4.7.v20170914.jar"/>
+	<classpathentry kind="lib" path="lib/jetty-quickstart-9.4.7.v20170914.jar"/>
+	<classpathentry kind="lib" path="lib/jetty-rewrite-9.4.7.v20170914.jar"/>
+	<classpathentry kind="lib" path="lib/jetty-schemas-3.1.jar"/>
+	<classpathentry kind="lib" path="lib/jetty-security-9.4.7.v20170914.jar"/>
+	<classpathentry kind="lib" path="lib/jetty-server-9.4.7.v20170914.jar"/>
+	<classpathentry kind="lib" path="lib/jetty-servlet-9.4.7.v20170914.jar"/>
+	<classpathentry kind="lib" path="lib/jetty-servlets-9.4.7.v20170914.jar"/>
+	<classpathentry kind="lib" path="lib/jetty-unixsocket-9.4.7.v20170914.jar"/>
+	<classpathentry kind="lib" path="lib/jetty-util-9.4.7.v20170914.jar"/>
+	<classpathentry kind="lib" path="lib/jetty-webapp-9.4.7.v20170914.jar"/>
+	<classpathentry kind="lib" path="lib/jetty-xml-9.4.7.v20170914.jar"/>
+	<classpathentry kind="lib" path="lib/servlet-api-3.1.jar"/>
+	<classpathentry kind="lib" path="lib/websocket/javax-websocket-client-impl-9.4.7.v20170914.jar"/>
+	<classpathentry kind="lib" path="lib/websocket/javax-websocket-server-impl-9.4.7.v20170914.jar"/>
+	<classpathentry kind="lib" path="lib/websocket/javax.websocket-api-1.0.jar"/>
+	<classpathentry kind="lib" path="lib/websocket/websocket-api-9.4.7.v20170914.jar"/>
+	<classpathentry kind="lib" path="lib/websocket/websocket-client-9.4.7.v20170914.jar"/>
+	<classpathentry kind="lib" path="lib/websocket/websocket-common-9.4.7.v20170914.jar"/>
+	<classpathentry kind="lib" path="lib/websocket/websocket-server-9.4.7.v20170914.jar"/>
+	<classpathentry kind="lib" path="lib/websocket/websocket-servlet-9.4.7.v20170914.jar"/>
+	<classpathentry kind="lib" path="lib/log4j-1.2.16.jar"/>
+	<classpathentry kind="lib" path="lib/quartz-all-2.1.7.jar"/>
+	<classpathentry kind="lib" path="lib/slf4j-api-1.6.6.jar"/>
+	<classpathentry kind="lib" path="lib/slf4j-log4j12-1.6.6.jar"/>
+	<classpathentry kind="lib" path="lib/jna_full_screen/jcl.jar"/>
+	<classpathentry kind="lib" path="lib/jna_full_screen/jna-utils.jar"/>
+	<classpathentry kind="lib" path="lib/jna_full_screen/jna.jar"/>
+	<classpathentry kind="lib" path="lib/commons-lang3-3.3.2.jar"/>
+	<classpathentry kind="lib" path="lib/jxl.jar"/>
+	<classpathentry kind="lib" path="lib/stario.jar"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/kzone-lib-oct"/>
+	<classpathentry kind="lib" path="lib/commons-io-2.4.jar"/>
+	<classpathentry kind="lib" path="lib/jsch-0.1.54.jar"/>
+	<classpathentry kind="lib" path="lib/jta-1.1.jar"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/cstl-common"/>
+	<classpathentry kind="output" path="bin"/>
+</classpath>

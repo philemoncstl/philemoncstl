@@ -1,0 +1,262 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
+<properties>
+<entry key="lang">ENG</entry>
+<entry key="selectCp">請 選 擇 充 電 點</entry>
+<entry key="cpTitle">充電點 %s</entry>
+<entry key="i18nLabel">%s</entry>
+<entry key="selectCpReprint">請選擇充電點</entry>
+<entry key="cpNo">充電點 %s</entry>
+<entry key="cpNoLabel">充電點</entry>
+<entry key="cpStatusAvailable">可用</entry>
+<entry key="cpStatusPreparing">已連接</entry>
+<entry key="cpStatusCharging">使用中</entry>
+<entry key="cpStatusSuspendedEVSE">逾時</entry>
+<entry key="cpStatusSuspendedEV">使用中</entry>
+<entry key="cpStatusFinishing">已完成</entry>
+<entry key="cpStatusUnavailable">暫停服務</entry>
+<entry key="cpStatusFaulted">暫停服務</entry>
+<entry key="cpStatusReserved">已預約</entry>
+<entry key="cpStatusDescAvailable">可使用</entry>
+<entry key="cpStatusDescPreparing">可充電</entry>
+<entry key="cpStatusDescSuspenedEVSE">充電時間完結</entry>
+<entry key="cpStatusDescCharging">充電中</entry>
+<entry key="noNetworkDesc">沒有網絡</entry>
+<entry key="noCp"> </entry>
+<entry key="noCpDesc">沒有充電器</entry>
+<entry key="cpStatusUnavailableHelp">暫停服務</entry>
+<entry key="cpStatusDescUnavailable">停用/離線操作</entry>
+<entry key="chargingServiceFeeHelp">充電服務費用
+港幣 %s元/%s 分鐘</entry>
+<entry key="chargingServiceFeeHelpOnOffPeak">充電服務費用
+港幣 %s元/%s 分鐘 %s
+港幣 %s元/%s 分鐘 %s</entry>
+<entry key="chargingServiceFeeHelpEnergy">充電服務費用
+港幣 %s元/度</entry>
+<entry key="chargingServiceFeeHelpEnergyOnOffPeak">充電服務費用
+港幣 %s元/度 %s
+港幣 %s元/度 %s</entry>
+<entry key="chargingServiceFeeHelpBoth">充電服務費用
+港幣 %s元/%s 分鐘 , %s元/度</entry>
+<entry key="chargingServiceFeeHelpBothOnOffPeak">充電服務費用
+港幣  %s元/%s 分鐘 , %s元/度 %s
+港幣  %s元/%s 分鐘 , %s元/度 %s</entry>
+<entry key="selectChargingTime">請 選 擇 充 電 時 間</entry>
+<entry key="back">返回</entry>
+<entry key="startCharging">開始充電</entry>
+<entry key="hkd">港幣</entry>
+<entry key="hkdWithVal2">港幣 %s</entry>
+<entry key="hkdWithVal">港幣
+%s</entry>
+<entry key="chargingTime">充電時間</entry>
+<entry key="chargingTimeVal">%s 小時 %s 分鐘</entry>
+<entry key="energyConsumed">充電度數</entry>
+<entry key="energyConsumedVal">%s 度</entry>
+<entry key="offPeakPeriodTimeUnit">非高峰充電收費 港幣 %s元/%s 分鐘</entry>
+<entry key="onPeakPeriodTimeUnit">高峰充電收費 港幣 %s元/%s 分鐘</entry>
+<entry key="serviceFeeTimeUnit">充電收費 港幣 %s元/%s 分鐘</entry>
+<entry key="offPeakChargingFee">非高峰充電收費</entry>
+<entry key="onPeakChargingFee">高峰充電收費</entry>
+<entry key="chargingFee">充電收費</entry>
+<entry key="timeUnit">港幣 %s元/%s 分鐘</entry>
+<entry key="energyUnit">港幣 %s元/度</entry>
+<entry key="offPeakPeriodEnergyUnit">非高峰用電時間 港幣 %s元/度</entry>
+<entry key="onPeakPeriodEnergyUnit">高峰用電時間 港幣 %s元/度</entry>
+<entry key="serviceFeeEnergyUnit">充電服務 港幣 %s元/度</entry>
+<entry key="totalAmount">充電服務費用</entry>
+<entry key="payInstContactless">請將您的信用卡或移動支付設備輕放到
+閱讀器上付款及開始充電。
+&lt;span style=&quot;font-size: 60%;&quot;&gt;所有服務費用將不獲退還。
+開始充電後，充電線會被鎖上。&lt;/span&gt;</entry>
+<entry key="payInstOct">請拍您的八達通於閱卡器上付款及開始充電。
+&lt;span style=&quot;font-size: 60%;&quot;&gt;所有服務費用將不獲退還。
+開始充電後，充電線會被鎖上。&lt;/span&gt;</entry>
+<entry key="payInstQR">請將您的二維碼顯示在
+二維碼閱讀器上以開始充電。
+&lt;span style=&quot;font-size: 60%;&quot;&gt;所有服務費用將不獲退還。
+開始充電後，充電線會被鎖上。&lt;/span&gt;</entry>
+<entry key="contactless">非接觸式
+付款</entry>
+<entry key="octopus">八達通</entry>
+<entry key="printReceipt">打印收據?</entry>
+<entry key="no">否</entry>
+<entry key="yes">是</entry>
+<entry key="takeReceipt">請提取收據。</entry>
+<entry key="octopusNo">八達通號碼</entry>
+<entry key="octopusIdStart">八達通號碼(開始)</entry>
+<entry key="octopusIdEnd">八達通號碼(結束)</entry>
+<entry key="tranDatetime">日期/時間</entry>
+<entry key="originalValue">扣除費用前餘額</entry>
+<entry key="deductAmount">扣除金額</entry>
+<entry key="remainingValue">餘額</entry>
+<entry key="deviceNo">機號</entry>
+<entry key="receiptNo">收據號碼</entry>
+<entry key="remainingChargingTime">餘下充電時間</entry>
+<entry key="stopCharging">停止充電</entry>
+<entry key="stopChargingInstContactless">請將您的信用卡或移動支付設備輕放到
+閱讀器上付款以停始充電。
+&lt;span style=&quot;font-size: 60%;&quot;&gt;&lt;br&gt;停止充電後，充電線會被解鎖。&lt;/span&gt;</entry>
+<entry key="stopChargingInstOct">請拍你的八達通於閱卡器上以停止充電。
+&lt;span style=&quot;font-size: 60%;&quot;&gt;&lt;br&gt;停止充電後，充電線會被解鎖。&lt;/span&gt;</entry>
+<entry key="stopChargingInstQR">請將您的二維碼顯示在
+二維碼閱讀器上以停止充電。
+&lt;span style=&quot;font-size: 60%;&quot;&gt;&lt;br&gt;停止充電後，充電線會被解鎖。&lt;/span&gt;</entry>
+<entry key="chargingRecord">充電紀錄</entry>
+<entry key="chargingDuration">充電時間</entry>
+<entry key="chargingStatus">充電狀態</entry>
+<entry key="hr">小時</entry>
+<entry key="min">分鐘</entry>
+<entry key="sec">秒</entry>
+<entry key="paymentMethod">付款方法</entry>
+<entry key="selectPaymentMethod">請 選 擇 付 款 方 法</entry>
+<entry key="selectPaymentMethodInst">請 選 擇 付 款 方 法</entry>
+<entry key="startChargingInstPostpaid">請拍你的八達通於閱卡器上以開始充電。
+&lt;span style=&quot;font-size: 60%;&quot;&gt;&lt;br&gt;服務費用將於停止充電時收取。
+開始充電後，充電線會被鎖上。&lt;/span&gt;</entry>
+<entry key="stopChargingInstPostpaid">請拍你的八達通於閱卡器上付款以停止充電。
+&lt;span style=&quot;font-size: 60%;&quot;&gt;&lt;br&gt;所有服務費用將不獲退還。
+停止充電後，充電線會被解鎖。&lt;/span&gt;</entry>
+<entry key="startChargingInstPostpaidQR">請將您的二維碼顯示在
+二維碼閱讀器上以開始充電。
+&lt;span style=&quot;font-size: 60%;&quot;&gt;&lt;br&gt;服務費用將於停止充電時收取。
+開始充電後，充電線會被鎖上。&lt;/span&gt;</entry>
+<entry key="stopChargingInstPostpaidQR">請將您的二維碼顯示在
+二維碼閱讀器上以停止充電。
+&lt;span style=&quot;font-size: 60%;&quot;&gt;&lt;br&gt;所有服務費用將不獲退還。
+停止充電後，充電線會被解鎖。&lt;/span&gt;</entry>
+<entry key="startTime">開始充電時間</entry>
+<entry key="stopTime">停止時間</entry>
+<entry key="endTime">結束時間</entry>
+<entry key="closeConfirm">關閉應用程序確認</entry>
+<entry key="closeConfirmMsg">您確定要關閉應用程序？</entry>
+<entry key="unplugChargingCable">請取回充電線。
+多謝使用電動車充電服務。</entry>
+<entry key="tools">工具</entry>
+<entry key="enquireOctopusTran">查詢八達通交易</entry>
+<entry key="reprintReceipt">重印收據</entry>
+<entry key="reprint">重印</entry>
+<entry key="presentSameCard">所出示之八達通與之前使用的不符。
+請於10秒內拍之前使用之八達通於閱卡器上
+以確認停止充電程序。
+八達通號碼 %s</entry>
+<entry key="presentSameCardContactless">&lt;span style=&quot;font-size: 80%;&quot;&gt;所出示之信用卡或移動支付設備與之前使用的不符。
+請於10秒內拍之前使用之信用卡或移動支付設備
+以確認停止充電程序。
+信用卡或移動支付設備號碼 %s&lt;/span&gt;</entry>
+<entry key="presentSameQR">所出示之二維碼與之前使用的不符。
+請於10秒內顯示之前使用之二維碼
+以確認停止充電程序。</entry>
+<entry key="noReceiptAvailable">打印收據服務暫停。
+確定開始充電?</entry>
+<entry key="noReceiptAvailableReprint">打印收據服務暫停。</entry>
+<entry key="confirm">確定</entry>
+<entry key="cancel">取消</entry>
+<entry key="stopChargingConfirmMsg">您確定要停止充電？</entry>
+<entry key="ERR9000">遇到錯誤，請稍後再試或
+聯繫工作人員尋求幫助。
+參考編號:  %s</entry>
+<entry key="ERR9100">無法啟動充電。 (%s)
+請與本店職員聯絡。</entry>
+<entry key="ERR9200">無法停止充電。  (%s)
+請與本店職員聯絡。</entry>
+<entry key="ERR9300">連線錯誤，請聯繫工作人員尋求幫助。
+參考編號:  %s</entry>
+<entry key="ERR9001">非接觸式付款無法使用!
+請嘗試使用其他付款方式
+或聯繫工作人員尋求幫助。
+參考編號：％s</entry>
+<entry key="ERR9002">無法完成非接觸式付款。
+請稍後再試
+或聯繫工作人員尋求幫助。
+錯誤代碼：％s</entry>
+
+<entry key="ERR100001">未能接駁八達通收費器。</entry>
+<entry key="ERR100005">未能接駁八達通收費器。</entry>
+<entry key="ERR100016">請再次拍卡。</entry>
+<entry key="ERR100016AfterRetry">請再次拍卡。
+請重試(八達通號碼 %s)</entry>
+<entry key="ERR100017">請再次拍卡。</entry>
+<entry key="ERR100017AfterRetry">請再次拍卡。
+請重試(八達通號碼 %s)</entry>
+<entry key="ERR100019">此卡失效。
+請使用另一張八達通。</entry>
+<entry key="ERR100019AfterRetry">此卡失效。
+請使用另一張八達通。
+請重試(八達通號碼 %s)</entry>
+<entry key="ERR100020">請再次拍卡。</entry>
+<entry key="ERR100020AfterRetry">請再次拍卡。
+請重試(八達通號碼 %s)</entry>
+<entry key="ERR100021">此卡失效。
+請使用另一張八達通。</entry>
+<entry key="ERR100021AfterRetry">此卡失效。
+請使用另一張八達通。
+請重試(八達通號碼 %s)</entry>
+<entry key="ERR100022">交易未能完成。
+請再次拍卡。</entry>
+<entry key="ERR100022AfterRetry">交易未能完成。
+請再次拍卡。
+請重試(八達通號碼 %s)</entry>
+<entry key="ERR100024">此卡失效。
+請使用另一張八達通。</entry>
+<entry key="ERR100024AfterRetry">此卡失效。
+請使用另一張八達通。
+請重試(八達通號碼 %s)</entry>
+<entry key="ERR100025">交易未能完成。
+請再次拍卡。</entry>
+<entry key="ERR100025AfterRetry">交易未能完成。
+請再次拍卡。
+請重試(八達通號碼 %s)</entry>
+<entry key="ERR100032">請再次拍卡。</entry>
+<entry key="ERR100032AfterRetry">請再次拍卡。
+請重試(八達通號碼 %s)</entry>
+<entry key="ERR100034">請再次拍卡。</entry>
+<entry key="ERR100034AfterRetry">請再次拍卡。
+請重試(八達通號碼 %s)</entry>
+<entry key="ERR100035">此卡失效。
+請使用另一張八達通。</entry>
+<entry key="ERR100035AfterRetry">此卡失效。
+請使用另一張八達通。
+Retry please (Octopus no. %s)</entry>
+<entry key="ERR100048">卡內餘額不足，
+交易取消。
+請先行增值。</entry>
+<entry key="ERR100048AfterRetry">卡內餘額不足，
+交易取消。
+請先行增值。</entry>
+<entry key="ERR100049">卡上儲值額超出上限，
+請使用另一張八達通</entry>
+<entry key="ERR100049AfterRetry">卡上儲值額超出上限，
+請使用另一張八達通</entry>
+<entry key="ERR100051">控制台識別號碼不正確。</entry>
+<entry key="ERROctopusOthers">機器故障。
+請與本店職員聯絡。</entry>
+<entry key="presentOctopusForEnquiry">請於八達通機上拍卡</entry>
+<entry key="close">關閉</entry>
+
+<entry key="octopusNo">八達通號碼</entry>
+<entry key="octopusRemainingValue">八達通餘額</entry>
+<entry key="number">編號</entry>
+<entry key="transactionDatetime">交易時間</entry>
+<entry key="amount">金額</entry>
+<entry key="deviceId">機號</entry>
+<entry key="chargingServiceFee">充電服務費用
+港幣 %s元/小時 (%s - %s)
+港幣 %s元/小時 (%s - %s)</entry>
+<entry key="ctError">機器故障。
+請與本店職員聯絡。
+錯誤代碼: %s</entry>
+
+<entry key="startOrStopCharging">開始/停止充電</entry>
+<entry key="statusDttm">最後狀態日期/時間</entry>
+<entry key="sentStartChargingSuccess">%s: 發送開始充電命令成功</entry>
+<entry key="sentStopChargingSuccess">%s: 發送停止充電命令成功</entry>
+<entry key="EMPTY"> </entry>
+
+<entry key="changePaymentMethod">更改付款方式</entry>
+<entry key="currentPaymentMethod">目前的付款方式</entry>
+<entry key="prepay">預付費</entry>
+<entry key="postpay">後付款</entry>
+<entry key="changePaymentMethodTo">更改為 %s</entry>
+<entry key="instruction">請重新啟動CT生效。</entry>
+<entry key="maxServiceFeeDisplay">*</entry>
+</properties>

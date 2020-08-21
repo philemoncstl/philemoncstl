@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<ctConfig>
+    <checkOperationResultTimeoutMs>10000</checkOperationResultTimeoutMs>
+    <checkWebSocketIntervalMs>30000</checkWebSocketIntervalMs>
+    <cpHeight>182</cpHeight>
+    <cpHgap>30</cpHgap>
+    <cpVgap>30</cpVgap>
+    <cpWidth>163</cpWidth>
+    <ctHeight>800</ctHeight>
+    <ctId>1</ctId>
+    <ctWidth>1280</ctWidth>
+    <debugUi>false</debugUi>
+    <defautChargingTimeMinute>60</defautChargingTimeMinute>
+    <fullScreen>false</fullScreen>
+    <goHomeDelaySec>60</goHomeDelaySec>
+    <housekeepingTimeForNonResponseCsRequest>1200000</housekeepingTimeForNonResponseCsRequest>
+    <locationReceipt>Panda Place</locationReceipt>
+    <maxChargingTimeMinute>1200</maxChargingTimeMinute>
+    <minChargingTimeMinute>30</minChargingTimeMinute>
+    <northHeight>230</northHeight>
+    <postpaidMaxServiceFee>500</postpaidMaxServiceFee>
+    <remoteStartStopTimeCheckMs>10000</remoteStartStopTimeCheckMs>
+    <southHeight>120</southHeight>
+    <webSocketUrl>ws://localhost:9080/hhl/ctws/</webSocketUrl>
+    <westWidth>130</westWidth>
+</ctConfig>

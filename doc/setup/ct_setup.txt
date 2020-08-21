@@ -1,0 +1,171 @@
+0. Install Ubuntu Mate 16.04
+a) Create admin login ct with password "evpay"
+b) Select login auto
+
+1. Install SSH
+sudo apt-get update
+sudo apt-get install openssh-server
+sudo ufw allow 22
+sudo /etc/init.d/ssh restart
+sudo systemctl enable ssh
+
+
+Open other necessary ports
+sudo ufw allow 8080
+
+2. Install Oracle JDK
+sudo add-apt-repository ppa:webupd8team/java
+sudo apt-get update
+sudo apt-get install oracle-java8-installer
+
+3. Set sudoer
+sudo vi /etc/sudoers
+#add line blow at the end
+ct ALL=(ALL:ALL) NOPASSWD:/home/ct/evpay/start_ct
+
+chmod 755 /home/ct/evpay/start_ct
+#test whether pwd is needed
+sudo -k /home/ct/evpay/start_ct
+
+
+4. Setup full screen java application
+a) Delete top toolbar
+b) Computer -> Control Center -> Startup Applications
+c) Click "Add", enter "Name" as CT, "Command" as "sudo -k /home/ct/evpay/start_ct"
+d) Reboot to test
+
+
+
+5. Upload the program files to home folder (/home/ct)
+export LD_LIBRARY_PATH="/usr/lib/jvm/java-8-oracle/jre/lib/i386"
+or ARM
+export LD_LIBRARY_PATH="/usr/lib/jvm/java-8-oracle/jre/lib/arm"
+sudo ~/evpay/start_ct
+
+6. Reboot to test the script
+
+7 System setting
+7.1 Set display never sleep
+	Control Center -> Power Management Preferences -> Display (Put display to sleep when inactive for) -> Never
+	
+7.2 Disable update
+	Control Center -> Software & Update -> Updates
+		Automatically check for updates		->	Never
+		Notify me of a new Ubuntu version	-> Never
+		
+7.3 Disable screen saver
+	Control Center -> Screensaver -> Screensaver Preference -> Floating Mate
+		Untick "Activate screensaver when computer is idle"		
+		Untick "Lock screen when screensaver is active"
+		
+7.4 Disable appreport
+sudo vi /etc/default/apport
+then set
+enabled=0
+
+7.5 Install TC language by enter below in terminal
+gnome-language-selector
+
+
+
+
+
+		
+8. Setup Octopus
+#make octopus dir
+mkdir -p /home/ct/octopus/ar
+mkdir -p /home/ct/octopus/ar2
+mkdir -p /home/ct/octopus/upload
+mkdir -p /home/ct/octopus/upload_finished
+mkdir -p /home/ct/octopus/download
+mkdir -p /home/ct/octopus/download_outdated
+mkdir -p /home/ct/octopus/build
+
+
+#install comm library
+sudo cp comm.jar /usr/lib/jvm/java-8-openjdk-i386/jre/lib/ext/
+sudo cp RXTXcomm.jar /usr/lib/jvm/java-8-openjdk-i386/jre/lib/ext/
+sudo cp librxtxParallel.so /usr/lib/jvm/java-8-openjdk-i386/jre/lib/i386/
+sudo cp librxtxSerial.so /usr/lib/jvm/java-8-openjdk-i386/jre/lib/i386/
+sudo cp javax.comm.properties /usr/lib/jvm/java-8-openjdk-i386/jre/lib/
+
+#install octopus library
+sudo cp libOctCtrl.so /usr/lib/jvm/java-8-openjdk-i386/jre/lib/i386/
+sudo cp rwl.a /usr/lib/jvm/java-8-openjdk-i386/jre/lib/i386/
+
+
+
+9. Setup rsync (without login password) to upload log file to server
+a) Create public and private keys using ssh-key-gen on local-host
+ssh-keygen
+<passphrase>
+#No passphrase
+
+
+b) Copy the public key to remote-host using ssh-copy-id
+ssh-copy-id -i ~/.ssh/id_rsa.pub ct@hhl.evpay.com.hk
+
+c) Login to remote-host without entering the password
+ssh ct@hhl.evpay.com.hk
+
+d) Configure cronjob 
+#Every 30 minutes
+*/30 * * * *	/home/ct/evpay/script/ct_upload_log.sh
+
+#Daily at 2:30am
+30 2 * * *		/home/ct/evpay/script/ct_housekeeping.sh
+
+#Every two hours
+0 */2 * * * 	/home/ct/evpay/script/ct_time_sync.sh
+
+
+Ref. : https://www.thegeekstuff.com/2008/11/3-steps-to-perform-ssh-login-without-password-using-ssh-keygen-ssh-copy-id/
+
+10. Install ntpdate
+sudo apt-get install ntpdate
+
+
+11. Add octopus account for SkiData
+sudo useradd octopus
+sudo passwd octopus
+Wy!^2LBbuN#F^%{L
+sudo mkdir /home/octopus
+sudo chown octopus:octopus /home/octopus
+
+su octopus
+
+mkdir ~/download
+mkdir ~/upload
+mkdir ~/upload_finished
+
+chmod 777 ~/download
+chmod 777 ~/upload
+chmod 777 ~/upload_finished
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+*************************Useful***********************************
+1. Open file manager under Mate 
+xdg-open ~
+
+2. Program directory
+xdg-open /usr/bin
+
+
+3. Install language pack
+apt-cache search language-pack-gnome
+sudo apt-get install language-selector-gnome-hant
+sudo fc-cache -fv

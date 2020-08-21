@@ -1,0 +1,7 @@
+host=hhl.evpay.com.hk
+port=22
+user=ct
+configPath=~/evpay/config/config_local.xml
+localPath=~/evpay/log
+remotePath=/home/ct
+localConfigPath=~/evpay/config

@@ -1,0 +1,4 @@
+1. Update host/IP for config file below:
+	/home/ct/evpay/config/config_local.xml
+	/home/ct/evpay/config/oct_config.xml
+	/home/ct/evpay/script/ct_upload_log.conf

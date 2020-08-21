@@ -1,0 +1,10 @@
+#!/bin/bash
+
+export LD_LIBRARY_PATH="/usr/lib/jvm/java-8-oracle/jre/lib/arm"
+cd ~/evpay
+(
+    until java -Xms256m -Xmx2018m -jar ct.jar; do
+        echo "CT crashed with exit code $?.  Restarting... " >> log/ct.log
+        sleep 5
+    done
+) &

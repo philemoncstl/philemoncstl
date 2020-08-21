@@ -1,0 +1,64 @@
+{
+  "methods": [
+    {
+      "payMethod": "Contactless",
+      "seq": 1,
+      "enabled": false,
+      "iconName": "pm_Contactless.png"
+    },
+    {
+      "payMethod": "Octopus",
+      "seq": 2,
+      "enabled": true,
+      "iconName": "pm_Octopus.png"
+    },
+    {
+      "payMethod": "QR",
+      "seq": 3,
+      "enabled": true,
+      "iconName": "pm_QR.png"
+    },
+    {
+      "payMethod": "AliPay",
+      "seq": 4,
+      "enabled": false,
+      "iconName": "pm_AliPay.png"
+    },
+    {
+      "payMethod": "WeChatPay",
+      "seq": 5,
+      "enabled": false,
+      "iconName": "pm_WeChatPay.png"
+    },
+    {
+      "payMethod": "MasterPaypass",
+      "seq": 6,
+      "enabled": false,
+      "iconName": "pm_MasterPaypass.png"
+    },
+    {
+      "payMethod": "SamsungPay",
+      "seq": 8,
+      "enabled": false,
+      "iconName": "pm_SamsungPay.png"
+    },
+    {
+      "payMethod": "GooglePay",
+      "seq": 9,
+      "enabled": false,
+      "iconName": "pm_GooglePay.png"
+    },
+    {
+      "payMethod": "ApplePay",
+      "seq": 10,
+      "enabled": false,
+      "iconName": "pm_ApplePay.png"
+    },
+    {
+      "payMethod": "VisaPayWave",
+      "seq": 7,
+      "enabled": false,
+      "iconName": "pm_VisaPayWave.png"
+    }
+  ]
+}

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<octConfig>
+    <host>hhl.evpay.com.hk</host>
+    <localDownloadPath>/home/ct/octopus/download</localDownloadPath>
+    <localDownloadOutdatedPath>/home/ct/octopus/download_outdated</localDownloadOutdatedPath>
+    <localUploadFinishedPath>/home/ct/octopus/upload_finished</localUploadFinishedPath>
+    <localUploadPath>/home/ct/octopus/upload</localUploadPath>
+    <password>Wy!^2LBbuN#F^%{L</password>
+    <port>22</port>
+    <remoteDownloadPath>/home/octopus/download</remoteDownloadPath>
+    <remoteUploadPath>/home/octopus/upload</remoteUploadPath>
+    <retryCount>3</retryCount>
+    <retryDurationMs>60000</retryDurationMs>
+    <user>octopus</user>
+</octConfig>

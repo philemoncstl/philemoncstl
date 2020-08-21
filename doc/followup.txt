@@ -1,0 +1,129 @@
+2017-12-25
+-----------------------------------------------------------------------------------------------------------
+	1. Timestamp format
+	2. In use page changed to use common BG
+	3. Store transaction records to file in case failed to connect backend
+4. Loading page for starting and stopping charging
+	5. Lock go to home function for starting and stopping charging
+	6. Receipt handle On/Off peak
+	7. CT check script
+	8. Housekeeping script
+	9. Disable CP/Disable CT need to send change availability to CP
+	10. Octopus related schedule jobs
+11. Extend time, send 5.16 "Set charging profile" to CP
+
+
+
+
+2018-03-08
+-----------------------------------------------------------------------------------------------------------
+		1. CP status not updated after lost power
+		2. Go to home timeout set to 30 seconds
+		3. Abnormal case:
+			a) CT no network -> ERR9300
+			b) CP no network -> display no network for that CP
+			c) CP heartbeat 1 minutes
+		4. Start/stop charging should trigger heartbeat to make sure the
+			CP is connected (show ERR9100 or ERR9200 if failed to connect with CP)
+		5. Admin card and send 
+		6. BootNotication check last transaction record. 
+			based on status, 
+				-cpStatusCharging			treat as normal
+				-cpStatusSuspendedEVSE		treat as normal
+				-cpStatusSuspendedEV		treat as normal
+			otherwise, treat last transaction record as completed
+	
+		7. Printer status (Online, Unknown, Empty, NearEmpty)
+- email alert (later)
+	
+		8. Default charging time/min charging/max charging config per CT at backend.
+
+		9. Add CT (Last connection time)
+			- over 2 mins (display red background)
+	
+10. CP max power output config separate (display red backgroup colour if sum greater than CT max power output)
+	
+	
+
+
+2018-03-16
+-----------------------------------------------------------------------------------------------------------
+		1. Octopus only works when power on after the OS is loaded
+		2. BackEnd failed to communicate with CT (even CT to backend is connected) (2018-03-16, 11:30 to 11:50)
+		3. Rate calculation problem. (after update rate)
+		4. Sync the status wording at backend
+		5. ct.xml crashed by power off issue.
+		6. Add version info.
+		7. Delete rate problem.	
+		8. Check Octopus settlement file upload
+		9. Update oct_config.xml
+
+
+2018-03-23
+-----------------------------------------------------------------------------------------------------------
+	1. Set no network if failed to connect CP before start or stop charging.
+
+	*2. Set autual date/time to last heartbeat before BootNotification.
+
+			3. Change status "Finishing" to "可用"
+
+	4. Update receipt 
+
+	*5. Add change availability after boot notification
+
+6. Send msg excel to Lawson
+
+	7. Printer not available (added retry)
+	
+	8. Add Octopus No column in transaction record
+
+
+
+2018-03-26
+-----------------------------------------------------------------------------------------------------------
+1. Implement ChangeConfiguration (5.3) for admin card list
+	key:adminCard
+	value:"12345568\n9123211"
+	
+	
+	
+2018-04-25
+-----------------------------------------------------------------------------------------------------------
+	1. Transaction history
+	2. Handle smart Octopus
+	3. Post-paid
+	- Mode setup, allowance minutes
+	- Default to max charging unit
+	- Receipt	
+4. 100001 error after resume normal
+5. Change bookmark icon
+	6. Add mode to transaction record
+	7. Octopus Event log
+	8. Setup OSDX
+	9. confirm old/new card handling
+	10. Transaction Enquiry
+
+
+2018-05-04
+-----------------------------------------------------------------------------------------------------------	
+Receipt variances:
+	On/off peak same rate with Normal Octopus
+	On/off peak diff rate with Normal Octopus
+	On/off peak same rate with Smart Octopus
+	On/off peak diff rate with Smart Octopus
+	
+	
+	
+2018-06-02
+-----------------------------------------------------------------------------------------------------------	
+		1. Smart Octopus handling in screen
+		2. Not go home if error message displayed
+		3. Enquiry dialog not closed auto.	
+		
+		
+2018-09-25
+-----------------------------------------------------------------------------------------------------------	
+bbpos outstanding items:
+1. Response code: 0079  --> Call settlement
+2. Status WAIT_FOR_CARD --> Call cancel card
+		

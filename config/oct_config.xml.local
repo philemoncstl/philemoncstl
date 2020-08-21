@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<octConfig>
+    <host>192.168.1.103</host>
+    <localDownloadPath>/home/ck/Desktop/octopus/download</localDownloadPath>
+    <localDownloadOutdatedPath>/home/ck/Desktop/octopus/download_outdated</localDownloadOutdatedPath>
+    <localUploadFinishedPath>/home/ck/Desktop/octopus/upload_finished</localUploadFinishedPath>
+    <localUploadPath>/home/ck/Desktop/octopus/upload</localUploadPath>
+    <password>cmtech</password>
+    <port>22</port>
+    <remoteDownloadPath>/download</remoteDownloadPath>
+    <remoteUploadPath>/upload</remoteUploadPath>
+    <retryCount>3</retryCount>
+    <retryDurationMs>60000</retryDurationMs>
+    <user>ha</user>
+</octConfig>
