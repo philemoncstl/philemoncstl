@@ -29,7 +29,8 @@ public class PostStep1SelectPayment extends CommonPanelOctopus{
 
 		setLayout(null);
 		
-		lblInst = createButton("selectPaymentMethodInst", "img/msg_box.png", 270, 380, 744, 184);
+//		lblInst = createButton("selectPaymentMethodInst", "img/msg_box.png", 270, 380, 744, 184);
+		lblInst = createButton("selectPaymentMethodInst", "img/msg_box_L.png", 215, 260, 861, 135);
 		lblInst.setForeground(Color.WHITE);
 		LangUtil.setFont(lblInst, Font.PLAIN, 30);
 		add(lblInst);

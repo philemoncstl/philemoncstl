@@ -1,5 +1,6 @@
 package hk.com.evpay.ct;
 
+import java.awt.Color;
 import java.awt.Font;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
@@ -45,18 +46,19 @@ public class Step1SelectTime extends CommonPanel{
 		
 		setLayout(null);
 		
-		lblTime = createButton("chargingTimeVal", "img/charging_time.png", 228, 379, 403, 116);
+		btnAddPeriod = createButton("img/period_add_sm.png", 587, 278, 51, 51);
+		add(btnAddPeriod);
+		btnMinusPeriod = createButton("img/period_minus_sm.png", 587, 329, 51, 51);
+		add(btnMinusPeriod);
+		
+		lblTime = createButton("chargingTimeVal", "img/charging_time.png", 270, 270, 403, 116);
 		LangUtil.setFont(lblTime, Font.PLAIN, 40);
 		lblTime.setParms(new String[] {"1", "0"});
 		add(lblTime);
 		
-		btnAddPeriod = createButton("img/period_add.png", 658, 368, 64, 64);
-		add(btnAddPeriod);
-		btnMinusPeriod = createButton("img/period_minus.png", 658, 435, 64, 64);
-		add(btnMinusPeriod);
-		
-		lblAmount = createButton("hkdWithVal", "img/charging_amount.png", 800, 245, 363, 360);
+		lblAmount = createButton("hkdWithVal2", "img/charging_amount_box.png", 710, 261, 341, 135);
 		lblAmount.setParms("96.00");
+		lblAmount.setForeground(Color.WHITE);
 		LangUtil.setFont(lblAmount, Font.PLAIN, 54);
 		add(lblAmount);
 		
