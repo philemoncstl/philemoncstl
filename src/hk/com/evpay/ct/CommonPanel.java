@@ -114,15 +114,26 @@ public class CommonPanel extends JPanel{
 	
 	
 	public PayButton[] getPayButtons() {
-		int x = 1150;
-		int y = 682;
+//		int x = 1150;
+//		int y = 682;
+//		
+//		List<PayMethodModel> list = CtUtil.getPayConfig().getEnabledMethods();
+//		PayButton[] btns = new PayButton[list.size()];
+//		for(int i = 0; i < list.size(); i ++) {
+//			btns[i] = new PayButton(list.get(i));
+//			btns[i].setBounds(calcBoundsLabel(x, y, 84, 84));
+//			x -= 88;
+//		}
+		
+		int x = 182;
+		int y = 450;
 		
 		List<PayMethodModel> list = CtUtil.getPayConfig().getEnabledMethods();
 		PayButton[] btns = new PayButton[list.size()];
 		for(int i = 0; i < list.size(); i ++) {
 			btns[i] = new PayButton(list.get(i));
-			btns[i].setBounds(calcBoundsLabel(x, y, 84, 84));
-			x -= 88;
+			btns[i].setBounds(calcBoundsLabel(x, y, 312, 179));
+			x += 320;
 		}
 		
 		return btns;
