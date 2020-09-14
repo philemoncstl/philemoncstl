@@ -72,7 +72,7 @@ public class CommonPanel extends JPanel{
 	}
 	
 	public I18nButtonLabel createButton(String msgCode, String iconPath, int x, int y, int w, int h) {
-		I18nButtonLabel btn = new I18nButtonLabel(msgCode, 0, iconPath);
+		I18nButtonLabel btn = new I18nButtonLabel(msgCode, 0, iconPath, w, h);
 		btn.setBounds(calcBoundsLabel(x, y, w, h));
 		return btn;
 	}

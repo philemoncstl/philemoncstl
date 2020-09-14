@@ -28,6 +28,7 @@ public class Step1SelectTime extends CommonPanel{
 	private static Logger logger = Logger.getLogger(Step1SelectTime.class);
 	
 	private I18nLabel lblTime;
+	private I18nLabel lblTimeBg;
 	private I18nButtonLabel btnAddPeriod;
 	private I18nButtonLabel btnMinusPeriod;
 	private I18nLabel lblAmount;
@@ -46,15 +47,18 @@ public class Step1SelectTime extends CommonPanel{
 		
 		setLayout(null);
 		
-		btnAddPeriod = createButton("img/period_add_sm.png", 587, 278, 51, 51);
+		btnAddPeriod = createButton("img/period_add_sm.png", 590, 282, 43, 43);
 		add(btnAddPeriod);
-		btnMinusPeriod = createButton("img/period_minus_sm.png", 587, 329, 51, 51);
+		btnMinusPeriod = createButton("img/period_minus_sm.png", 590, 330, 43, 43);
 		add(btnMinusPeriod);
 		
-		lblTime = createButton("chargingTimeVal", "img/charging_time.png", 270, 270, 403, 116);
+		lblTime = createButton("chargingTimeVal", "", 320, 270, 403, 116);
 		LangUtil.setFont(lblTime, Font.PLAIN, 40);
 		lblTime.setParms(new String[] {"1", "0"});
 		add(lblTime);
+		
+		lblTimeBg = createButton("", "img/charging_time.png", 270, 270, 403, 116);
+		add(lblTimeBg);
 		
 		lblAmount = createButton("hkdWithVal2", "img/charging_amount_box.png", 710, 261, 341, 135);
 		lblAmount.setParms("96.00");

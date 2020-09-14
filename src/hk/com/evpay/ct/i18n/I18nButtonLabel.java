@@ -1,6 +1,7 @@
 package hk.com.evpay.ct.i18n;
 
 import java.awt.Color;
+import java.awt.Image;
 
 import javax.swing.ImageIcon;
 import javax.swing.SwingConstants;
@@ -19,6 +20,23 @@ public class I18nButtonLabel extends I18nLabel{
 		this.msgCode = msgCode;
 		this.padding = "padding-left:" + leftPadding + "px;";
 		setIcon(new ImageIcon(iconPath));
+		setHorizontalTextPosition(SwingConstants.CENTER);
+		setVerticalTextPosition(SwingConstants.CENTER);
+		setForeground(Color.BLACK);
+		updateText();
+		
+		UiUtil.debugUi(this);
+	}
+	
+	public I18nButtonLabel(String msgCode, int leftPadding, String iconPath, int scale_width, int scale_height) {
+		this.msgCode = msgCode;
+		this.padding = "padding-left:" + leftPadding + "px;";
+		
+		ImageIcon imageIcon = new ImageIcon(iconPath);
+		Image image = imageIcon.getImage(); // transform it 
+		Image newimg = image.getScaledInstance(scale_width, scale_height,  Image.SCALE_SMOOTH); // scale it the smooth way  
+		setIcon(new ImageIcon(newimg));
+		
 		setHorizontalTextPosition(SwingConstants.CENTER);
 		setVerticalTextPosition(SwingConstants.CENTER);
 		setForeground(Color.BLACK);

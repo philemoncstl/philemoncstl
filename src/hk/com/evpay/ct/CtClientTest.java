@@ -20,7 +20,7 @@ public class CtClientTest{
 		 String s = "DisableCp";
 		 WsAction as = WsAction.valueOf(s);
 		 System.out.println(as);
-		 s = "DisableCp1";
+		 s = "DisableCp";
 		 as = WsAction.valueOf(s);
 		 System.out.println(as);
 		 SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd\'T\'HH:mm:ss.SSSZ");
