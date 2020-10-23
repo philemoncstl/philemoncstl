@@ -5,7 +5,6 @@ import java.io.PrintWriter;
 import java.io.StringWriter;
 import java.math.BigDecimal;
 import java.net.URI;
-import java.net.URLEncoder;
 import java.util.LinkedHashMap;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -20,7 +19,6 @@ import org.apache.log4j.Logger;
 
 import com.ckzone.octopus.OctEventData;
 import com.ckzone.octopus.util.OctUtil;
-import com.ckzone.util.ClientEncryptUtil;
 import com.ckzone.util.GsonUtil;
 import com.ckzone.util.StringUtil;
 
@@ -58,24 +56,6 @@ public class CtWebSocketClient {
 	private static ExecutorService ES = Executors.newFixedThreadPool(1);
 	
 	private static long lastMsgDttm = -1;
-	
-	private static final String OCPP_TEXT = "CSTEV2020";
-	
-	private static String encryptedOCPPText = "";
-	
-	// init cipher here	
-	static {
-		try {
-			String ct = CtUtil.getConfig().getCtId();
-			String plainText = ct + "_" + OCPP_TEXT + System.currentTimeMillis();
-			ClientEncryptUtil.setKEY_PUBLIC("./rsa_512.pub");
-			encryptedOCPPText = ClientEncryptUtil.encryptWithBase64URLSafeString(plainText);
-			encryptedOCPPText = URLEncoder.encode(encryptedOCPPText, "UTF-8");
-			logger.info("encryptedOCPPText:"+ encryptedOCPPText);
-		} catch (Exception e2) {
-			logger.error("Error in Initialize encryptedOCPPText" + e2);			
-		}
-	}
 	
 	public static void startWebSocket() {
 		checkerThread = new Thread() {
@@ -325,8 +305,8 @@ public class CtWebSocketClient {
 		
 		logger.info("Connecting to server...");
 		WebSocketContainer container = null;//
-		String url = CtUtil.getConfig().getWebSocketUrl() + CtUtil.getConfig().getCtId() + "?cipher=" + encryptedOCPPText;
-		//url = "ws://test.evpay.com.hk:8082/ev/ctws/2?cipher=WB0raack68vPtxskGyOAKoeUSZDKiVdxd8ywnbRNWGYxej241RQbBuAmViywlDKpP2GLZixvxIJoucX6oKiGlA==";
+		String url = CtUtil.getConfig().getWebSocketUrl() + CtUtil.getConfig().getCtId();
+		//url = "ws://test.evpay.com.hk:8082/ev/ctws/2";
 		logger.info("URL:" + url);
 		try {
 			// Tyrus is plugged via ServiceLoader API. See notes above
