@@ -6,17 +6,14 @@
 	<artifactId>ct-kiosk-octopus</artifactId>
 	<version>1.0.0</version>
 	<packaging>jar</packaging>
+	<properties>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+	</properties>
 	<dependencies>
 		<dependency>
 			<groupId>hk.com.cstl</groupId>
 			<artifactId>hk.com.cstl.cstl-common</artifactId>
 			<version>0.0.1-SNAPSHOT</version>
-			<scope>compile</scope>
-		</dependency>
-		<dependency>
-			<groupId>hk.com.cstl</groupId>
-			<artifactId>hk.com.cstl.ev.evcs.lib</artifactId>
-			<version>1.0.0</version>
 			<scope>compile</scope>
 		</dependency>
 		<dependency>
@@ -286,13 +283,6 @@
 			<version>2.4.2</version>
 		</dependency>
 		<dependency>
-			<groupId>com.starmicronics</groupId>
-			<artifactId>stario</artifactId>
-			<version>1.0</version>
-			<scope>system</scope>
-			<systemPath>${project.basedir}/lib/stario.jar</systemPath>
-		</dependency>
-		<dependency>
 			<groupId>commons-io</groupId>
 			<artifactId>commons-io</artifactId>
 			<version>2.4</version>
@@ -307,6 +297,11 @@
 			<artifactId>jta</artifactId>
 			<version>1.1</version>
 		</dependency>
+		<dependency>
+			<groupId>com.starmicronics</groupId>
+			<artifactId>stario</artifactId>
+			<version>1.0.0</version>
+		</dependency>		
 	</dependencies>
 	<build>
 		<finalName>ct</finalName>
@@ -346,11 +341,9 @@
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-jar-plugin</artifactId>
+				<version>3.2.0</version>
 				<configuration>
-				  <!-- DO NOT include log4j.properties file in your Jar -->
-				  <excludes>
-					<exclude>**/log4j.properties</exclude>
-				  </excludes>
+				  <finalName>ct</finalName>
 				  <archive>
 					<manifest>
 						<!-- Jar file entry point -->
@@ -370,12 +363,13 @@
 							<goal>single</goal>
 						</goals>
 						<configuration>
+							<finalName>ct</finalName>
 							<archive>
-							<manifest>
-								<mainClass>
-									hk.com.evpay.ct.CtClient
-								</mainClass>
-							</manifest>
+								<manifest>
+									<mainClass>
+										hk.com.evpay.ct.CtClient
+									</mainClass>
+								</manifest>
 							</archive>
 							<descriptorRefs>
 								<descriptorRef>jar-with-dependencies</descriptorRef>
