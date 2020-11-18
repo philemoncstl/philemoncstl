@@ -10,12 +10,24 @@
       "payMethod": "Octopus",
       "seq": 2,
       "enabled": true,
-      "iconName": "pm_Octopus.png"
+      "iconName": "pm_Octopus_Large.png"
     },
     {
+      "payMethod": "ContactlessGroup",
+      "seq": 11,
+      "enabled": true,
+      "iconName": "pm_Contactless_Group.png"
+    },
+    {
+      "payMethod": "QRGroup",
+      "seq": 12,
+      "enabled": true,
+      "iconName": "pm_QR_Group.png"
+    },
+    {  
       "payMethod": "QR",
       "seq": 3,
-      "enabled": true,
+      "enabled": false,
       "iconName": "pm_QR.png"
     },
     {
