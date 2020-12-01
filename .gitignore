@@ -2,3 +2,6 @@
 /build/
 /.settings/
 /log/
+/ouput
+/target
+.vscode

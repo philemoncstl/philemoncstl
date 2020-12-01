@@ -339,7 +339,8 @@ public class CtUtil {
 	}
 	
 	public static boolean isPayByContactless(TranModel tm) {
-		return String.valueOf(PayMethod.Contactless).equals(tm.getPayMethodCode());
+//		return String.valueOf(PayMethod.Contactless).equals(tm.getPayMethodCode());
+		return String.valueOf(PayMethod.ContactlessGroup).equals(tm.getPayMethodCode());
 	}
 	
 	public static boolean isPayByOctopus(TranModel tm) {

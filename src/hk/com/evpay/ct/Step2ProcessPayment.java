@@ -10,6 +10,7 @@ import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
 
 import org.apache.log4j.Logger;
+import org.json.JSONObject;
 
 import com.ckzone.octopus.ExtraInfo;
 import com.ckzone.octopus.PollDeductReturn;
@@ -17,6 +18,8 @@ import com.ckzone.octopus.PollEx;
 import com.ckzone.octopus.util.OctCheckerThread;
 import com.ckzone.octopus.util.OctUtil;
 import com.ckzone.util.StringUtil;
+
+import hk.com.evpay.ct.util.iUC285Util;
 
 import hk.com.cstl.evcs.model.RateDetailModel;
 import hk.com.cstl.evcs.model.RateModel;
@@ -152,7 +155,7 @@ public class Step2ProcessPayment extends CommonPanelOctopus{
 				String.valueOf(rm.getMins()));
 		fpAmount.getVal().setParm(tm.getTimeCharge());
 		
-		if(pnlCtrl.getPayMethod() == PayMethod.Contactless) {
+		if(pnlCtrl.getPayMethod() == PayMethod.ContactlessGroup) {
 			lblPayInst.setMsgCode("payInstContactless");
 			handlePaymentContactless();
 		}
@@ -193,10 +196,34 @@ public class Step2ProcessPayment extends CommonPanelOctopus{
 		new Thread() {
 			@Override
 			public void run() {
+				JSONObject response = null;
 				TranModel tran = pnlCtrl.getPnlSelectedCp().getCp().getTran();
 				setReceiptNo(tran);
-				setDummyCardInfoContactless(tran);
-				paymentSuccess(); 
+				
+//				response = iUC285Util.doCardRead();
+//				tran.setCardType(response.getString("CARD"));
+//				tran.setCardNo(response.getString("PAN"));
+				response = iUC285Util.doCardRead();
+				if(response != null && response.getString("STATUS").equals("Approved")) {
+					logger.info("Contactless read card success");
+					tran.setCardType(response.getString("CARD"));
+					tran.setCardNo(response.getString("PAN"));
+					response = null;
+				} else {
+					logger.info("Contactless read card fail");
+					pnlCtrl.goToStep1SelectTime(pnlCtrl.getPnlSelectedCp());
+					return;
+				}
+						
+				response = iUC285Util.doSale(tran, tran.getAmt().multiply(new BigDecimal("100")).intValue());
+				if(response != null && response.getString("STATUS").equals("Approved")) {
+					logger.info("Contactless payment success");
+					paymentSuccess();
+				} else {
+					logger.info("Contactless payment fail");
+					pnlCtrl.goToStep1SelectTime(pnlCtrl.getPnlSelectedCp());
+				}
+				
 				/*
 				 * if(CtUtil.isContactlessBbpos()) { if(WpCheckerThread.isAvailable()) { try {
 				 * SaleResp resp = WisepayUtil.sale(tran.getAmt());
@@ -328,9 +355,7 @@ public class Step2ProcessPayment extends CommonPanelOctopus{
 		};
 		payThread.start();
 	}
-	
-	
-	
+
 	private void paymentSuccess() {
 		final CpPanel pnlCp = pnlCtrl.getPnlSelectedCp();
 		
@@ -393,7 +418,4 @@ public class Step2ProcessPayment extends CommonPanelOctopus{
 		
 		CtWebSocketClient.uploadTran(tm);
 	}
-	
-	
-	
 }

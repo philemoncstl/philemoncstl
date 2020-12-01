@@ -48,6 +48,7 @@ import hk.com.evpay.ct.tool.TranHistCtrl;
 import hk.com.evpay.ct.util.CtUtil;
 import hk.com.evpay.ct.util.PrinterCheckerThread;
 import hk.com.evpay.ct.util.UiUtil;
+import hk.com.evpay.ct.util.iUC285Util;
 import hk.com.evpay.ct.ws.CtOcppHandler;
 import hk.com.evpay.ct.ws.CtWebSocketClient;
 
@@ -71,7 +72,6 @@ public class CtClient extends JFrame{
 		/*CtModel ct = new CtModel();
 		ct.setCtId(1);
 		CtUtil.saveCt(ct);*/
-		
 		CtClient f = null;
 		try {
 			f = new CtClient();
@@ -112,7 +112,8 @@ public class CtClient extends JFrame{
         logger.info("CT Name:" + CtUtil.getServConfig().getNameChi());
         //UiUtil.printFontList();
         
-       
+        // start listen contactless payment callback
+		iUC285Util.startListeningCallback(8888, 8889);
 	}
 	
 	public CtClient() throws IOException {

@@ -7,6 +7,7 @@ import java.util.Date;
 import javax.swing.SwingUtilities;
 
 import org.apache.log4j.Logger;
+import org.json.JSONObject;
 
 import com.ckzone.octopus.PollDeductReturn;
 import com.ckzone.octopus.util.OctCheckerThread;
@@ -19,6 +20,7 @@ import hk.com.cstl.evcs.ocpp.eno.TranStatus;
 import hk.com.evpay.ct.i18n.I18nLabel;
 import hk.com.evpay.ct.util.CtUtil;
 import hk.com.evpay.ct.util.LangUtil;
+import hk.com.evpay.ct.util.iUC285Util;
 import hk.com.evpay.ct.ws.CtWebSocketClient;
 
 public class Step7StopChargingTapCard extends CommonPanelOctopus{
@@ -79,6 +81,8 @@ public class Step7StopChargingTapCard extends CommonPanelOctopus{
 						OctUtil.playNormalToneOctopus();
 					}
 					
+					
+					
 					if(success) {
 						stopChargingNow();
 					}
@@ -138,12 +142,21 @@ public class Step7StopChargingTapCard extends CommonPanelOctopus{
 		
 		stopThread = new Thread() {
 			public void run() {
+				JSONObject response = iUC285Util.doCardRead();
 				/*
 				 * if(CtUtil.isContactlessBbpos()) { if(WpCheckerThread.isAvailable()) {
 				 * pollCardContactless(tran); } else { pnlCtrl.showErrorMessageGeneral("9001",
 				 * null); } }
 				 */
-				stopChargingNow();
+				
+				if(response != null && response.getString("CARD").equals(tran.getCardType()) && response.getString("PAN").equals(tran.getCardNo())) {
+					stopChargingNow();
+				} else {
+					logger.info("Not the same card, go to home now.");
+					pnlCtrl.goToHome();
+				}
+
+
 			}
 		};
 		stopThread.start();

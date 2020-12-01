@@ -26,9 +26,9 @@
         "onPeakEndTime": "20:00",
         "onPeakTimeRate": 16.00,
         "offPeakTimeRate": 12.00,
-        "onPeakEnergyRate": 2.00,
-        "offPeakEnergyRate": 1.00,
-        "timeChargeEnableFlag": "Y",
+        "onPeakEnergyRate": 2.30,
+        "offPeakEnergyRate": 2.30,
+        "timeChargeEnableFlag": "N",
         "energyChargeEnableFlag": "Y"
       }
     ]

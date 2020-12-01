@@ -111,7 +111,7 @@ public class Step1SelectTime extends CommonPanel{
 							logger.warn("Contactless disabled");
 						}
 						else {
-							startCharging(PayMethod.Contactless);
+							startCharging(PayMethod.ContactlessGroup);
 						}
 					}
 					else if(pm == PayMethod.Octopus){
@@ -140,6 +140,7 @@ public class Step1SelectTime extends CommonPanel{
 		if(src instanceof PayButton) {
 			PayMethod pm = ((PayButton)src).getPmModel().getPayMethod();
 			switch(pm) {
+				case ContactlessGroup:
 				case Contactless:
 				case VisaPayWave:
 				case MasterPaypass:

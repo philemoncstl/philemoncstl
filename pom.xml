@@ -1,6 +1,5 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>hk.com.cstl</groupId>
 	<artifactId>ct-kiosk-octopus</artifactId>
@@ -10,6 +9,21 @@
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 	</properties>
 	<dependencies>
+		<!-- https://mvnrepository.com/artifact/com.sun.net.httpserver/http -->
+		<dependency>
+		    <groupId>com.sun.net.httpserver</groupId>
+		    <artifactId>http</artifactId>
+		    <version>20070405</version>
+		    <scope>test</scope>
+		</dependency>
+		
+		<!-- https://mvnrepository.com/artifact/org.json/json -->
+		<dependency>
+		    <groupId>org.json</groupId>
+		    <artifactId>json</artifactId>
+		    <version>20200518</version>
+		</dependency>
+	
 		<dependency>
 			<groupId>hk.com.cstl</groupId>
 			<artifactId>hk.com.cstl.cstl-common</artifactId>
@@ -262,6 +276,11 @@
 			<version>1.6.6</version>
 			<scope>test</scope>
 		</dependency>
+	   <dependency>
+	       <groupId>org.slf4j</groupId>
+	       <artifactId>slf4j-simple</artifactId>
+	       <version>1.6.6</version>
+	   </dependency>
 		<dependency>
 			<groupId>net.java.dev.jna</groupId>
 			<artifactId>jna</artifactId>
@@ -297,11 +316,20 @@
 			<artifactId>jta</artifactId>
 			<version>1.1</version>
 		</dependency>
+
 		<dependency>
 			<groupId>com.starmicronics</groupId>
 			<artifactId>stario</artifactId>
 			<version>1.0.0</version>
-		</dependency>		
+			<!-- <scope>system</scope>
+			<systemPath>${project.basedir}/lib/ .jar</systemPath> -->
+		</dependency>
+
+		<!-- <dependency>
+		    <groupId>com.starmicronics</groupId>
+		    <artifactId>stario</artifactId>
+		    <version>2.9.0</version>
+		</dependency> -->
 	</dependencies>
 	<build>
 		<finalName>ct</finalName>
@@ -343,41 +371,40 @@
 				<artifactId>maven-jar-plugin</artifactId>
 				<version>3.2.0</version>
 				<configuration>
-				  <finalName>ct</finalName>
-				  <archive>
-					<manifest>
-						<!-- Jar file entry point -->
-						<mainClass>hk.com.evpay.ct.CtClient</mainClass>
-					</manifest>
-				  </archive>
+					<finalName>ct</finalName>
+					<archive>
+						<manifest>
+							<!-- Jar file entry point -->
+							<mainClass>hk.com.evpay.ct.CtClient</mainClass>
+						</manifest>
+					</archive>
 				</configuration>
 			</plugin>
-			
+
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-assembly-plugin</artifactId>
+				<configuration>
+					<descriptorRefs>
+						<descriptorRef>jar-with-dependencies</descriptorRef>
+					</descriptorRefs>
+					<finalName>ct</finalName>
+   				 	<appendAssemblyId>false</appendAssemblyId>
+					<archive>
+						<manifest>
+							<mainClass>hk.com.evpay.ct.CtClient</mainClass>
+						</manifest>
+					</archive>
+				</configuration>
 				<executions>
 					<execution>
 						<phase>package</phase>
 						<goals>
 							<goal>single</goal>
 						</goals>
-						<configuration>
-							<finalName>ct</finalName>
-							<archive>
-								<manifest>
-									<mainClass>
-										hk.com.evpay.ct.CtClient
-									</mainClass>
-								</manifest>
-							</archive>
-							<descriptorRefs>
-								<descriptorRef>jar-with-dependencies</descriptorRef>
-							</descriptorRefs>
-						</configuration>
 					</execution>
 				</executions>
-			</plugin>		
+			</plugin>
 		</plugins>
 	</build>
 </project>
