@@ -127,14 +127,16 @@ public class iUC285Util {
     public static JSONObject doSale(TranModel tran, long amount) {
 //    	 String request = String.format("{\"AMT\":%d,\"ECRREF\":\"%s\",\"CARDTYPE\":\"\",\"CMD\":\"SALE\",\"TYPE\":\"EDC\"}", amount, "AABB123123");
     	String request = String.format("{\"AMT\":%d,\"ECRREF\":\"%s\",\"CARDTYPE\":\"\",\"CMD\":\"SALE\",\"TYPE\":\"EDC\"}", amount, tran.getReceiptNo());
-    	logger.info("iUC285Util doSale amount: " + amount);
-    	logger.info("iUC285Util doSale ReceiptNo: " + tran.getReceiptNo());
-    	logger.info("iUC285Util doSale request: " + request);
     	return asyncSendRequest(request);
     }
     
     public static JSONObject doVoid(TranModel tran) {
         String request = String.format("{\"TRACE\":\"%s\",\"CMD\":\"VOID\",\"TYPE\":\"EDC\"}", tran.getReceiptNo());
+    	return asyncSendRequest(request);
+    }
+    
+    public static JSONObject doVoid(String receiptNo) {
+        String request = String.format("{\"TRACE\":\"%s\",\"CMD\":\"VOID\",\"TYPE\":\"EDC\"}", receiptNo);
     	return asyncSendRequest(request);
     }
     
@@ -145,6 +147,13 @@ public class iUC285Util {
     
     public static JSONObject doRetrieval(TranModel tran) {
         String request = String.format("{\"TRACE\":\"%s\",\"CMD\":\"RETRIEVAL\",\"TYPE\":\"EDC\"}", tran.getReceiptNo());
+    	return asyncSendRequest(request);
+    }
+    
+    public static JSONObject doRetrieval(String receiptNo) {
+        String request = String.format("{\"TRACE\":\"%s\",\"CMD\":\"RETRIEVAL\",\"TYPE\":\"EDC\"}", receiptNo);
+    	logger.info("iUC285Util doRetrieval receiptNo: " + receiptNo);
+    	logger.info("iUC285Util doSale request: " + request);
     	return asyncSendRequest(request);
     }
     
@@ -269,7 +278,7 @@ public class iUC285Util {
    
     private static JSONObject asyncSendRequest(String request) {
     	int count 		= 0;
-    	int maxCount 	= 400; // 200 * 100ms
+    	int maxCount 	= 600; // 200 * 100ms
 		JSONObject response = null;
       	if(!requestProcessing && !waitSocketResponse) {
 	    	try {

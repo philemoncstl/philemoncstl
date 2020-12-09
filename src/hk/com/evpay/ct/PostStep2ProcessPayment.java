@@ -10,6 +10,7 @@ import java.util.UUID;
 import javax.swing.SwingUtilities;
 
 import org.apache.log4j.Logger;
+import org.json.JSONObject;
 
 import com.ckzone.octopus.ExtraInfo;
 import com.ckzone.octopus.PollDeductReturn;
@@ -17,6 +18,9 @@ import com.ckzone.octopus.PollEx;
 import com.ckzone.octopus.util.OctCheckerThread;
 import com.ckzone.octopus.util.OctUtil;
 import com.ckzone.util.StringUtil;
+
+import hk.com.evpay.ct.util.iUC285Util;
+import hk.com.evpay.ct.util.iUC285Util.Status;
 
 import hk.com.cstl.evcs.model.EvCons;
 import hk.com.cstl.evcs.model.TranModel;
@@ -80,7 +84,7 @@ public class PostStep2ProcessPayment extends CommonPanelOctopus{
 			tran.setMeterStop(new BigDecimal(21000));
 		}*/
 		
-		if(pnlCtrl.getPayMethod() == PayMethod.Contactless) {
+		if(pnlCtrl.getPayMethod() == PayMethod.ContactlessGroup) {
 			lblInst.setMsgCode("payInstContactless");
 			handlePaymentContactless();
 		}
@@ -127,13 +131,29 @@ public class PostStep2ProcessPayment extends CommonPanelOctopus{
 		new Thread() {
 			@Override
 			public void run() {
-				try {
-					Thread.sleep(3000);
+				Status responseStatus 	= null;
+				JSONObject response 	= null;
+				response 		= iUC285Util.doCardRead();
+				responseStatus 	= iUC285Util.getStatus(response);
+				if(responseStatus == Status.Approved) {
+
+					logger.info("Contactless read card success");
+					tran.setCardType(response.getString("CARD"));
+					tran.setCardHash(response.getString("CARDHASH"));
+					
 					setReceiptNo(tran);
 					Step2ProcessPayment.setDummyCardInfoContactless(tran);
 					cardDetected();
-				} catch (InterruptedException e) {
-					e.printStackTrace();
+				} else {
+					logger.info("Contactless read card fail");
+					pnlCtrl.showErrorMessage(responseStatus.toString());
+					try {
+						sleep(2000);
+					} catch (InterruptedException e) {
+						logger.error("Contactless display Error sleep Fail", e);
+					} finally {
+						pnlCtrl.goToPostStep1SelectPayment(pnlCtrl.getPnlSelectedCp());
+					}
 				}
 			}
 		}.start();		

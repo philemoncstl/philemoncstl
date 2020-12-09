@@ -8,6 +8,7 @@ import java.util.Date;
 import javax.swing.SwingUtilities;
 
 import org.apache.log4j.Logger;
+import org.json.JSONObject;
 
 import com.ckzone.octopus.ExtraInfo;
 import com.ckzone.octopus.PollDeductReturn;
@@ -15,6 +16,10 @@ import com.ckzone.octopus.PollEx;
 import com.ckzone.octopus.util.OctCheckerThread;
 import com.ckzone.octopus.util.OctUtil;
 import com.ckzone.util.StringUtil;
+
+import hk.com.evpay.ct.util.iUC285Util;
+import hk.com.evpay.ct.util.iUC285Util.Status;
+
 
 import hk.com.cstl.evcs.model.TranModel;
 import hk.com.cstl.evcs.ocpp.eno.ChargePointStatus;
@@ -51,17 +56,25 @@ public class PostStep5StopChargingTapCard extends CommonPanelOctopus{
 		pnlCp = cp;
 		
 		TranModel tran = cp.getCp().getTran();
+//		TODO cannot get Payment method
+		
+		logger.info("Check Payment");
 		if(CtUtil.isPayByContactless(tran)) {
+			logger.info("isPayByContactless");
 			lblStopInst.setMsgCode("stopChargingInstContactless");
 			stopChargingContactless();
 		}
 		else if(CtUtil.isPayByOctopus(tran)){
+			logger.info("isPayByOctopus");
 			lblStopInst.setMsgCode("stopChargingInstPostpaid");
 			stopChargingOctopus();
 		}
 		else if(CtUtil.isPayByQr(tran)){
+			logger.info("isPayByQr");
 			lblStopInst.setMsgCode("stopChargingInstPostpaidQR");
 			stopChargingQr();
+		} else {
+			logger.info("trans getPayMethodCode" + tran.getPayMethodCode());
 		}
 	}
 	
@@ -149,16 +162,43 @@ public class PostStep5StopChargingTapCard extends CommonPanelOctopus{
 	}
 	
 	private void stopChargingContactless() {
+		final TranModel tran = pnlCp.getCp().getTran();
+		logger.info("stopChargingContactless");
 		stopThread = new Thread() {
 			public void run() {
-				try {
-					Thread.sleep(3000);
-				} catch (Exception e) {
-					logger.error(e.getMessage(), e);
-				}
-				
-				//TODO, check card
-				stopChargingNow();
+				JSONObject response 	= iUC285Util.doCardRead();
+				Status responseStatus 	= iUC285Util.getStatus(response);
+				if(responseStatus == Status.Approved && response.getString("CARDHASH").equals(tran.getCardHash())) {
+					
+					response = iUC285Util.doSale(tran, tran.getAmt().multiply(new BigDecimal("100")).intValue());
+					responseStatus = iUC285Util.getStatus(response);
+					tran.setTransactionTrace(response.getString("TRACE"));
+					
+					if(responseStatus == Status.Approved) {
+						logger.info("Contactless payment success");
+						stopChargingNow();
+					} else {
+						logger.info("Contactless payment fail");
+						pnlCtrl.showErrorMessage(responseStatus.toString());
+						try {
+							sleep(2000);
+						} catch (InterruptedException e) {
+							logger.error("Contactless display Error sleep Fail", e);
+						} finally {
+							pnlCtrl.goToHome();
+						}
+					}
+				} else {
+					logger.info("Not the same card, go to home now.");
+					pnlCtrl.showErrorMessage(responseStatus.toString());
+					try {
+						sleep(2000);
+					} catch (InterruptedException e) {
+						logger.error("Contactless display Error sleep Fail", e);
+					} finally {
+						pnlCtrl.goToHome();
+					}
+				}		
 			}
 		};
 		stopThread.start();

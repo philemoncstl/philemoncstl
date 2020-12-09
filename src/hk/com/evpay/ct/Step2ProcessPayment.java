@@ -224,8 +224,10 @@ public class Step2ProcessPayment extends CommonPanelOctopus{
 					logger.info("Contactless read card success");
 					tran.setCardType(response.getString("CARD"));
 					tran.setCardHash(response.getString("CARDHASH"));
+					
 					response = iUC285Util.doSale(tran, tran.getAmt().multiply(new BigDecimal("100")).intValue());
 					responseStatus = iUC285Util.getStatus(response);
+					tran.setTransactionTrace(response.getString("TRACE"));
 					
 					if(responseStatus == Status.Approved) {
 						logger.info("Contactless payment success");

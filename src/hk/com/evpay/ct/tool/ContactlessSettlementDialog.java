@@ -23,6 +23,7 @@ import javax.swing.JTextArea;
 import javax.swing.ListSelectionModel;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.JButton;
+import javax.swing.JTextField;
 
 import org.json.JSONObject;
 import org.apache.log4j.Logger;
@@ -63,19 +64,20 @@ public class ContactlessSettlementDialog extends JDialog{
 		JPanel pnl 	= new JPanel();
 		pnl.setOpaque(false);
 		pnl.setPreferredSize(new Dimension(960, 600));
-		add(pnl, BorderLayout.CENTER);
+		add(pnl, BorderLayout.NORTH);
 		UiUtil.debugUi(pnl);
 
-		JTextArea responseResult = new JTextArea();
-		responseResult.setSize(600, 1000);
-		responseResult.setLineWrap(true);
+		JTextArea settleResponse = new JTextArea();
+		settleResponse.setSize(900, 200);
+		settleResponse.setEditable(false);
+		settleResponse.setLineWrap(true);
 		
 		JButton edcButton = new JButton("All Acquires");
 		edcButton.addActionListener(new ActionListener() {
 	      	public void actionPerformed(ActionEvent e) {
-	      		responseResult.setText("Loading");
+	      		settleResponse.setText("Loading...");
 	      		JSONObject response = iUC285Util.doSettlement("EDC");
-	      		responseResult.setText(response != null ? response.toString() : "No Response");
+	      		settleResponse.setText(response != null ? response.toString() : "No Response");
 	      	}
     	});
 		pnl.add(edcButton,BorderLayout.CENTER);
@@ -83,9 +85,9 @@ public class ContactlessSettlementDialog extends JDialog{
 		JButton vmjButton = new JButton(" VMJ or VM Acquirer");
 		vmjButton.addActionListener(new ActionListener() {
 	      	public void actionPerformed(ActionEvent e) {
-	      		responseResult.setText("Loading");
+	      		settleResponse.setText("Loading...");
 	      		JSONObject response = iUC285Util.doSettlement("VMJ");
-	      		responseResult.setText(response != null ? response.toString() : "No Response");
+	      		settleResponse.setText(response != null ? response.toString() : "No Response");
 	      	}
     	});
 		pnl.add(vmjButton,BorderLayout.CENTER);
@@ -93,9 +95,9 @@ public class ContactlessSettlementDialog extends JDialog{
 		JButton aeButton = new JButton("Amex Acquirer");
 		aeButton.addActionListener(new ActionListener() {
 	      	public void actionPerformed(ActionEvent e) {
-	      		responseResult.setText("Loading");
+	      		settleResponse.setText("Loading...");
 	      		JSONObject response = iUC285Util.doSettlement("AE");
-	      		responseResult.setText(response != null ? response.toString() : "No Response");
+	      		settleResponse.setText(response != null ? response.toString() : "No Response");
 	      	}
     	});
 		pnl.add(aeButton,BorderLayout.CENTER);
@@ -103,19 +105,70 @@ public class ContactlessSettlementDialog extends JDialog{
 		JButton cupButton = new JButton("CUP Acquirer");
 		cupButton.addActionListener(new ActionListener() {
 	      	public void actionPerformed(ActionEvent e) {
-      			responseResult.setText("Loading");
+      			settleResponse.setText("Loading...");
 	      		JSONObject response = iUC285Util.doSettlement("CUP");
-	      		responseResult.setText(response != null ? response.toString() : "No Response");
+	      		settleResponse.setText(response != null ? response.toString() : "No Response");
 	      	}
     	});
 		pnl.add(cupButton,BorderLayout.CENTER);
-        pnl.add(responseResult); 
+        pnl.add(settleResponse); 
+		
+		JTextArea retrievalResponse = new JTextArea();
+		retrievalResponse.setSize(900, 200);
+		retrievalResponse.setEditable(false);
+		retrievalResponse.setLineWrap(true);
+		
+		JButton retrirecalLastBtn = new JButton("Retrieval Last Record");
+		retrirecalLastBtn.addActionListener(new ActionListener() {
+	      	public void actionPerformed(ActionEvent e) {
+	      		retrievalResponse.setText("Loading...");
+	      		JSONObject response = iUC285Util.doRetrieval();
+	      		retrievalResponse.setText(response != null ? response.toString() : "No Response");
+	      	}
+    	});
+		
+		pnl.add(retrirecalLastBtn,BorderLayout.CENTER);
+		
+		JTextField retirecalTarget = new JTextField(6);
+		JButton retrirecalSpecBtn = new JButton("Retrieval Record with Input");
+		retrirecalSpecBtn.addActionListener(new ActionListener() {
+	      	public void actionPerformed(ActionEvent e) {
+	      		retrievalResponse.setText("Loading...");
+	      		JSONObject response = iUC285Util.doRetrieval(retirecalTarget.getText());
+	      		retrievalResponse.setText(response != null ? response.toString() : "No Response");
+	      	}
+    	});
+		
+		pnl.add(retrirecalSpecBtn,BorderLayout.CENTER);
+		pnl.add(retirecalTarget);
+		pnl.add(retrievalResponse);
+		
+		
+		JTextArea voidResponse = new JTextArea();
+		voidResponse.setSize(900, 200);
+		voidResponse.setEditable(false);
+		voidResponse.setLineWrap(true);
+		
+		JTextField voidTarget = new JTextField(6);
+		JButton voidBtn = new JButton("Void Record");
+		voidBtn.addActionListener(new ActionListener() {
+	      	public void actionPerformed(ActionEvent e) {
+	      		voidResponse.setText("Loading...");
+	      		JSONObject response = iUC285Util.doVoid(voidTarget.getText());
+	      		voidResponse.setText(response != null ? response.toString() : "No Response");
+	      	}
+    	});
+		
+		pnl.add(voidBtn,BorderLayout.CENTER);
+		pnl.add(voidTarget);
+		pnl.add(voidResponse);
+		
         
 		//Sourth panel		
 		pnl = new JPanel(new FlowLayout(FlowLayout.CENTER));	
 		pnl.setPreferredSize(new Dimension(950, 100));
 		pnl.setOpaque(false);
-		add(pnl, BorderLayout.SOUTH);
+		add(pnl, BorderLayout.AFTER_LAST_LINE);
 		
 		JLabel lblClose = OctopusEnquiryDialog.createButton("close", "img/btn_no.png", 80, 582);
 		lblClose.addMouseListener(new MouseAdapter() {

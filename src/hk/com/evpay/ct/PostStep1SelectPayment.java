@@ -63,7 +63,7 @@ public class PostStep1SelectPayment extends CommonPanelOctopus{
 							logger.warn("Contactless disabled");
 						}
 						else {
-							startCharging(PayMethod.Contactless);
+							startCharging(PayMethod.ContactlessGroup);
 						}
 					}
 					else if(pm == PayMethod.Octopus){
