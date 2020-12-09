@@ -323,6 +323,7 @@
 			<version>1.0.0</version>
 			<!-- <scope>system</scope>
 			<systemPath>${project.basedir}/lib/ .jar</systemPath> -->
+			<!-- mvn install:install-file -Dfile=<path-to-file> -DgroupId=com.starmicronics -DartifactId=stario -Dversion=1.0.0 -Dpackaging=com.starmicronics -->
 		</dependency>
 
 		<!-- <dependency>

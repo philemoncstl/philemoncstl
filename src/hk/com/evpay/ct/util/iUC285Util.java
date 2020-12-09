@@ -19,6 +19,18 @@ import com.sun.net.httpserver.HttpHandler;
 import com.sun.net.httpserver.HttpServer;
 
 public class iUC285Util {
+	public enum Status {
+		Approved,
+		Declined,
+		Cancelled,
+		CommError,
+		Rejected,
+		Timeout,
+		NotSupported,
+		doTranBad,
+		noStatus
+	}
+	
 	private static final Logger logger = Logger.getLogger(iUC285Util.class);
 	
     private static String lastChecksum;
@@ -79,6 +91,33 @@ public class iUC285Util {
         if (httpServer != null) {
             httpServer.stop(0);
         }
+    }
+    
+    public static Status getStatus(JSONObject response) {
+    	if(response == null || !response.has("STATUS")) {
+    		return Status.noStatus;
+    	} else {
+    		switch(response.getString("STATUS")) {
+	    		case "Approved":
+	    			return Status.Approved;
+	    		case "Declined":
+	    			return Status.Declined;
+	    		case "Cancelled":
+	    			return Status.Cancelled;
+	    		case "CommError":
+	    			return Status.CommError;
+	    		case "Rejected":
+	    			return Status.Rejected;
+	    		case "Timeout":
+	    			return Status.Timeout;
+	    		case "NotSupported":
+	    			return Status.NotSupported;
+	    		case "doTranBad":
+	    			return Status.doTranBad;
+    			default:
+    				return Status.noStatus;
+    		}
+    	}
     }
     
     public static JSONObject doCardRead() {
@@ -230,7 +269,7 @@ public class iUC285Util {
    
     private static JSONObject asyncSendRequest(String request) {
     	int count 		= 0;
-    	int maxCount 	= 200; // 200 * 100ms
+    	int maxCount 	= 400; // 200 * 100ms
 		JSONObject response = null;
       	if(!requestProcessing && !waitSocketResponse) {
 	    	try {
@@ -248,7 +287,7 @@ public class iUC285Util {
 		        		response		= socketResponse != null ? new JSONObject(socketResponse) : null;
 		        		socketResponse	= null;
 		            	break;
-		        	} else if(count >= 60) {
+		        	} else if(count >= maxCount) {
 		            	break;
 		        	}
 		        }

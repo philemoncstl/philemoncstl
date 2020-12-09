@@ -21,6 +21,7 @@ import hk.com.evpay.ct.i18n.I18nLabel;
 import hk.com.evpay.ct.util.CtUtil;
 import hk.com.evpay.ct.util.LangUtil;
 import hk.com.evpay.ct.util.iUC285Util;
+import hk.com.evpay.ct.util.iUC285Util.Status;
 import hk.com.evpay.ct.ws.CtWebSocketClient;
 
 public class Step7StopChargingTapCard extends CommonPanelOctopus{
@@ -142,21 +143,27 @@ public class Step7StopChargingTapCard extends CommonPanelOctopus{
 		
 		stopThread = new Thread() {
 			public void run() {
-				JSONObject response = iUC285Util.doCardRead();
+				JSONObject response 	= iUC285Util.doCardRead();
+				Status responseStatus 	= iUC285Util.getStatus(response);
 				/*
 				 * if(CtUtil.isContactlessBbpos()) { if(WpCheckerThread.isAvailable()) {
 				 * pollCardContactless(tran); } else { pnlCtrl.showErrorMessageGeneral("9001",
 				 * null); } }
 				 */
 				
-				if(response != null && response.getString("CARD").equals(tran.getCardType()) && response.getString("PAN").equals(tran.getCardNo())) {
+				if(responseStatus == Status.Approved && response.getString("CARDHASH").equals(tran.getCardHash())) {
 					stopChargingNow();
 				} else {
 					logger.info("Not the same card, go to home now.");
-					pnlCtrl.goToHome();
+					pnlCtrl.showErrorMessage(responseStatus.toString());
+					try {
+						sleep(2000);
+					} catch (InterruptedException e) {
+						logger.error("Contactless display Error sleep Fail", e);
+					} finally {
+						pnlCtrl.goToHome();
+					}
 				}
-
-
 			}
 		};
 		stopThread.start();

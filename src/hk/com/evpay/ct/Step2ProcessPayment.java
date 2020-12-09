@@ -20,6 +20,7 @@ import com.ckzone.octopus.util.OctUtil;
 import com.ckzone.util.StringUtil;
 
 import hk.com.evpay.ct.util.iUC285Util;
+import hk.com.evpay.ct.util.iUC285Util.Status;
 
 import hk.com.cstl.evcs.model.RateDetailModel;
 import hk.com.cstl.evcs.model.RateModel;
@@ -192,10 +193,22 @@ public class Step2ProcessPayment extends CommonPanelOctopus{
 		tran.setApprovalCode("149587");
 	}
 	
+	private void displayContactlessError(Status responseStatus) {
+		pnlCtrl.showErrorMessage(responseStatus.toString());
+		try {
+			Thread.sleep(2000);
+		} catch (InterruptedException e) {
+			logger.error("Contactless display Error sleep Fail", e);
+		} finally {
+			pnlCtrl.goToStep1SelectTime(pnlCtrl.getPnlSelectedCp());
+		}
+	}
+	
 	private void handlePaymentContactless() {
 		new Thread() {
 			@Override
 			public void run() {
+				Status responseStatus = null;
 				JSONObject response = null;
 				TranModel tran = pnlCtrl.getPnlSelectedCp().getCp().getTran();
 				setReceiptNo(tran);
@@ -203,49 +216,42 @@ public class Step2ProcessPayment extends CommonPanelOctopus{
 //				response = iUC285Util.doCardRead();
 //				tran.setCardType(response.getString("CARD"));
 //				tran.setCardNo(response.getString("PAN"));
-				response = iUC285Util.doCardRead();
-				if(response != null && response.getString("STATUS").equals("Approved")) {
+				
+				response 		= iUC285Util.doCardRead();
+				responseStatus 	= iUC285Util.getStatus(response);
+				if(responseStatus == Status.Approved) {
+					response = null;
 					logger.info("Contactless read card success");
 					tran.setCardType(response.getString("CARD"));
-					tran.setCardNo(response.getString("PAN"));
-					response = null;
+					tran.setCardHash(response.getString("CARDHASH"));
+					response = iUC285Util.doSale(tran, tran.getAmt().multiply(new BigDecimal("100")).intValue());
+					responseStatus = iUC285Util.getStatus(response);
+					
+					if(responseStatus == Status.Approved) {
+						logger.info("Contactless payment success");
+						paymentSuccess();
+					} else {
+						logger.info("Contactless payment fail");
+						pnlCtrl.showErrorMessage(responseStatus.toString());
+						try {
+							sleep(2000);
+						} catch (InterruptedException e) {
+							logger.error("Contactless display Error sleep Fail", e);
+						} finally {
+							pnlCtrl.goToStep1SelectTime(pnlCtrl.getPnlSelectedCp());
+						}
+					}
 				} else {
 					logger.info("Contactless read card fail");
-					pnlCtrl.goToStep1SelectTime(pnlCtrl.getPnlSelectedCp());
-					return;
+					pnlCtrl.showErrorMessage(responseStatus.toString());
+					try {
+						sleep(2000);
+					} catch (InterruptedException e) {
+						logger.error("Contactless display Error sleep Fail", e);
+					} finally {
+						pnlCtrl.goToStep1SelectTime(pnlCtrl.getPnlSelectedCp());
+					}
 				}
-						
-				response = iUC285Util.doSale(tran, tran.getAmt().multiply(new BigDecimal("100")).intValue());
-				if(response != null && response.getString("STATUS").equals("Approved")) {
-					logger.info("Contactless payment success");
-					paymentSuccess();
-				} else {
-					logger.info("Contactless payment fail");
-					pnlCtrl.goToStep1SelectTime(pnlCtrl.getPnlSelectedCp());
-				}
-				
-				/*
-				 * if(CtUtil.isContactlessBbpos()) { if(WpCheckerThread.isAvailable()) { try {
-				 * SaleResp resp = WisepayUtil.sale(tran.getAmt());
-				 * if(WpRespUtil.isSaleSuccess(resp)) {
-				 * tran.setMerchantId(resp.getTerminalMid());
-				 * tran.setTerminalId(resp.getTerminalTid());
-				 * 
-				 * CardData cd = resp.getCardData(); if(cd != null) {
-				 * tran.setCardNo(cd.getMaskedPan());
-				 * tran.setCardExpiryDate(cd.getCardExpiryDate());
-				 * tran.setCardType(cd.getCardType()); tran.setCardHolder(cd.getCardHolder()); }
-				 * 
-				 * ReceiptData rd = resp.getReceiptData(); if(rd != null) {
-				 * tran.setRetrievalRefNo(rd.getRetrievalReferenceNumber());
-				 * tran.setBatchNo(rd.getBatchNumber()); tran.setEcrRef(rd.getTxnid()); //TODO
-				 * to be verified tran.setApprovalCode(rd.getApprovalCode()); }
-				 * paymentSuccess(); } else { //TODO to be verify
-				 * pnlCtrl.showErrorMessage("ERR9002", resp.getResponseCode()); }
-				 * }catch(Exception e) { logger.error("Failed to process bbpos payment!", e); }
-				 * } else { pnlCtrl.showErrorMessageGeneral("9001", null); } }
-				 */
-
 			}
 		}.start();		
 	}
