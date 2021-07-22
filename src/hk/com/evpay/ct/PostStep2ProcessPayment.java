@@ -83,6 +83,10 @@ public class PostStep2ProcessPayment extends CommonPanelOctopus{
 			tran.setMeterStart(new BigDecimal(1000));
 			tran.setMeterStop(new BigDecimal(21000));
 		}*/
+		tran.setDurationFreeMin(0);
+		if(CtUtil.getServConfig().getFreeTimeUnit() != null && CtUtil.getServConfig().getFreeTimeUnit() >0) {
+			tran.setDurationFreeMin(CtUtil.getServConfig().getFreeTimeUnit() * RateUtil.getRate().getMins());
+		}
 		
 		if(pnlCtrl.getPayMethod() == PayMethod.ContactlessGroup) {
 			lblInst.setMsgCode("payInstContactless");

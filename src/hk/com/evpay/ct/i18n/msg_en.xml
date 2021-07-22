@@ -110,6 +110,7 @@ QR reader to stop charging.
 &lt;span style=&quot;font-size: 60%;&quot;&gt;&lt;br&gt;Charging cable will be unlocked after stopping charging.&lt;/span&gt;</entry>
 <entry key="chargingRecord">Charging Record</entry>
 <entry key="chargingDuration">Charging Duration</entry>
+<entry key="freeChargingDuration">Free Charging Duration</entry>
 <entry key="chargingStatus">Charging Status</entry>
 <entry key="hr">hr</entry>
 <entry key="min">min</entry>

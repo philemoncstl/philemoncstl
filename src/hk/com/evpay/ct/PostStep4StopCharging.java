@@ -39,6 +39,7 @@ public class PostStep4StopCharging extends CommonPanel{
 	private FieldPanel fpStartTime;
 	//private FieldPanel fpEndTime;
 	private FieldPanel fpDuration;
+	private FieldPanel fpFreeDuration;
 	
 	private FieldPanel fpKwh;	//20190730, display it for energy instead of duration	
 	
@@ -50,6 +51,7 @@ public class PostStep4StopCharging extends CommonPanel{
 	
 	private FieldPanel2Label fpTimeCharge;
 	private FieldPanel2Label fpEnergyCharge;
+	
 	
 	private FieldPanel fpAmount;
 	
@@ -89,6 +91,9 @@ public class PostStep4StopCharging extends CommonPanel{
 		
 		fpDuration = new FieldPanel("chargingTime", "chargingTimeVal");
 		pnl.add(fpDuration);
+
+		fpFreeDuration = new FieldPanel("chargingFreeTime", "chargingTimeVal");
+		pnl.add(fpFreeDuration);
 		
 		fpKwh = new FieldPanel("energyConsumed", "energyConsumedVal");
 		pnl.add(fpKwh);
@@ -183,12 +188,18 @@ public class PostStep4StopCharging extends CommonPanel{
 			int m = duration % 60;
 			fpDuration.getVal().setParms(h, m);
 			
+			int freeDuration = tm.getDurationFreeMin();
+			h = freeDuration / 60;
+			m = freeDuration % 60;
+			fpFreeDuration.getVal().setParms(h, m);
+			
 			fpKwh.getVal().setParm(
 					tm.getEnergyConsumed() == null ? BigDecimal.ZERO : 
 						tm.getEnergyConsumed(), 1, RoundingMode.DOWN);
 			
 			//20190730, display Kwh when energy charge is enabled instead duration
 			fpDuration.setVisible(false);
+			fpFreeDuration.setVisible(false);
 			fpKwh.setVisible(false);
 
 			fpTimeChargeOffPeak.setVisible(false);			
@@ -225,6 +236,7 @@ public class PostStep4StopCharging extends CommonPanel{
 			}
 			else {
 				fpDuration.setVisible(true);
+				fpFreeDuration.setVisible(true);
 			}
 			
 			

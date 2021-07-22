@@ -449,19 +449,43 @@ public class RateUtil {
 		int onPeak = 0;
 		int offPeak = 0;
 		
-		List<ChargingPeriod> periodList = getPeriodList(tran);
-		for(ChargingPeriod cp : periodList) {
-			if(cp.isOnPeak()) {
-				onPeak ++;
+		Date tempStartTime = tran.getStartDttm();
+		Integer freeTimeMins = tran.getDurationFreeMin() == null ? 0 : tran.getDurationFreeMin();
+		if(freeTimeMins != 0 ) {
+			Calendar newStartTime = Calendar.getInstance();
+			newStartTime.setTime(tempStartTime);
+			newStartTime.add(Calendar.MINUTE, freeTimeMins);
+			tran.setStartDttm(newStartTime.getTime());	
+			logger.debug("newStartTime: " + newStartTime.getTime());
+		}
+		if(tran.getStartDttm().before(tran.getEndDttm())) {
+			List<ChargingPeriod> periodList = getPeriodList(tran);
+			for(ChargingPeriod cp : periodList) {
+				if(cp.isOnPeak()) {
+					onPeak ++;
+				}
+				else {
+					offPeak ++;
+				}
 			}
-			else {
-				offPeak ++;
+			tran.setTotChargingUnit(periodList.size()+freeTimeMins/tran.getChargingUnitMinutes());
+		} else {
+			if(EvCons.MODE_POSTPAID.equals(tran.getMode())) {
+				tran.setTotChargingUnit((int) Math.ceil(tran.getEndDttm().getTime() - tempStartTime.getTime()/(tran.getChargingUnitMinutes() * 60 * 1000) ));
+			} else {
+				tran.setTotChargingUnit(freeTimeMins/tran.getChargingUnitMinutes());
 			}
 		}
-		tran.setTotChargingUnit(periodList.size());
+		if(freeTimeMins != 0 ) {
+			tran.setStartDttm(tempStartTime);	
+		}
 		tran.setDurationOffPeak(offPeak * tran.getChargingUnitMinutes());
 		tran.setDurationOnPeak(onPeak * tran.getChargingUnitMinutes());
-		tran.setDurationMin(tran.getDurationOffPeak() + tran.getDurationOnPeak());
+		if(EvCons.MODE_POSTPAID.equals(tran.getMode())) {
+			tran.setDurationMin(tran.getDurationOffPeak() + tran.getDurationOnPeak());
+		} else {
+			tran.setDurationMin(tran.getTotChargingUnit() * getRate().getMins());
+		}
 		//tran.setDurationMin(DateUtil.getMinBetween(tran.getStartDttm(), tran.getEndDttm()));
 		logger.info("getTimeRateOffPeakPerUnit()\t" + tran.getTimeRateOffPeakPerUnit());
 		logger.info("getTimeRateOnPeakPerUnit()\t" + tran.getTimeRateOnPeakPerUnit());

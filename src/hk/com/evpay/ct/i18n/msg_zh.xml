@@ -103,6 +103,7 @@
 &lt;span style=&quot;font-size: 60%;&quot;&gt;&lt;br&gt;停止充電後，充電線會被解鎖。&lt;/span&gt;</entry>
 <entry key="chargingRecord">充電紀錄</entry>
 <entry key="chargingDuration">充電時間</entry>
+<entry key="freeChargingDuration">免費充電時間</entry>
 <entry key="chargingStatus">充電狀態</entry>
 <entry key="hr">小時</entry>
 <entry key="min">分鐘</entry>

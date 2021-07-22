@@ -178,6 +178,8 @@ public class Step1SelectTime extends CommonPanel{
 	
 	private void refreshChargingDuration() {	
 		RateModel rate = RateUtil.getRate();
+//		Integer mins = rate.getMins() - CtUtil.getServConfig().getFreeTimeUnit();
+//		int durationMin = chargingUnit * mins < 0 ? 0 : mins ;
 		int durationMin = chargingUnit * rate.getMins();
 		tran.setDurationMin(durationMin);
 		
@@ -186,6 +188,11 @@ public class Step1SelectTime extends CommonPanel{
 		tran.setTranDttm(tran.getStartDttm());
 		cal.add(Calendar.MINUTE, durationMin);
 		tran.setEndDttm(cal.getTime());
+		int freeUnit = CtUtil.getServConfig().getFreeTimeUnit() == null ? 0 : CtUtil.getServConfig().getFreeTimeUnit();
+		if(freeUnit > chargingUnit) {
+			freeUnit = chargingUnit;
+		}
+		tran.setDurationFreeMin(freeUnit * rate.getMins());
 		RateUtil.calcChargingFee(tran);
 		
 		int hour = durationMin / 60;

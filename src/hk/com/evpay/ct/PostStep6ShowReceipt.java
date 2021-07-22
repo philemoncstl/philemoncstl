@@ -38,6 +38,7 @@ public class PostStep6ShowReceipt extends CommonPanel{
 	private FieldPanel fpStartTime;
 	private FieldPanel fpEndTime;
 	private FieldPanel fpDuration;
+	private FieldPanel fpFreeDuration;
 	
 	private FieldPanel2Label fpTimeChargeOffPeak;
 	private FieldPanel2Label fpTimeChargeOnPeak;
@@ -104,6 +105,9 @@ public class PostStep6ShowReceipt extends CommonPanel{
 		fpDuration = new FieldPanel("chargingTime", "chargingTimeVal");
 		pnl.add(fpDuration);
 		
+		fpFreeDuration = new FieldPanel("chargingFreeTime", "chargingTimeVal"); 
+		pnl.add(fpFreeDuration);
+		
 		//off-peak charging fee
 		fpTimeChargeOffPeak = new FieldPanel2Label("offPeakChargingFee", "timeUnit", "hkdWithVal2");
 		pnl.add(fpTimeChargeOffPeak);
@@ -169,6 +173,10 @@ public class PostStep6ShowReceipt extends CommonPanel{
 			int h = duration / 60;
 			int m = duration % 60;
 			fpDuration.getVal().setParms(h, m);
+			int freeDuration = tm.getDurationFreeMin();
+			h = freeDuration / 60;
+			m = freeDuration % 60;
+			fpFreeDuration.getVal().setParms(h, m);
 			
 			fpTimeChargeOffPeak.setVisible(false);			
 			fpTimeChargeOnPeak.setVisible(false);
