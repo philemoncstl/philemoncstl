@@ -79,8 +79,10 @@ public class Step2ProcessPayment extends CommonPanelOctopus{
 		fpDuration = new FieldPanel("chargingTime", "chargingTimeVal");
 		pnl.add(fpDuration);
 		
-		fpFreeDuration = new FieldPanel("freeChargingDuration", "chargingTimeVal");
-		pnl.add(fpFreeDuration);
+		if(CtUtil.getServConfig().getFreeTimeUnit() != null && CtUtil.getServConfig().getFreeTimeUnit() >0) {
+			fpFreeDuration = new FieldPanel("freeChargingDuration", "chargingTimeVal");
+			pnl.add(fpFreeDuration);
+		}
 		
 		//off peak, or serviceFeeTimeUnit if no on/off peak
 		fpOffPeakRate = new FieldPanel("offPeakPeriodTimeUnit", "hkdWithVal2");
@@ -138,11 +140,13 @@ public class Step2ProcessPayment extends CommonPanelOctopus{
 		int hour = durationMin / 60;
 		int min = durationMin % 60;
 		fpDuration.getVal().setParms(hour, min);
-		int freeDurationMin = tm.getDurationFreeMin();
-		hour = freeDurationMin / 60;
-		min = freeDurationMin % 60;
-		fpFreeDuration.getVal().setParms(hour, min);
 		
+		if(fpFreeDuration != null) {
+			int freeDurationMin = tm.getDurationFreeMin();
+			hour = freeDurationMin / 60;
+			min = freeDurationMin % 60;
+			fpFreeDuration.getVal().setParms(hour, min);
+		}
 		RateModel rm = RateUtil.getRate();
 		RateDetailModel rd = RateUtil.getRateDetail();
 		if(rd.isOnOffPeakSameTimeRate()) {

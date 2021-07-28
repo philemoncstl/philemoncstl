@@ -252,9 +252,11 @@ public class PrinterUtil {
 		list.addAll(CopyArray(("\u0009Charging Duration\u0009" + SPACE.substring(0, 10 - parm.get("duration").length()) + parm.get("duration") ).getBytes()));
 		list.addAll(CopyArray(("小時/Hour" + PAGE_NEW_LINE).getBytes("Big5")));
 		
-		list.addAll(CopyArray(("免費充電時間").getBytes("Big5")));
-		list.addAll(CopyArray(("\u0009Free Charging Duration\u0009" + SPACE.substring(0, 7 - parm.get("freeDuration").length()) + parm.get("freeDuration") ).getBytes()));
-		list.addAll(CopyArray(("小時/Hour" + PAGE_NEW_LINE).getBytes("Big5")));
+		if(CtUtil.getServConfig().getFreeTimeUnit() != null && CtUtil.getServConfig().getFreeTimeUnit() > 0) {
+			list.addAll(CopyArray(("免費充電時間").getBytes("Big5")));
+			list.addAll(CopyArray(("\u0009Free Charging Duration\u0009" + SPACE.substring(0, 7 - parm.get("freeDuration").length()) + parm.get("freeDuration") ).getBytes()));
+			list.addAll(CopyArray(("小時/Hour" + PAGE_NEW_LINE).getBytes("Big5")));
+		}
 		
 		boolean timeEnabled = "Y".equalsIgnoreCase(parm.get(ReceiptCons.TIME_CHARGE_ENABLED));
 		boolean energyEnabled = "Y".equalsIgnoreCase(parm.get(ReceiptCons.ENERGY_CHARGE_ENABLED));

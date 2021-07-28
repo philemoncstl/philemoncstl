@@ -118,8 +118,10 @@ public class Step3PrintReceipt extends CommonPanel{
 		map.put("endDttm", DateUtil.formatDateTime(tm.getEndDttm()));
 		BigDecimal duration = new BigDecimal(tm.getDurationMin()).divide(new BigDecimal(60), 2, RoundingMode.DOWN);
 		map.put("duration", String.valueOf(duration));
-		BigDecimal freeDuration = new BigDecimal(tm.getDurationFreeMin()).divide(new BigDecimal(60), 2, RoundingMode.DOWN);
-		map.put("freeDuration",  String.valueOf(freeDuration));
+		if(CtUtil.getServConfig().getFreeTimeUnit() != null && CtUtil.getServConfig().getFreeTimeUnit() > 0) {
+			BigDecimal freeDuration = new BigDecimal(tm.getDurationFreeMin()).divide(new BigDecimal(60), 2, RoundingMode.DOWN);
+			map.put("freeDuration",  String.valueOf(freeDuration));
+		}
 		/*BigDecimal rate = tm.getTimeRateOffPeakPerUnit().multiply(new BigDecimal(60))
 				.divide(new BigDecimal(tm.getChargingUnitMinutes()));*/
 		

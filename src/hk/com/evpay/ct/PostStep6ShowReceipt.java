@@ -105,7 +105,7 @@ public class PostStep6ShowReceipt extends CommonPanel{
 		fpDuration = new FieldPanel("chargingTime", "chargingTimeVal");
 		pnl.add(fpDuration);
 		
-		fpFreeDuration = new FieldPanel("chargingFreeTime", "chargingTimeVal"); 
+		fpFreeDuration = new FieldPanel("freeChargingDuration", "chargingTimeVal"); 
 		pnl.add(fpFreeDuration);
 		
 		//off-peak charging fee
