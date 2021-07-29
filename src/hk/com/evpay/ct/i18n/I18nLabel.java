@@ -72,6 +72,10 @@ public class I18nLabel extends JLabel implements I18nSupport{
 		setParms(new String[]{parm1, parm2});
 	}
 	
+	public void setParms(String parm1, String parm2, String parm3) {
+		setParms(new String[]{parm1, parm2, parm3});
+	}
+	
 	public void setParms(int parm) {
 		setParms(new String[]{String.valueOf(parm)});
 	}

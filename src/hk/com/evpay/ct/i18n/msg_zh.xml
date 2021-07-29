@@ -28,7 +28,12 @@
 <entry key="cpStatusDescUnavailable">停用/離線操作</entry>
 <entry key="chargingServiceFeeHelp">充電服務費用
 港幣 %s元/%s 分鐘</entry>
+<entry key="chargingServiceFeeWithFreeDurationHelp">充電服務費用 (%s 小時免費)
+港幣 %s元/%s 分鐘</entry>
 <entry key="chargingServiceFeeHelpOnOffPeak">充電服務費用
+港幣 %s元/%s 分鐘 %s
+港幣 %s元/%s 分鐘 %s</entry>
+<entry key="chargingServiceFeeWithFreeDurationHelpOnOffPeak">充電服務費用
 港幣 %s元/%s 分鐘 %s
 港幣 %s元/%s 分鐘 %s</entry>
 <entry key="chargingServiceFeeHelpEnergy">充電服務費用
@@ -39,6 +44,9 @@
 <entry key="chargingServiceFeeHelpBoth">充電服務費用
 港幣 %s元/%s 分鐘 , %s元/度</entry>
 <entry key="chargingServiceFeeHelpBothOnOffPeak">充電服務費用
+港幣  %s元/%s 分鐘 , %s元/度 %s
+港幣  %s元/%s 分鐘 , %s元/度 %s</entry>
+<entry key="chargingServiceFeeWithFreeDurationHelpBothOnOffPeak">充電服務費用 (%s 小時免費)
 港幣  %s元/%s 分鐘 , %s元/度 %s
 港幣  %s元/%s 分鐘 , %s元/度 %s</entry>
 <entry key="selectChargingTime">請 選 擇 充 電 時 間</entry>
@@ -103,9 +111,11 @@
 &lt;span style=&quot;font-size: 60%;&quot;&gt;&lt;br&gt;停止充電後，充電線會被解鎖。&lt;/span&gt;</entry>
 <entry key="chargingRecord">充電紀錄</entry>
 <entry key="chargingDuration">充電時間</entry>
+<entry key="free">免費</entry>
 <entry key="freeChargingDuration">免費充電時間</entry>
 <entry key="chargingStatus">充電狀態</entry>
 <entry key="hr">小時</entry>
+<entry key="Hr">小時</entry>
 <entry key="min">分鐘</entry>
 <entry key="sec">秒</entry>
 <entry key="paymentMethod">付款方法</entry>

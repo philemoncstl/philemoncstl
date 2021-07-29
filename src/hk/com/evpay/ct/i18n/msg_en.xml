@@ -33,7 +33,12 @@ Service</entry>
 standalone mode</entry>
 <entry key="chargingServiceFeeHelp">Charging Service Fee
 HKD %s/%s mins</entry>
+<entry key="chargingServiceFeeWithFreeDurationHelp">Charging Service Fee (%s Hour Free)
+HKD %s/%s mins</entry>
 <entry key="chargingServiceFeeHelpOnOffPeak">Charging Service Fee
+HKD %s/%s mins %s
+HKD %s/%s mins %s</entry>
+<entry key="chargingServiceFeeWithFreeDurationHelpOnOffPeak">Charging Service Fee (%s Hour Free)
 HKD %s/%s mins %s
 HKD %s/%s mins %s</entry>
 <entry key="chargingServiceFeeHelpEnergy">Charging Service Fee
@@ -44,6 +49,9 @@ HKD %s/kWH %s</entry>
 <entry key="chargingServiceFeeHelpBoth">Charging Service Fee
 HKD %s/%s mins, %s/kWH</entry>
 <entry key="chargingServiceFeeHelpBothOnOffPeak">Charging Service Fee
+HKD %s/%s mins, %s/kWH %s
+HKD %s/%s mins, %s/kWH %s</entry>
+<entry key="chargingServiceFeeWithFreeDurationHelpBothOnOffPeak">Charging Service Fee (%s Hour Free)
 HKD %s/%s mins, %s/kWH %s
 HKD %s/%s mins, %s/kWH %s</entry>
 <entry key="selectChargingTime">Please select charging time</entry>
@@ -110,9 +118,11 @@ QR reader to stop charging.
 &lt;span style=&quot;font-size: 60%;&quot;&gt;&lt;br&gt;Charging cable will be unlocked after stopping charging.&lt;/span&gt;</entry>
 <entry key="chargingRecord">Charging Record</entry>
 <entry key="chargingDuration">Charging Duration</entry>
+<entry key="free">Free</entry>
 <entry key="freeChargingDuration">Free Charging Duration</entry>
 <entry key="chargingStatus">Charging Status</entry>
 <entry key="hr">hr</entry>
+<entry key="Hr">Hour</entry>
 <entry key="min">min</entry>
 <entry key="sec">sec</entry>
 <entry key="paymentMethod">Payment Method</entry>

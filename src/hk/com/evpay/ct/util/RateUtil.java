@@ -471,7 +471,7 @@ public class RateUtil {
 			tran.setTotChargingUnit(periodList.size()+freeTimeMins/tran.getChargingUnitMinutes());
 		} else {
 			if(EvCons.MODE_POSTPAID.equals(tran.getMode())) {
-				tran.setTotChargingUnit((int) (Math.ceil(tran.getEndDttm().getTime() - tempStartTime.getTime())/(tran.getChargingUnitMinutes() * 60 * 1000) ));
+				tran.setTotChargingUnit((int) (Math.ceil((double)(tran.getEndDttm().getTime() - tempStartTime.getTime()))/(tran.getChargingUnitMinutes() * 60 * 1000)) );
 			} else {
 				tran.setTotChargingUnit(freeTimeMins/tran.getChargingUnitMinutes());
 			}

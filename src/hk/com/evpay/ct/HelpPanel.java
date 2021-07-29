@@ -107,17 +107,32 @@ public class HelpPanel extends CommonPanel{
 				});
 			}
 			else {
-				lblServiceFee.setMsgCode("chargingServiceFeeHelpBothOnOffPeak");
-				lblServiceFee.setParms(new String[] {
-						CtUtil.bigDecimalToString(RateUtil.getTimeRateOffPeakPerUnit(rm, rd)), 
-						String.valueOf(rm.getMins()),
-						CtUtil.bigDecimalToString(rd.getOffPeakEnergyRate()),
-						" (" + rd.getOnPeakEndTime() + " - " + rd.getOnPeakStartTime() + ")",
-						CtUtil.bigDecimalToString(RateUtil.getTimeRateOnPeakPerUnit(rm, rd)),
-						String.valueOf(rm.getMins()),
-						CtUtil.bigDecimalToString(rd.getOnPeakEnergyRate()),
-						" (" + rd.getOnPeakStartTime() + " - " + rd.getOnPeakEndTime() + ")"
-				});
+				if(CtUtil.getServConfig().getFreeTimeUnit() != null && CtUtil.getServConfig().getFreeTimeUnit() > 0) {
+					lblServiceFee.setMsgCode("chargingServiceFeeWithFreeDurationHelpBothOnOffPeak");
+					lblServiceFee.setParms(new String[] {
+							String.valueOf(CtUtil.getServConfig().getFreeTimeUnit() * RateUtil.getRate().getMins() / 60.0),
+							CtUtil.bigDecimalToString(RateUtil.getTimeRateOffPeakPerUnit(rm, rd)), 
+							String.valueOf(rm.getMins()),
+							CtUtil.bigDecimalToString(rd.getOffPeakEnergyRate()),
+							" (" + rd.getOnPeakEndTime() + " - " + rd.getOnPeakStartTime() + ")",
+							CtUtil.bigDecimalToString(RateUtil.getTimeRateOnPeakPerUnit(rm, rd)),
+							String.valueOf(rm.getMins()),
+							CtUtil.bigDecimalToString(rd.getOnPeakEnergyRate()),
+							" (" + rd.getOnPeakStartTime() + " - " + rd.getOnPeakEndTime() + ")"
+					});
+				} else {
+					lblServiceFee.setMsgCode("chargingServiceFeeHelpBothOnOffPeak");
+					lblServiceFee.setParms(new String[] {
+							CtUtil.bigDecimalToString(RateUtil.getTimeRateOffPeakPerUnit(rm, rd)), 
+							String.valueOf(rm.getMins()),
+							CtUtil.bigDecimalToString(rd.getOffPeakEnergyRate()),
+							" (" + rd.getOnPeakEndTime() + " - " + rd.getOnPeakStartTime() + ")",
+							CtUtil.bigDecimalToString(RateUtil.getTimeRateOnPeakPerUnit(rm, rd)),
+							String.valueOf(rm.getMins()),
+							CtUtil.bigDecimalToString(rd.getOnPeakEnergyRate()),
+							" (" + rd.getOnPeakStartTime() + " - " + rd.getOnPeakEndTime() + ")"
+					});
+				}
 			}
 		}
 		//energy only
@@ -141,21 +156,40 @@ public class HelpPanel extends CommonPanel{
 		//time only
 		else {
 			if(rd.isOnOffPeakSameTimeRate()) {
-				lblServiceFee.setMsgCode("chargingServiceFeeHelp");
-				lblServiceFee.setParms(CtUtil.bigDecimalToString(RateUtil.getTimeRateOffPeakPerUnit(rm, rd)), String.valueOf(rm.getMins()));
+				if(CtUtil.getServConfig().getFreeTimeUnit() != null && CtUtil.getServConfig().getFreeTimeUnit() > 0) {
+					lblServiceFee.setMsgCode("chargingServiceFeeWithFreeDurationHelp");
+					lblServiceFee.setParms(String.valueOf(CtUtil.getServConfig().getFreeTimeUnit() * RateUtil.getRate().getMins() / 60.0), CtUtil.bigDecimalToString(RateUtil.getTimeRateOffPeakPerUnit(rm, rd)), String.valueOf(rm.getMins()));
+				} else {
+					lblServiceFee.setMsgCode("chargingServiceFeeHelp");
+					lblServiceFee.setParms(CtUtil.bigDecimalToString(RateUtil.getTimeRateOffPeakPerUnit(rm, rd)), String.valueOf(rm.getMins()));
+				}
 			}
 			else {
-				lblServiceFee.setMsgCode("chargingServiceFeeHelpOnOffPeak");
-				lblServiceFee.setParms(
-					new String[] {
-							CtUtil.bigDecimalToString(RateUtil.getTimeRateOffPeakPerUnit(rm, rd)),
-							String.valueOf(rm.getMins()),
-							" (" + rd.getOnPeakEndTime() + " - " + rd.getOnPeakStartTime() + ")",
-							CtUtil.bigDecimalToString(RateUtil.getTimeRateOnPeakPerUnit(rm, rd)),
-							String.valueOf(rm.getMins()),
-							" (" + rd.getOnPeakStartTime() + " - " + rd.getOnPeakEndTime() + ")"
-					});
-				
+				if(CtUtil.getServConfig().getFreeTimeUnit() != null && CtUtil.getServConfig().getFreeTimeUnit() > 0) {
+					lblServiceFee.setMsgCode("chargingServiceFeeWithFreeDurationHelp");
+					lblServiceFee.setParms(
+						new String[] {
+								String.valueOf(CtUtil.getServConfig().getFreeTimeUnit() * RateUtil.getRate().getMins() / 60.0),
+								CtUtil.bigDecimalToString(RateUtil.getTimeRateOffPeakPerUnit(rm, rd)),
+								String.valueOf(rm.getMins()),
+								" (" + rd.getOnPeakEndTime() + " - " + rd.getOnPeakStartTime() + ")",
+								CtUtil.bigDecimalToString(RateUtil.getTimeRateOnPeakPerUnit(rm, rd)),
+								String.valueOf(rm.getMins()),
+								" (" + rd.getOnPeakStartTime() + " - " + rd.getOnPeakEndTime() + ")"
+						});
+				} else {
+					lblServiceFee.setMsgCode("chargingServiceFeeHelpOnOffPeak");
+					lblServiceFee.setParms(
+						new String[] {
+								CtUtil.bigDecimalToString(RateUtil.getTimeRateOffPeakPerUnit(rm, rd)),
+								String.valueOf(rm.getMins()),
+								" (" + rd.getOnPeakEndTime() + " - " + rd.getOnPeakStartTime() + ")",
+								CtUtil.bigDecimalToString(RateUtil.getTimeRateOnPeakPerUnit(rm, rd)),
+								String.valueOf(rm.getMins()),
+								" (" + rd.getOnPeakStartTime() + " - " + rd.getOnPeakEndTime() + ")"
+						});
+					
+				}
 			}
 		}
 	}
