@@ -33,7 +33,7 @@
 <entry key="chargingServiceFeeHelpOnOffPeak">充電服務費用
 港幣 %s元/%s 分鐘 %s
 港幣 %s元/%s 分鐘 %s</entry>
-<entry key="chargingServiceFeeWithFreeDurationHelpOnOffPeak">充電服務費用
+<entry key="chargingServiceFeeWithFreeDurationHelpOnOffPeak">充電服務費用 (%s 小時免費)
 港幣 %s元/%s 分鐘 %s
 港幣 %s元/%s 分鐘 %s</entry>
 <entry key="chargingServiceFeeHelpEnergy">充電服務費用

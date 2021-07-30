@@ -166,7 +166,7 @@ public class HelpPanel extends CommonPanel{
 			}
 			else {
 				if(CtUtil.getServConfig().getFreeTimeUnit() != null && CtUtil.getServConfig().getFreeTimeUnit() > 0) {
-					lblServiceFee.setMsgCode("chargingServiceFeeWithFreeDurationHelp");
+					lblServiceFee.setMsgCode("chargingServiceFeeWithFreeDurationHelpOnOffPeak");
 					lblServiceFee.setParms(
 						new String[] {
 								String.valueOf(CtUtil.getServConfig().getFreeTimeUnit() * RateUtil.getRate().getMins() / 60.0),
