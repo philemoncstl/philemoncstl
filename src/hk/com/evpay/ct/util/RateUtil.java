@@ -471,7 +471,7 @@ public class RateUtil {
 			tran.setTotChargingUnit(periodList.size()+freeTimeMins/tran.getChargingUnitMinutes());
 		} else {
 			if(EvCons.MODE_POSTPAID.equals(tran.getMode())) {
-				tran.setTotChargingUnit((int) (Math.ceil((double)(tran.getEndDttm().getTime() - tempStartTime.getTime()))/(tran.getChargingUnitMinutes() * 60 * 1000)) );
+				tran.setTotChargingUnit((int) Math.ceil(((tran.getEndDttm().getTime() - tempStartTime.getTime()))/(tran.getChargingUnitMinutes() *  60000.0)) );
 			} else {
 				tran.setTotChargingUnit(freeTimeMins/tran.getChargingUnitMinutes());
 			}
@@ -484,10 +484,12 @@ public class RateUtil {
 		tran.setDurationMin(tran.getTotChargingUnit() * tran.getChargingUnitMinutes());
 
 		//tran.setDurationMin(DateUtil.getMinBetween(tran.getStartDttm(), tran.getEndDttm()));
+		
 		logger.info("getTimeRateOffPeakPerUnit()\t" + tran.getTimeRateOffPeakPerUnit());
 		logger.info("getTimeRateOnPeakPerUnit()\t" + tran.getTimeRateOnPeakPerUnit());
 		logger.info("getDurationOffPeak()\t" + tran.getDurationOffPeak());
 		logger.info("getDurationOnPeak()\t" + tran.getDurationOnPeak());
+		logger.info("getTotChargingUnit()\t" + tran.getTotChargingUnit());
 		logger.info("getDuration()\t" + tran.getDurationMin());
 		
 		
