@@ -283,6 +283,7 @@ public class iUC285Util {
       	if(!requestProcessing && !waitSocketResponse) {
 	    	try {
 	      		requestProcessing = true;
+	      		logger.info("asyncSendRequest: " + request);
 	      		sendRequest(request);
 		        while(true) {
 		        	count++;

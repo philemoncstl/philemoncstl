@@ -150,10 +150,10 @@
 請於10秒內拍之前使用之八達通於閱卡器上
 以確認停止充電程序。
 八達通號碼 %s</entry>
-<entry key="presentSameCardContactless">&lt;span style=&quot;font-size: 80%;&quot;&gt;所出示之信用卡或移動支付設備與之前使用的不符。
+<entry key="presentSameCardContactless">所出示之信用卡或移動支付設備與之前使用的不符。
 請於10秒內拍之前使用之信用卡或移動支付設備
 以確認停止充電程序。
-信用卡或移動支付設備號碼 %s&lt;/span&gt;</entry>
+信用卡或移動支付設備號碼 %s</entry>
 <entry key="presentSameQR">所出示之二維碼與之前使用的不符。
 請於10秒內顯示之前使用之二維碼
 以確認停止充電程序。</entry>

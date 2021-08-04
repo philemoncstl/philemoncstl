@@ -189,10 +189,9 @@ public class PostStep5StopChargingTapCard extends CommonPanelOctopus{
 						}
 					}
 				} else {
-					logger.info("Not the same card, go to home now.");
-					pnlCtrl.showErrorMessage(responseStatus.toString());
+					showPresentSameCardContactless(tran.getCardNo());
 					try {
-						sleep(2000);
+						sleep(10000);
 					} catch (InterruptedException e) {
 						logger.error("Contactless display Error sleep Fail", e);
 					} finally {

@@ -158,10 +158,9 @@ Thank you for using charging service.</entry>
 Please tap the same Octopus in
 10 seconds to stop charging.
 Octopus number %s</entry>
-<entry key="presentSameCardContactless">&lt;span style=&quot;font-size: 80%;&quot;&gt;This is not the same card or mobile payment device.
-Please tap the same card or mobile payment device 
-in 10 seconds to stop charging.
-Card or mobile payment device number %s&lt;/span&gt;</entry>
+<entry key="presentSameCardContactless">Please tap the same card or mobile payment
+device in 10 seconds to stop charging.
+Card or mobile payment device number %s</entry>
 <entry key="presentSameQR">This is not the same QR code.
 Please present the same QR code in
 10 seconds to stop charging.</entry>

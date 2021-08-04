@@ -277,6 +277,10 @@ public class CommonPanelOctopus extends CommonPanel{
 		pnlCtrl.showErrorMessage(msgCode, displayedCardNo);
 	}
 	
+	public void showPresentSameCardContactless(String cardNo) {
+		pnlCtrl.showErrorMessage("presentSameCardContactless", cardNo);
+	}
+	
 	public void showPresentSameCard(String cardNo) {
 		showPresentSameCard("presentSameCard", cardNo);
 	}

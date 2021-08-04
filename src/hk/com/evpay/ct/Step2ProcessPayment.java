@@ -4,6 +4,7 @@ import java.awt.Color;
 import java.awt.Font;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
+import java.util.concurrent.TimeUnit;
 
 import javax.swing.BorderFactory;
 import javax.swing.JPanel;
@@ -232,14 +233,15 @@ public class Step2ProcessPayment extends CommonPanelOctopus{
 				response 		= iUC285Util.doCardRead();
 				responseStatus 	= iUC285Util.getStatus(response);
 				if(responseStatus == Status.Approved) {
-					response = null;
 					logger.info("Contactless read card success");
 					tran.setCardType(response.getString("CARD"));
 					tran.setCardHash(response.getString("CARDHASH"));
-					
+					tran.setCardNo(response.getString("PAN"));
+					response = null;
 					response = iUC285Util.doSale(tran, tran.getAmt().multiply(new BigDecimal("100")).intValue());
 					responseStatus = iUC285Util.getStatus(response);
 					tran.setTransactionTrace(response.getString("TRACE"));
+					logger.info("setTransactionTrace");
 					
 					if(responseStatus == Status.Approved) {
 						logger.info("Contactless payment success");
