@@ -151,8 +151,19 @@ public class Step7StopChargingTapCard extends CommonPanelOctopus{
 				 * null); } }
 				 */
 				
-				if(responseStatus == Status.Approved && response.getString("CARDHASH").equals(tran.getCardHash())) {
-					stopChargingNow();
+				if(responseStatus == Status.Approved) {
+					if(response.getString("CARDHASH").equals(tran.getCardHash())) {
+						stopChargingNow();
+					} else {
+						showPresentSameCardContactless(tran.getCardNo());
+						try {
+							sleep(10000);
+						} catch (InterruptedException e) {
+							logger.error("Contactless display Error sleep Fail", e);
+						} finally {
+							pnlCtrl.goToHome();
+						}
+					}
 				} else {
 					showPresentSameCardContactless(tran.getCardNo());
 					try {

@@ -170,7 +170,7 @@ public class Step2ProcessPayment extends CommonPanelOctopus{
 		fpAmount.getVal().setParm(tm.getTimeCharge());
 		
 		if(pnlCtrl.getPayMethod() == PayMethod.ContactlessGroup) {
-			lblPayInst.setMsgCode("payInstContactless");
+			lblPayInst.setMsgCode("stopChargingInstContactlessVerify");
 			handlePaymentContactless();
 		}
 		else if(pnlCtrl.getPayMethod() == PayMethod.Octopus){
@@ -234,6 +234,7 @@ public class Step2ProcessPayment extends CommonPanelOctopus{
 				responseStatus 	= iUC285Util.getStatus(response);
 				if(responseStatus == Status.Approved) {
 					logger.info("Contactless read card success");
+					lblPayInst.setMsgCode("payInstContactless");
 					tran.setCardType(response.getString("CARD"));
 					tran.setCardHash(response.getString("CARDHASH"));
 					tran.setCardNo(response.getString("PAN"));

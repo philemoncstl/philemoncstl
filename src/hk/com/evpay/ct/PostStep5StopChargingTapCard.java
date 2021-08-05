@@ -61,7 +61,7 @@ public class PostStep5StopChargingTapCard extends CommonPanelOctopus{
 		logger.info("Check Payment");
 		if(CtUtil.isPayByContactless(tran)) {
 			logger.info("isPayByContactless");
-			lblStopInst.setMsgCode("stopChargingInstContactless");
+			lblStopInst.setMsgCode("stopChargingInstContactlessVerify");
 			stopChargingContactless();
 		}
 		else if(CtUtil.isPayByOctopus(tran)){
@@ -168,20 +168,30 @@ public class PostStep5StopChargingTapCard extends CommonPanelOctopus{
 			public void run() {
 				JSONObject response 	= iUC285Util.doCardRead();
 				Status responseStatus 	= iUC285Util.getStatus(response);
-				if(responseStatus == Status.Approved && response.getString("CARDHASH").equals(tran.getCardHash())) {
-					
-					response = iUC285Util.doSale(tran, tran.getAmt().multiply(new BigDecimal("100")).intValue());
-					responseStatus = iUC285Util.getStatus(response);
-					tran.setTransactionTrace(response.getString("TRACE"));
-					
-					if(responseStatus == Status.Approved) {
-						logger.info("Contactless payment success");
-						stopChargingNow();
+				if(responseStatus == Status.Approved) {
+					if(response.getString("CARDHASH").equals(tran.getCardHash())) {
+						lblStopInst.setMsgCode("stopChargingInstContactless");
+						response = iUC285Util.doSale(tran, tran.getAmt().multiply(new BigDecimal("100")).intValue());
+						responseStatus = iUC285Util.getStatus(response);
+						tran.setTransactionTrace(response.getString("TRACE"));
+						if(responseStatus == Status.Approved) {
+							logger.info("Contactless payment success");
+							stopChargingNow();
+						} else {
+							logger.info("Contactless payment fail");
+							pnlCtrl.showErrorMessage(responseStatus.toString());
+							try {
+								sleep(2000);
+							} catch (InterruptedException e) {
+								logger.error("Contactless display Error sleep Fail", e);
+							} finally {
+								pnlCtrl.goToHome();
+							}
+						}
 					} else {
-						logger.info("Contactless payment fail");
-						pnlCtrl.showErrorMessage(responseStatus.toString());
+						showPresentSameCardContactless(tran.getCardNo());
 						try {
-							sleep(2000);
+							sleep(10000);
 						} catch (InterruptedException e) {
 							logger.error("Contactless display Error sleep Fail", e);
 						} finally {
@@ -189,14 +199,17 @@ public class PostStep5StopChargingTapCard extends CommonPanelOctopus{
 						}
 					}
 				} else {
-					showPresentSameCardContactless(tran.getCardNo());
-					try {
-						sleep(10000);
-					} catch (InterruptedException e) {
-						logger.error("Contactless display Error sleep Fail", e);
-					} finally {
-						pnlCtrl.goToHome();
-					}
+					logger.info("Not the same card, go to home now.");
+					pnlCtrl.showErrorMessage(responseStatus.toString());
+
+ 					try {
+ 						sleep(2000);
+ 					} catch (InterruptedException e) {
+ 						logger.error("Contactless display Error sleep Fail", e);
+ 					} finally {
+ 						pnlCtrl.goToHome();
+ 					}
+
 				}		
 			}
 		};

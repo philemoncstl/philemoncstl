@@ -108,6 +108,8 @@ take receipt.</entry>
 <entry key="receiptNo">Receipt no.</entry>
 <entry key="remainingChargingTime">Remaining Charging Time</entry>
 <entry key="stopCharging">Stop Charging</entry>
+<entry key="stopChargingInstContactlessVerify">Please tap your card or mobile payment device 
+to the reader to verify.</entry>
 <entry key="stopChargingInstContactless">Please tap your card or mobile payment device 
 to the reader to stop charging.
 &lt;span style=&quot;font-size: 60%;&quot;&gt;&lt;br&gt;Charging cable will be unlocked after stopping charging.&lt;/span&gt;</entry>

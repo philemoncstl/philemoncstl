@@ -101,6 +101,8 @@
 <entry key="receiptNo">收據號碼</entry>
 <entry key="remainingChargingTime">餘下充電時間</entry>
 <entry key="stopCharging">停止充電</entry>
+<entry key="stopChargingInstContactlessVerify">請將您的信用卡或移動支付設備輕放到
+閱讀器上確認。</entry>
 <entry key="stopChargingInstContactless">請將您的信用卡或移動支付設備輕放到
 閱讀器上付款以停始充電。
 &lt;span style=&quot;font-size: 60%;&quot;&gt;&lt;br&gt;停止充電後，充電線會被解鎖。&lt;/span&gt;</entry>
