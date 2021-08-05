@@ -261,6 +261,7 @@ public class Step2ProcessPayment extends CommonPanelOctopus{
 				} else {
 					logger.info("Contactless read card fail");
 					pnlCtrl.showErrorMessage(responseStatus.toString());
+					iUC285Util.restartUsbAndEftpayment();
 					try {
 						sleep(2000);
 					} catch (InterruptedException e) {
