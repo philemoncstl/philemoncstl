@@ -391,26 +391,27 @@ public class CtrlPanel extends CommonPanel implements CpWebSocketEventListener, 
 		/*JPanel pnlSouth = new CommonPanel();
 		add(pnlSouth, BorderLayout.SOUTH);
 		pnlSouth.setPreferredSize(new Dimension(config.getCtWidth(), config.getSouthHeight()));*/
-		
 		pnlEast = new CommonPanel(this);
-		add(pnlEast, BorderLayout.EAST);
-		pnlEast.setLayout(null);
-		pnlEast.setPreferredSize(new Dimension(130, config.getCtHeight()));
-		Rectangle r1 = new Rectangle(0, 0, 130, 100);
-		for(int j = 0; j < Math.ceil((double)(ct.getCpList().size()) / 10.0); j ++) {
-			String lastCp = ct.getCpList().get((j * 10 + 9) < (ct.getCpList().size() -1) ? (j * 10 + 9) : (ct.getCpList().size() -1)).getCpNo();
-			I18nButtonLabel temp = new I18nButtonLabel(ct.getCpList().get(j * 10).getCpNo() + "-" + lastCp, 0 , "img/home.png");		
-			logger.info("label name: " + temp.getText());
-			temp.setBounds(r1);
-			r1.y +=  110;
-			temp.setFont(new Font(LangUtil.FONT_EN, Font.PLAIN, 22));
-			int b = j;
-			temp.addMouseListener(new MouseAdapter() { 
-		     public void mousePressed(MouseEvent me) { 
-		    	 pnlCpList.updateCpList(b);
-			 } 
-			}); 
-			pnlEast.add(temp);
+		if(ct.getCpList().size() > 10) {
+			add(pnlEast, BorderLayout.EAST);
+			pnlEast.setLayout(null);
+			pnlEast.setPreferredSize(new Dimension(130, config.getCtHeight()));
+			Rectangle r1 = new Rectangle(0, 0, 130, 100);
+			for(int j = 0; j < Math.ceil((double)(ct.getCpList().size()) / 10.0); j ++) {
+				String lastCp = ct.getCpList().get((j * 10 + 9) < (ct.getCpList().size() -1) ? (j * 10 + 9) : (ct.getCpList().size() -1)).getCpNo();
+				I18nButtonLabel temp = new I18nButtonLabel(ct.getCpList().get(j * 10).getCpNo() + "-" + lastCp, 0 , "img/lang.png");		
+				logger.info("label name: " + temp.getText());
+				temp.setBounds(r1);
+				r1.y +=  110;
+				temp.setFont(new Font(LangUtil.FONT_EN, Font.PLAIN, 22));
+				int b = j;
+				temp.addMouseListener(new MouseAdapter() { 
+			     public void mousePressed(MouseEvent me) { 
+			    	 pnlCpList.updateDisplayCpList(b);
+				 } 
+				}); 
+				pnlEast.add(temp);
+			}
 		}
 		
 		JPanel pnlWest = new CommonPanel(this);
@@ -449,7 +450,7 @@ public class CtrlPanel extends CommonPanel implements CpWebSocketEventListener, 
 		cardLayout = new CardLayout();
 		pnlCard.setLayout(cardLayout);
 		//CP List
-		pnlCpList = new CpSelectionPanel(this, 0);
+		pnlCpList = new CpSelectionPanel(this);
 		logger.info("ct.getCpList().size(): " + ct.getCpList().size() + " " +  Math.ceil((double)(ct.getCpList().size()) / 10.0));
 		addCard(pnlCpList, dimMainArea);
 		
@@ -835,11 +836,11 @@ public class CtrlPanel extends CommonPanel implements CpWebSocketEventListener, 
 				logger.debug("CP is null");
 				return;
 			}
-			pnlEast.setVisible(false);
 			logger.info("Pnl enable:" + pnlCp.isEnabled() + ", CP:" + cp.getCpNo() + ", enabled:" + cp.isEnabled() + ", connected:" + cp.isConnected() + 
 					", status:" + cp.getStatus() + ", cpEp is null:" + (pnlCp.getCpEp() == null) + ", tran:" + cp.getTran());
 			if(pnlCp.isCpEnabled() && pnlCp.isCpConnected()) {
 				if(cp.getStatus() == ChargePointStatus.Preparing) {
+					pnlEast.setVisible(false);
 					//prepaid
 					if(CtUtil.isModePrepaid()) {
 						goToStep1SelectTime(pnlCp);
@@ -850,6 +851,7 @@ public class CtrlPanel extends CommonPanel implements CpWebSocketEventListener, 
 					}
 				}
 				else if(CtUtil.isCpStatusCharging(cp.getStatus())) {
+					pnlEast.setVisible(false);
 					//prepaid
 					if(CtUtil.isModePrepaid(pnlCp.getCp().getTran())) {
 						goToStep6StopCharging(pnlCp);

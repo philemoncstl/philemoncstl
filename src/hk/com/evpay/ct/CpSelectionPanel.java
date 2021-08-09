@@ -21,23 +21,22 @@ public class CpSelectionPanel extends CommonPanel{
 	private static Logger logger = Logger.getLogger(CpSelectionPanel.class);
 	private List<CpPanel> cpList;
 	private List<CpModel> cpModelList;
-
-	public CpSelectionPanel(CtrlPanel pnlCtrl, int count) {
+	private int lastCount = -1;
+	public CpSelectionPanel(CtrlPanel pnlCtrl) {
 		super(pnlCtrl);
 		ct.getCpList().sort(Comparator.comparing(CpModel::getCpNo));
 		cpModelList = ct.getCpList();
 		cpList = new ArrayList<>();
+		CpPanel temp = null;
+		for(int i = 0; i < cpModelList.size(); i++) {
+			temp = new CpPanel(pnlCtrl);
+			temp.addMouseListener(pnlCtrl);
+			logger.info("cpNo: " + cpModelList.get(i).getCpNo());
+			cpList.add(temp);
+			
+		}
 		setLayout(new FlowLayout(FlowLayout.LEFT, config.getCpHgap(), config.getCpVgap()));
-		updateCpList(count);
-//		CpPanel temp = null;
-//		for(int i = count * 10; i < ((count * 10 + 10) <= cpModelList.size() ? count * 10 + 10 : cpModelList.size()) ; i ++) {
-//			temp = new CpPanel(pnlCtrl);
-//			temp.addMouseListener(pnlCtrl);
-//			logger.info("cpNo: " + cpModelList.get(i).getCpNo());
-//			cpList.add(temp);
-//			temp.setCp(ct.getCpList().get(i));
-//			add(temp);
-//		}
+		updateDisplayCpList(0);
 	}
 	
 	@Override
@@ -58,14 +57,14 @@ public class CpSelectionPanel extends CommonPanel{
 		this.cpList = cpList;
 	}
 	
-	public void updateCpList(int count) {
+	public void updateDisplayCpList(int count) {
+		if(lastCount == count) {
+			return;
+		}
+		lastCount = count;
 		removeAll();
-		CpPanel temp = null;
 		for(int i = count * 10; i < ((count * 10 + 10) <= cpModelList.size() ? count * 10 + 10 : cpModelList.size()) ; i ++) {
-			temp = new CpPanel(pnlCtrl);
-			temp.addMouseListener(pnlCtrl);
-			logger.info("cpNo: " + cpModelList.get(i).getCpNo());
-			cpList.add(temp);
+			CpPanel temp = cpList.get(i);
 			temp.setCp(cpModelList.get(i));
 			add(temp);
 		}
