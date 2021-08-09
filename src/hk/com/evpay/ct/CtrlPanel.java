@@ -13,6 +13,7 @@ import java.awt.Insets;
 import java.awt.Rectangle;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.image.BufferedImage;
@@ -20,12 +21,14 @@ import java.io.File;
 import java.io.IOException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.UUID;
 
 import javax.imageio.ImageIO;
 import javax.swing.BorderFactory;
+import javax.swing.JButton;
 import javax.swing.JComponent;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -118,6 +121,8 @@ public class CtrlPanel extends CommonPanel implements CpWebSocketEventListener, 
 	private I18nButtonLabel lblHome;
 	private I18nButtonLabel lblLang;
 	private I18nButtonLabel lblHelp;
+	
+	private JPanel pnlEast;
 	
 	private GoHomeCountDownThread countDownThead;
 	private GoHomeUnlockThread unlockThread;
@@ -381,9 +386,32 @@ public class CtrlPanel extends CommonPanel implements CpWebSocketEventListener, 
 		lblTitle.setForeground(new Color(24, 97, 160));		//CST
 		pnlNorth.add(lblTitle);
 		
+		
+		
 		/*JPanel pnlSouth = new CommonPanel();
 		add(pnlSouth, BorderLayout.SOUTH);
 		pnlSouth.setPreferredSize(new Dimension(config.getCtWidth(), config.getSouthHeight()));*/
+		
+		pnlEast = new CommonPanel(this);
+		add(pnlEast, BorderLayout.EAST);
+		pnlEast.setLayout(null);
+		pnlEast.setPreferredSize(new Dimension(130, config.getCtHeight()));
+		Rectangle r1 = new Rectangle(0, 0, 130, 100);
+		for(int j = 0; j < Math.ceil((double)(ct.getCpList().size()) / 10.0); j ++) {
+			String lastCp = ct.getCpList().get((j * 10 + 9) < (ct.getCpList().size() -1) ? (j * 10 + 9) : (ct.getCpList().size() -1)).getCpNo();
+			I18nButtonLabel temp = new I18nButtonLabel(ct.getCpList().get(j * 10).getCpNo() + "-" + lastCp, 0 , "img/home.png");		
+			logger.info("label name: " + temp.getText());
+			temp.setBounds(r1);
+			r1.y +=  110;
+			temp.setFont(new Font(LangUtil.FONT_EN, Font.PLAIN, 22));
+			int b = j;
+			temp.addMouseListener(new MouseAdapter() { 
+		     public void mousePressed(MouseEvent me) { 
+		    	 pnlCpList.updateCpList(b);
+			 } 
+			}); 
+			pnlEast.add(temp);
+		}
 		
 		JPanel pnlWest = new CommonPanel(this);
 		add(pnlWest, BorderLayout.WEST);
@@ -412,6 +440,7 @@ public class CtrlPanel extends CommonPanel implements CpWebSocketEventListener, 
 		pnlWest.add(lblHelp);
 		lblHelp.addMouseListener(this);
 		
+		
 		Dimension dimMainArea = new Dimension(config.getCtWidth() - config.getWestWidth(), config.getCtHeight() - config.getNorthHeight());
 		pnlCard = new JPanel();
 		add(pnlCard, BorderLayout.CENTER);
@@ -420,7 +449,8 @@ public class CtrlPanel extends CommonPanel implements CpWebSocketEventListener, 
 		cardLayout = new CardLayout();
 		pnlCard.setLayout(cardLayout);
 		//CP List
-		pnlCpList = new CpSelectionPanel(this);
+		pnlCpList = new CpSelectionPanel(this, 0);
+		logger.info("ct.getCpList().size(): " + ct.getCpList().size() + " " +  Math.ceil((double)(ct.getCpList().size()) / 10.0));
 		addCard(pnlCpList, dimMainArea);
 		
 		//Help 
@@ -511,10 +541,12 @@ public class CtrlPanel extends CommonPanel implements CpWebSocketEventListener, 
 		pnlCard.add(pnl, pnl.getCardName());
 	}
 	
+	
 	public void goToHome() {
 		if(this.unlockThread == null) {
 			logger.info("Go to home called");
 			showCard(pnlCpList);
+			pnlEast.setVisible(true);
 		}
 		else {
 			logger.info("Go to home ignored, locking now");
@@ -719,6 +751,7 @@ public class CtrlPanel extends CommonPanel implements CpWebSocketEventListener, 
 		if(this.unlockThread == null) {
 			logger.info("Go to help called");
 			pnlHelp.onDisplay(null);
+			pnlEast.setVisible(false);
 			showCard(pnlHelp);
 		}
 		else {
@@ -802,7 +835,7 @@ public class CtrlPanel extends CommonPanel implements CpWebSocketEventListener, 
 				logger.debug("CP is null");
 				return;
 			}
-			
+			pnlEast.setVisible(false);
 			logger.info("Pnl enable:" + pnlCp.isEnabled() + ", CP:" + cp.getCpNo() + ", enabled:" + cp.isEnabled() + ", connected:" + cp.isConnected() + 
 					", status:" + cp.getStatus() + ", cpEp is null:" + (pnlCp.getCpEp() == null) + ", tran:" + cp.getTran());
 			if(pnlCp.isCpEnabled() && pnlCp.isCpConnected()) {
@@ -974,4 +1007,5 @@ public class CtrlPanel extends CommonPanel implements CpWebSocketEventListener, 
 	public static boolean isSameQrThread(long ttm) {
 		return QR_THREAD_MS == ttm;
 	}
+	
 }
