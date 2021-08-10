@@ -20,6 +20,7 @@ public class CtConfig {
 	private int northHeight = 230;
 	private int southHeight = 120;
 	private int westWidth = 130;
+	private int eastWidth = 130;
 	private int cpHgap = 30;
 	private int cpVgap = 30;
 	private int cpWidth = 163;
@@ -331,5 +332,15 @@ public class CtConfig {
 
 	public void setQrScanTimeoutMs(long qrScanTimeoutMs) {
 		this.qrScanTimeoutMs = qrScanTimeoutMs;
+	}
+
+	public int getEastWidth() {
+		return eastWidth;
+	}
+
+	public void setEastWidth(int eastWidth) {
+		this.eastWidth = eastWidth;
 	}	
+	
+	
 }

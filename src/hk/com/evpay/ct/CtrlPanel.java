@@ -395,7 +395,7 @@ public class CtrlPanel extends CommonPanel implements CpWebSocketEventListener, 
 		if(ct.getCpList().size() > 10) {
 			add(pnlEast, BorderLayout.EAST);
 			pnlEast.setLayout(null);
-			pnlEast.setPreferredSize(new Dimension(130, config.getCtHeight()));
+			pnlEast.setPreferredSize(new Dimension(config.getEastWidth(), config.getCtHeight()));
 			Rectangle r1 = new Rectangle(0, 0, 130, 100);
 			for(int j = 0; j < Math.ceil((double)(ct.getCpList().size()) / 10.0); j ++) {
 				String lastCp = ct.getCpList().get((j * 10 + 9) < (ct.getCpList().size() -1) ? (j * 10 + 9) : (ct.getCpList().size() -1)).getCpNo();
