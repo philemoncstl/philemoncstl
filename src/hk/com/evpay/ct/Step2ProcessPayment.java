@@ -215,6 +215,7 @@ public class Step2ProcessPayment extends CommonPanelOctopus{
 		tran.setBatchNo(response.getString("BATCHNO"));
 		tran.setApprovalCode(response.getString("APPCODE"));
 		tran.setTransactionTrace(response.getString("TRACE"));
+		tran.setCardNo(response.getString("PAN"));
 	}
 	
 	private void displayContactlessError(Status responseStatus) {
@@ -248,21 +249,13 @@ public class Step2ProcessPayment extends CommonPanelOctopus{
 					lblPayInst.setMsgCode("payInstContactless");
 					tran.setCardType(response.getString("CARD"));
 					tran.setCardHash(response.getString("CARDHASH"));
-					tran.setCardNo(response.getString("PAN"));
 					response = null;
 					response = iUC285Util.doSale(tran, tran.getAmt().multiply(new BigDecimal("100")).intValue());
-					tran.setCardExpiryDate(response.getString("EXPDATE"));
-					tran.setTerminalId(response.getString("TERMINALID"));
-					tran.setEcrRef(response.getString("ECRREF"));
-					tran.setMerchantId(response.getString("MERCHANTID"));
-					tran.setRetrievalRefNo(response.getString("REFNUM"));
-					tran.setBatchNo(response.getString("BATCHNO"));
-					tran.setApprovalCode(response.getString("APPCODE"));
-					tran.setTransactionTrace(response.getString("TRACE"));
 					responseStatus = iUC285Util.getStatus(response);
 					logger.info("setTransactionTrace");
 					
 					if(responseStatus == Status.Approved) {
+						setCardInfoContactless(tran, response);
 						logger.info("Contactless payment success");
 						paymentSuccess();
 					} else {

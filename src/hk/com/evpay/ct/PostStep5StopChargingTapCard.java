@@ -175,6 +175,7 @@ public class PostStep5StopChargingTapCard extends CommonPanelOctopus{
 						responseStatus = iUC285Util.getStatus(response);
 						tran.setTransactionTrace(response.getString("TRACE"));
 						if(responseStatus == Status.Approved) {
+							Step2ProcessPayment.setCardInfoContactless(tran, response);
 							logger.info("Contactless payment success");
 							stopChargingNow();
 						} else {
