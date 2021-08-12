@@ -218,6 +218,7 @@ public class iUC285Util {
 			} catch (NoSuchAlgorithmException e) {
 				logger.error("Failed MD5 encript... ", e);
 	    		waitSocketResponse = false;
+	    		iUC285Util.restartUsbAndEftpayment();
 				return null;
 			}
 
@@ -324,17 +325,17 @@ public class iUC285Util {
     
     public static void restartUsbAndEftpayment() {
 		try {
-			Process p = Runtime.getRuntime().exec("./usbreset /dev/bus/usb/002/003");
-			p.waitFor();
-			p = Runtime.getRuntime().exec("systemctl restart eftpayment");
-			p.waitFor();
+//			Process p = Runtime.getRuntime().exec("./usbreset /dev/bus/usb/002/003");
+//			p.waitFor();
+			Runtime.getRuntime().exec("systemctl restart eftpayment");
+//			p.waitFor();
 			logger.debug("restartUsbAndEftpayment");
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			logger.error("restartUsbAndEftpayment: ", e);
-		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
-			logger.error("restartUsbAndEftpayment: ", e);
+//		} catch (InterruptedException e) {
+//			// TODO Auto-generated catch block
+//			logger.error("restartUsbAndEftpayment: ", e);
 		}
     }
     

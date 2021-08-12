@@ -146,12 +146,12 @@ public class PostStep2ProcessPayment extends CommonPanelOctopus{
 					tran.setCardHash(response.getString("CARDHASH"));
 					
 					setReceiptNo(tran);
-					Step2ProcessPayment.setDummyCardInfoContactless(tran);
+//					Step2ProcessPayment.setDummyCardInfoContactless(tran);
+					Step2ProcessPayment.setCardInfoContactless(tran, response);
 					cardDetected();
 				} else {
 					logger.info("Contactless read card fail");
 					pnlCtrl.showErrorMessage(responseStatus.toString());
-					iUC285Util.restartUsbAndEftpayment();
 					try {
 						sleep(2000);
 					} catch (InterruptedException e) {

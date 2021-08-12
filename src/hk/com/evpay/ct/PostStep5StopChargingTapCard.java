@@ -202,7 +202,6 @@ public class PostStep5StopChargingTapCard extends CommonPanelOctopus{
 				else if(responseStatus == Status.doTranBad) {
 					logger.error("Contactless Status doTranBad.");
 					pnlCtrl.goToHome();
-                    iUC285Util.restartUsbAndEftpayment();
 				} else {
 					
 					logger.info("Not the same card, go to home now.");

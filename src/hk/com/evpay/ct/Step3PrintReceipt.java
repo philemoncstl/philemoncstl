@@ -13,6 +13,7 @@ import org.apache.log4j.Logger;
 import com.ckzone.octopus.ExtraInfo;
 import com.ckzone.util.DateUtil;
 import com.ckzone.util.StringUtil;
+import com.google.gson.Gson;
 
 import hk.com.cstl.evcs.model.TranModel;
 import hk.com.evpay.ct.i18n.I18nButtonLabel;
@@ -91,6 +92,7 @@ public class Step3PrintReceipt extends CommonPanel{
 	}
 	
 	public static void printReceipt(TranModel tm, boolean reprint) {
+		logger.info("tm: " + new Gson().toJson(tm, TranModel.class) );
 		logger.info("Print receipt:" + tm.getReceiptNo());
 		Map<String, String> map = new LinkedHashMap<String, String>();
 		

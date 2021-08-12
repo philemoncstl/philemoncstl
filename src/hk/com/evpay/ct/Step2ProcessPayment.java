@@ -206,6 +206,17 @@ public class Step2ProcessPayment extends CommonPanelOctopus{
 		tran.setApprovalCode("149587");
 	}
 	
+	public static void setCardInfoContactless(TranModel tran, JSONObject response) {
+		tran.setCardExpiryDate(response.getString("EXPDATE"));
+		tran.setTerminalId(response.getString("TERMINALID"));
+		tran.setEcrRef(response.getString("ECRREF"));
+		tran.setMerchantId(response.getString("MERCHANTID"));
+		tran.setRetrievalRefNo(response.getString("REFNUM"));
+		tran.setBatchNo(response.getString("BATCHNO"));
+		tran.setApprovalCode(response.getString("APPCODE"));
+		tran.setTransactionTrace(response.getString("TRACE"));
+	}
+	
 	private void displayContactlessError(Status responseStatus) {
 		pnlCtrl.showErrorMessage(responseStatus.toString());
 		try {
@@ -240,8 +251,15 @@ public class Step2ProcessPayment extends CommonPanelOctopus{
 					tran.setCardNo(response.getString("PAN"));
 					response = null;
 					response = iUC285Util.doSale(tran, tran.getAmt().multiply(new BigDecimal("100")).intValue());
-					responseStatus = iUC285Util.getStatus(response);
+					tran.setCardExpiryDate(response.getString("EXPDATE"));
+					tran.setTerminalId(response.getString("TERMINALID"));
+					tran.setEcrRef(response.getString("ECRREF"));
+					tran.setMerchantId(response.getString("MERCHANTID"));
+					tran.setRetrievalRefNo(response.getString("REFNUM"));
+					tran.setBatchNo(response.getString("BATCHNO"));
+					tran.setApprovalCode(response.getString("APPCODE"));
 					tran.setTransactionTrace(response.getString("TRACE"));
+					responseStatus = iUC285Util.getStatus(response);
 					logger.info("setTransactionTrace");
 					
 					if(responseStatus == Status.Approved) {
@@ -261,7 +279,7 @@ public class Step2ProcessPayment extends CommonPanelOctopus{
 				} else {
 					logger.info("Contactless read card fail");
 					pnlCtrl.showErrorMessage(responseStatus.toString());
-					iUC285Util.restartUsbAndEftpayment();
+//					iUC285Util.restartUsbAndEftpayment();
 					try {
 						sleep(2000);
 					} catch (InterruptedException e) {
@@ -347,7 +365,6 @@ public class Step2ProcessPayment extends CommonPanelOctopus{
 						pd.setRemainingValue(res.getDeductReturn().getReturnCode());
 						tran.setRemainBal(new BigDecimal(pd.getRemainingValue()).divide(new BigDecimal(10)));
 						tran.setSmartOctopus(pd.isSmartOctopus() ? "Y" : "N");
-						
 						if(res.isGetExtraInfoSuccess()) {
 							ExtraInfo info = (ExtraInfo)res.getExtraInfoReturn().getReturnData();
 							setOctopusExtraInfo(tran, info);
