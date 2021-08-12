@@ -114,7 +114,7 @@ public class CtClient extends JFrame{
         
         // start listen contactless payment callback
 		iUC285Util.startListeningCallback(8888, 8889);
-		iUC285Util.restartUsbAndEftpayment();
+//		iUC285Util.restartUsbAndEftpayment();
 	}
 	
 	public CtClient() throws IOException {
@@ -150,15 +150,15 @@ public class CtClient extends JFrame{
 				
 		//CK @ 20191112, add qr support
 		CtConfig config = CtUtil.getConfig();
-		logger.info("qrScannerPort:" + config.getQrScannerPort());
-		if(!StringUtil.isEmpty(config.getQrScannerPort())) {
-			SerialScanner ss = new SerialScanner(config.getQrScannerPort(), pnlCt);
-			try {
-				ss.connect();
-			} catch (Exception e) {
-				logger.error("Failed to conect " + config.getQrScannerPort(), e);
-			}
-		}
+//		logger.info("qrScannerPort:" + config.getQrScannerPort());
+//		if(!StringUtil.isEmpty(config.getQrScannerPort())) {
+//			SerialScanner ss = new SerialScanner(config.getQrScannerPort(), pnlCt);
+//			try {
+//				ss.connect();
+//			} catch (Exception e) {
+//				logger.error("Failed to conect " + config.getQrScannerPort(), e);
+//			}
+//		}
 	}
 	
 	private void closeApplication() {
