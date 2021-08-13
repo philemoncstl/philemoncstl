@@ -359,6 +359,7 @@ public class PrinterUtil {
 					SPACE.substring(0, 15 - parm.get(ReceiptCons.BATCH_NO).length()) + parm.get(ReceiptCons.BATCH_NO) + PAGE_NEW_LINE).getBytes()));
 		list.addAll(CopyArray(("ECR REF:\u0009" + parm.get(ReceiptCons.ECR_REF) + "\u0009APP CODE:\u0009" + 
 					SPACE.substring(0, 15 - parm.get(ReceiptCons.APP_CODE).length()) + parm.get(ReceiptCons.APP_CODE) + PAGE_NEW_LINE).getBytes()));
+		list.addAll(CopyArray(("TRACE NO.:" + parm.get(ReceiptCons.TRACE) + PAGE_NEW_LINE).getBytes()));
 	}
 	
 	public static int printReceipt(Map<String, String> parm) {
