@@ -2,6 +2,7 @@ package hk.com.evpay.ct.tool;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.Vector;
 
 import org.apache.log4j.Logger;
 
@@ -14,7 +15,7 @@ import hk.com.evpay.ct.util.CtUtil;
 public class TranHistCtrl {
 	private static Logger logger = Logger.getLogger(TranHistCtrl.class);
 	
-	public static final int MAX_KEEP = 50;
+	public static final int MAX_KEEP = 300;
 	
 	public static final String FILE_NAME = "tran_hist.json";
 	
@@ -41,7 +42,7 @@ public class TranHistCtrl {
 		}.start();
 	}
 	
-	private static void addHelp(TranModel tran) throws Exception {
+	public static void addHelp(TranModel tran) throws Exception {
 		logger.info("Add tran, receipt:" + tran.getReceiptNo() + ", mode:" + tran.getMode());
 		TranModel copy = new TranModel();
 		ReflectionUtil.copyProperties(copy, tran);
@@ -57,9 +58,17 @@ public class TranHistCtrl {
 	public static synchronized void loadTranHist() {
 		logger.info("Loading tran hist from " + FILE_NAME);
 		File f = CtUtil.getConfigFile(FILE_NAME);
+		HIST = new TranHist();
 		if(f.exists()) {
 			try {
-				HIST = GsonUtil.fromJson(f, TranHist.class);
+				TranHist TempH = GsonUtil.fromJson(f, TranHist.class);
+				Vector<TranModel> tnl = new Vector<>();
+				for(TranModel t : TempH.getTrans()) {
+					if(!"Void".equals(t.getTranStatusCode())) {
+						tnl.add(t);
+					}
+				}
+				HIST.setTrans(tnl);
 				logger.info("Tran hist loaded, count:" + HIST.getTrans().size());
 			} catch (IOException e) {
 				logger.error("Failed to load tran hist.", e);
@@ -87,4 +96,6 @@ public class TranHistCtrl {
 		logger.info("Res:" + res);
 		return res;
 	}
+	
+	
 }

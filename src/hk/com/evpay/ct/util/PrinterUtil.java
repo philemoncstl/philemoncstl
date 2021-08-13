@@ -398,6 +398,11 @@ public class PrinterUtil {
 					list.addAll(CopyArray(("(重印 Reprint)" + PAGE_NEW_LINE).getBytes("Big5")));
 					list.addAll(CopyArray((parm.get("reprintDttm") + PAGE_NEW_LINE).getBytes("Big5")));
 				}
+				if(parm.containsKey("voidMessage") && "Y".equals(parm.get("voidMessage"))&& parm.containsKey("voidDttm")) {
+					list.addAll(Arrays.asList(ALIGNMENT_RIGHT));
+					list.addAll(CopyArray(("(撤銷交易 Void)" + PAGE_NEW_LINE).getBytes("Big5")));
+					list.addAll(CopyArray((parm.get("voidDttm") + PAGE_NEW_LINE).getBytes("Big5")));
+				}
 				list.addAll(CopyArray(("---------------------------------------------------------" + PAGE_NEW_LINE).getBytes("Big5")));
 				
 				if(printMerchantCopy) {

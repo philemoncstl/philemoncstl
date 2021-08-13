@@ -92,6 +92,10 @@ public class Step3PrintReceipt extends CommonPanel{
 	}
 	
 	public static void printReceipt(TranModel tm, boolean reprint) {
+		printReceipt(tm, reprint, false);
+	}
+	
+	public static void printReceipt(TranModel tm, boolean reprint, boolean voidTm) {
 		logger.info("tm: " + new Gson().toJson(tm, TranModel.class) );
 		logger.info("Print receipt:" + tm.getReceiptNo());
 		Map<String, String> map = new LinkedHashMap<String, String>();
@@ -106,6 +110,11 @@ public class Step3PrintReceipt extends CommonPanel{
 		if(reprint) {
 			map.put("reprintMessage", "Y");
 			map.put("reprintDttm", DateUtil.getCurrentDateTimeStr());
+		}
+		
+		if(voidTm) {
+			map.put("voidMessage", "Y");
+			map.put("voidDttm", DateUtil.getCurrentDateTimeStr());
 		}
 		
 		map.put("receiptNo", tm.getReceiptNo());

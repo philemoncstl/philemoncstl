@@ -153,9 +153,27 @@ public class ContactlessSettlementDialog extends JDialog{
 		JButton voidBtn = new JButton("Void Record");
 		voidBtn.addActionListener(new ActionListener() {
 	      	public void actionPerformed(ActionEvent e) {
+	      		if("".equals(voidTarget.getText())) {
+	      			return;
+	      		}
 	      		voidResponse.setText("Loading...");
 	      		JSONObject response = iUC285Util.doVoid(voidTarget.getText());
 	      		voidResponse.setText(response != null ? response.toString() : "No Response");
+	      		if(response != null &&  voidTarget.getText().equals(response.get("TRACE"))) {
+	      			for(TranModel t : TranHistCtrl.getTranHist().getTrans()) {
+	      				if(response.get("TRACE").equals(t.getTransactionTrace())) {
+			      			Step3PrintReceipt.printReceipt(t, false, true);
+			      			t.setTranStatusCode("Void");
+			      			try {
+			      				TranHistCtrl.addHelp(t);
+			      			} catch (Exception ex) {
+			      				logger.error(ex);
+			      			}
+			      			break;
+	      				}
+	      			}
+	      		}
+	      		
 	      	}
     	});
 		
