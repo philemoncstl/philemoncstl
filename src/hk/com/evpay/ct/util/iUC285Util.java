@@ -281,7 +281,7 @@ public class iUC285Util {
    
     private static JSONObject asyncSendRequest(String request) {
     	int count 		= 0;
-    	int maxCount 	= 600; // 200 * 100ms
+    	int maxCount 	= 150; // 150 * 100ms = 15s
 		JSONObject response = null;
       	if(!requestProcessing && !waitSocketResponse) {
 	    	try {
