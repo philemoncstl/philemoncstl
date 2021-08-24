@@ -1,19 +1,11 @@
 package hk.com.evpay.ct;
 
-import java.awt.Color;
-import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
-import java.util.stream.Collectors;
-
-import javax.swing.JPanel;
-import javax.swing.JScrollPane;
-
 import org.apache.log4j.Logger;
 
-import com.google.gson.Gson;
 
 import hk.com.cstl.evcs.model.CpModel;
 

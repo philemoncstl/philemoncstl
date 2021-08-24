@@ -42,6 +42,7 @@ import com.ckzone.octopus.OctEventData;
 import com.ckzone.octopus.OctEventListener;
 import com.ckzone.octopus.OctEventType;
 import com.ckzone.octopus.OctStatus;
+import com.ckzone.util.GsonUtil;
 import com.ckzone.util.StringUtil;
 
 import hk.com.cstl.common.qr.ScanEventListener;
@@ -255,14 +256,14 @@ public class CtrlPanel extends CommonPanel implements CpWebSocketEventListener, 
 		
 		List<CpPanel> cpList = pnlCpList.getCpList();
 		//rearrange CP order based on CP No
-		int c = Math.min(ct.getCpList().size(), 10);
+		int c = Math.min(ct.getCpList().size(), 999);
 		for(int i = 0; i < c; i ++) {
 			cpList.get(i).setCp(ct.getCpList().get(i));
 		}
 		
-		for(int i = c; i < 10; i ++) {
-			cpList.get(i).setCp(null);
-		}
+//		for(int i = c; i < 10; i ++) {
+//			cpList.get(i).setCp(null);
+//		}
 		
 		CpPanel pnlCp = getCpPanel(cpEp);
 		if(pnlCp != null) {
@@ -396,10 +397,10 @@ public class CtrlPanel extends CommonPanel implements CpWebSocketEventListener, 
 			add(pnlEast, BorderLayout.EAST);
 			pnlEast.setLayout(null);
 			pnlEast.setPreferredSize(new Dimension(config.getEastWidth(), config.getCtHeight()));
-			Rectangle r1 = new Rectangle(0, 0, 130, 100);
+			Rectangle r1 = new Rectangle(0, 0, 130, 60);
 			for(int j = 0; j < Math.ceil((double)(ct.getCpList().size()) / 10.0); j ++) {
 				String lastCp = ct.getCpList().get((j * 10 + 9) < (ct.getCpList().size() -1) ? (j * 10 + 9) : (ct.getCpList().size() -1)).getCpNo();
-				I18nButtonLabel temp = new I18nButtonLabel(ct.getCpList().get(j * 10).getCpNo() + "-" + lastCp, 0 , "img/lang.png");		
+				I18nButtonLabel temp = new I18nButtonLabel(ct.getCpList().get(j * 10).getCpNo() + "-" + lastCp, 0 , "img/btn_page.png");		
 				logger.info("label name: " + temp.getText());
 				temp.setBounds(r1);
 				r1.y +=  110;
@@ -807,6 +808,8 @@ public class CtrlPanel extends CommonPanel implements CpWebSocketEventListener, 
 		
 		CpModel cp = pnl.getCp();
 		logger.info("requestCpConnectionCheck:" + cp.getCpNo() + " started");
+		logger.info("pnl == null: " + (pnl == null));
+		logger.info("pnl.getCpEp() == null: " + (pnl.getCpEp() == null));
 		long checkDelay = CtUtil.getConfig().getCheckCpHeartbeatResponseTimeoutMs();
 		if(pnl != null && pnl.getCpEp() != null) {
 			try {
