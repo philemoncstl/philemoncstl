@@ -113,7 +113,7 @@ public class CommonPanelOctopus extends CommonPanel{
 		
 							logger.info("Deduct Amt:" + deductAmt + ", returnCode:" + octReturn.getReturnCode());
 							long timeMs = System.currentTimeMillis();
-							octReturn = OctUtil.deduct(deductAmt, receiptNo, pollData.getNewCardId());
+							octReturn = OctUtil.deduct(deductAmt, receiptNo, pollData.getNewCardId(), tran.getTranId());
 							
 							if(octReturn.getReturnCode() > 100000) {								
 								if(octReturn.getReturnCode() == 100022 || octReturn.getReturnCode() == 100025) {
