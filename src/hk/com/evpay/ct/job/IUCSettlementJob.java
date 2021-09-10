@@ -23,7 +23,7 @@ public class IUCSettlementJob  implements Job{
   		JSONObject response = iUC285Util.doSettlement("EDC");
   		IucEventLog log = new IucEventLog();
   		log.setEventDttm(new Date());
-  		log.setCtId(CtUtil.getCt().getCtId());
+  		log.setCtId(CtUtil.getCt());
   		log.setEventType("Settlement");
   		log.setRemark(GsonUtil.toJson(response));
 		boolean res = CtWebSocketClient.uploadIUCEvent(log);
