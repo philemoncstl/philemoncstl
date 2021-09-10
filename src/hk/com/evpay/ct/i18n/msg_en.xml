@@ -281,4 +281,6 @@ Error code: %s</entry>
 <entry key="changePaymentMethodTo">Change to %s</entry>
 <entry key="instruction">Please restart CT to take effect.</entry>
 <entry key="maxServiceFeeDisplay">*</entry>
+
+<entry key="noStatus">Time Out</entry>
 </properties>

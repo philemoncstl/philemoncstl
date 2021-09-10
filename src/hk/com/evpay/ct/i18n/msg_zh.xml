@@ -272,4 +272,6 @@ Retry please (Octopus no. %s)</entry>
 <entry key="changePaymentMethodTo">更改為 %s</entry>
 <entry key="instruction">請重新啟動CT生效。</entry>
 <entry key="maxServiceFeeDisplay">*</entry>
+
+<entry key="noStatus">超時</entry>
 </properties>
