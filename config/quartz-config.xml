@@ -59,5 +59,18 @@
 			</cron>
 		</trigger>
 		
+		<job>
+			<name>IUCSettlementJob</name>
+			<description>IUC Settlement Job</description>
+			<job-class>hk.com.evpay.ct.job.IUCSettlementJob</job-class>
+		</job>
+		<trigger>
+			<cron>
+				<name>IUCSettlementJobTrigger</name>
+				<job-name>IUCSettlementJob</job-name>
+				<cron-expression>0 10 2 1/1 * ?</cron-expression>
+			</cron>
+		</trigger>
+		
 	</schedule>
 </job-scheduling-data>

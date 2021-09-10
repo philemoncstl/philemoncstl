@@ -17,6 +17,7 @@ import javax.websocket.Session;
 import javax.websocket.WebSocketContainer;
 
 import org.apache.log4j.Logger;
+import org.json.JSONObject;
 
 import com.ckzone.octopus.OctEventData;
 import com.ckzone.octopus.util.OctUtil;
@@ -24,6 +25,7 @@ import com.ckzone.util.ClientEncryptUtil;
 import com.ckzone.util.GsonUtil;
 import com.ckzone.util.StringUtil;
 
+import hk.com.cstl.evcs.ct.IucEventLog;
 import hk.com.cstl.evcs.lms.LmsCons;
 import hk.com.cstl.evcs.lms.LmsServEvent;
 import hk.com.cstl.evcs.lms.LmsServEventType;
@@ -394,6 +396,10 @@ public class CtWebSocketClient {
 	
 	public static boolean updateCt() {
 		return sendRequest(WsAction.UpdateCt, CtUtil.getCt());
+	}
+	
+	public static boolean uploadIUCEvent(IucEventLog log) {
+		return sendRequest(WsAction.IUCEvent, log);
 	}
 	
 	public static boolean updateCp(CpModel cp) {
