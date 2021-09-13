@@ -10,7 +10,7 @@ import org.quartz.JobExecutionException;
 
 import com.ckzone.util.GsonUtil;
 
-import hk.com.cstl.evcs.ct.IucEventLog;
+import hk.com.cstl.evcs.ct.IucEventLogDto;
 import hk.com.evpay.ct.util.CtUtil;
 import hk.com.evpay.ct.util.iUC285Util;
 import hk.com.evpay.ct.ws.CtWebSocketClient;
@@ -21,9 +21,9 @@ public class IUCSettlementJob  implements Job{
 	public void execute(JobExecutionContext arg0) throws JobExecutionException {
 		logger.info("Starting IUCSettlementJob......");
   		JSONObject response = iUC285Util.doSettlement("EDC");
-  		IucEventLog log = new IucEventLog();
+  		IucEventLogDto log = new IucEventLogDto();
   		log.setEventDttm(new Date());
-  		log.setCtId(CtUtil.getCt());
+  		log.setCtId(CtUtil.getCt().getCtId());
   		log.setEventType("Settlement");
   		log.setRemark(GsonUtil.toJson(response));
 		boolean res = CtWebSocketClient.uploadIUCEvent(log);

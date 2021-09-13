@@ -4,9 +4,9 @@ import java.util.Date;
 
 import hk.com.cstl.evcs.model.CtModel;
 
-public class IucEventLog implements java.io.Serializable {
+public class IucEventLogDto implements java.io.Serializable {
 	private Integer eId;
-	private CtModel ctId;
+	private Integer ctId;
 	private String eventType;
 	private Date eventDttm;
 	private String remark;
@@ -17,11 +17,10 @@ public class IucEventLog implements java.io.Serializable {
 	public void seteId(Integer eId) {
 		this.eId = eId;
 	}
-
-	public CtModel getCtId() {
+	public Integer getCtId() {
 		return ctId;
 	}
-	public void setCtId(CtModel ctId) {
+	public void setCtId(Integer ctId) {
 		this.ctId = ctId;
 	}
 	public String getEventType() {

@@ -25,7 +25,7 @@ import com.ckzone.util.ClientEncryptUtil;
 import com.ckzone.util.GsonUtil;
 import com.ckzone.util.StringUtil;
 
-import hk.com.cstl.evcs.ct.IucEventLog;
+import hk.com.cstl.evcs.ct.IucEventLogDto;
 import hk.com.cstl.evcs.lms.LmsCons;
 import hk.com.cstl.evcs.lms.LmsServEvent;
 import hk.com.cstl.evcs.lms.LmsServEventType;
@@ -398,7 +398,7 @@ public class CtWebSocketClient {
 		return sendRequest(WsAction.UpdateCt, CtUtil.getCt());
 	}
 	
-	public static boolean uploadIUCEvent(IucEventLog log) {
+	public static boolean uploadIUCEvent(IucEventLogDto log) {
 		return sendRequest(WsAction.IUCEvent, log);
 	}
 	
