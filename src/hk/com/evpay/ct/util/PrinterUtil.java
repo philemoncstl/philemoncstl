@@ -347,7 +347,7 @@ public class PrinterUtil {
 	}
 	
 	private static void addContactlessInfo(List<Byte> list, Map<String, String> parm) throws UnsupportedEncodingException {
-		list.addAll(CopyArray((parm.get(ReceiptCons.PAYMENT_TYPE) + PAGE_NEW_LINE).getBytes()));
+//		list.addAll(CopyArray((parm.get(ReceiptCons.PAYMENT_TYPE) + PAGE_NEW_LINE).getBytes()));
 		list.addAll(CopyArray((parm.get(ReceiptCons.CARD_TYPE) + PAGE_NEW_LINE + PAGE_NEW_LINE).getBytes()));
 		list.addAll(Arrays.asList(ALIGNMENT_LEFT));
 		list.addAll(Arrays.asList(new Byte[]{0x1b, 0x44, 0x0A, 0x20, 0x2A, 0x00})); //Set horizontal tab
