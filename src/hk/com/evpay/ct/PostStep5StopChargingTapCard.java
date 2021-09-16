@@ -248,7 +248,7 @@ public class PostStep5StopChargingTapCard extends CommonPanelOctopus{
 						SwingUtilities.invokeLater(new Runnable() {			
 							@Override
 							public void run() {
-								if(PrinterUtil.isOnline()) {
+								if(PrinterUtil.isOnline() && "Y".equals(CtUtil.getServConfig().getEnablePrinter())) {
 									pnlCtrl.goToStep3PrintReceipt();
 								}
 								else {

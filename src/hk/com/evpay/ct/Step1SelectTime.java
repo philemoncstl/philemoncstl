@@ -229,7 +229,7 @@ public class Step1SelectTime extends CommonPanel{
 	private void startCharging(PayMethod payMethod) {
 		logger.info("start charging, payMethod:" + payMethod);
 		pnlCtrl.setPayMethod(payMethod);
-		if(PrinterUtil.isOnline()) {
+		if(PrinterUtil.isOnline() || !"Y".equals(CtUtil.getServConfig().getEnablePrinter())) {
 			pnlCtrl.goToStep2ProcessPayment();
 		}
 		else {

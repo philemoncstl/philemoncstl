@@ -144,7 +144,7 @@ public class PostStep2ProcessPayment extends CommonPanelOctopus{
 					logger.info("Contactless read card success");
 					tran.setCardType(response.getString("CARD"));
 					tran.setCardHash(response.getString("CARDHASH"));
-					
+					tran.setCardNo(response.getString("PAN"));
 					setReceiptNo(tran);
 //					Step2ProcessPayment.setDummyCardInfoContactless(tran);
 					cardDetected();

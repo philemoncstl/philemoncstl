@@ -249,6 +249,7 @@ public class Step2ProcessPayment extends CommonPanelOctopus{
 					lblPayInst.setMsgCode("payInstContactless");
 					tran.setCardType(response.getString("CARD"));
 					tran.setCardHash(response.getString("CARDHASH"));
+					tran.setCardNo(response.getString("PAN"));
 					response = null;
 					response = iUC285Util.doSale(tran, tran.getAmt().multiply(new BigDecimal("100")).intValue());
 					responseStatus = iUC285Util.getStatus(response);
@@ -428,7 +429,7 @@ public class Step2ProcessPayment extends CommonPanelOctopus{
 						SwingUtilities.invokeLater(new Runnable() {			
 							@Override
 							public void run() {
-								if(PrinterUtil.isOnline()) {
+								if(PrinterUtil.isOnline() && "Y".equals(CtUtil.getServConfig().getEnablePrinter())) {
 									pnlCtrl.goToStep3PrintReceipt();
 								}
 								else {

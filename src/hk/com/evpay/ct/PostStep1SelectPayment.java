@@ -11,6 +11,7 @@ import hk.com.cstl.evcs.ocpp.eno.PayMethod;
 import hk.com.evpay.ct.i18n.I18nButtonLabel;
 import hk.com.evpay.ct.i18n.I18nLabel;
 import hk.com.evpay.ct.i18n.PayButton;
+import hk.com.evpay.ct.util.CtUtil;
 import hk.com.evpay.ct.util.LangUtil;
 import hk.com.evpay.ct.util.PrinterUtil;
 
@@ -106,7 +107,7 @@ public class PostStep1SelectPayment extends CommonPanelOctopus{
 	private void startCharging(PayMethod payMethod) {
 		logger.info("start charging, payMethod:" + payMethod);
 		pnlCtrl.setPayMethod(payMethod);
-		if(PrinterUtil.isOnline()) {
+		if(PrinterUtil.isOnline() || !"Y".equals(CtUtil.getServConfig().getEnablePrinter())) {
 			pnlCtrl.goToPostStep2ProcessPayment();
 		}
 		else {
