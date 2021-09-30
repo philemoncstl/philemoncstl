@@ -60,6 +60,8 @@ public class CtConfig {
 	
 	private boolean lms = true;
 	
+	private String version = "v1.0.0";
+	
 	public boolean isLms() {
 		return lms;
 	}
@@ -340,6 +342,14 @@ public class CtConfig {
 
 	public void setEastWidth(int eastWidth) {
 		this.eastWidth = eastWidth;
+	}
+
+	public String getVersion() {
+		return version;
+	}
+
+	public void setVersion(String version) {
+		this.version = version;
 	}	
 	
 	

@@ -181,12 +181,14 @@ public class ContactlessSettlementDialog extends JDialog{
 		pnl.add(voidTarget);
 		pnl.add(voidResponse);
 		
-        
+       
+		
 		//Sourth panel		
 		pnl = new JPanel(new FlowLayout(FlowLayout.CENTER));	
 		pnl.setPreferredSize(new Dimension(950, 100));
 		pnl.setOpaque(false);
 		add(pnl, BorderLayout.AFTER_LAST_LINE);
+		
 		
 		JLabel lblClose = OctopusEnquiryDialog.createButton("close", "img/btn_no.png", 80, 582);
 		lblClose.addMouseListener(new MouseAdapter() {
@@ -197,6 +199,10 @@ public class ContactlessSettlementDialog extends JDialog{
 			}
 		});
 		pnl.add(lblClose);
+		
+		JLabel versionLbl = new  JLabel();
+		versionLbl.setText(CtUtil.getConfig().getVersion());
+		pnl.add(versionLbl);
 		UiUtil.debugUi(pnl);
 	}
 }

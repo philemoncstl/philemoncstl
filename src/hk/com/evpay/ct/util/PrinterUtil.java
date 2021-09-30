@@ -360,6 +360,26 @@ public class PrinterUtil {
 		list.addAll(CopyArray(("ECR REF:\u0009" + parm.get(ReceiptCons.ECR_REF) + "\u0009APP CODE:\u0009" + 
 					SPACE.substring(0, 15 - parm.get(ReceiptCons.APP_CODE).length()) + parm.get(ReceiptCons.APP_CODE) + PAGE_NEW_LINE).getBytes()));
 		list.addAll(CopyArray(("TRACE NO.:" + parm.get(ReceiptCons.TRACE) + PAGE_NEW_LINE).getBytes()));
+		
+	}
+	
+	private static String getContactlessMsg(String cardType) {
+		String msg = "";
+		switch(cardType) {
+			case "VISA" :
+			case "MASTERCARD":
+			case "JCB":
+				msg = "I ACKNOWLEDGE SATISFACTORY RECEIPT OF RELATIVE\nGOODS/SERVICES. I confirm that I have read and understood\nthe Teams and Conditions for Interest-free Instalment\nPlan and agree to be bound by them.";
+				break;
+			case "CUP":
+				msg = "本人確認以上交易，同意將其計入本帳戶";
+				break;
+			case "AMEX":
+				msg = "I AGREE TO PAY THE ABOVE TOTAL AMOUNT ACCORDING\nTO THE CARD ISSUER AGREEMENT";
+				break;
+		}
+		return msg;
+		
 	}
 	
 	public static int printReceipt(Map<String, String> parm) {
@@ -426,7 +446,10 @@ public class PrinterUtil {
 					addContactlessInfo(list, parm);
 					
 					list.addAll(Arrays.asList(ALIGNMENT_LEFT));
-					list.addAll(CopyArray((PAGE_NEW_LINE + "NO SIGNATURE REQUIRED" + PAGE_NEW_LINE + PAGE_NEW_LINE).getBytes()));
+					list.addAll(CopyArray((PAGE_NEW_LINE + "NO SIGNATURE REQUIRED" + PAGE_NEW_LINE).getBytes()));
+					
+					list.addAll(Arrays.asList(ALIGNMENT_CENTER));
+					list.addAll(CopyArray((PAGE_NEW_LINE + getContactlessMsg(parm.get(ReceiptCons.CARD_TYPE)) + PAGE_NEW_LINE + PAGE_NEW_LINE).getBytes("Big5")));
 				}
 				else if("Octopus".equals(payType)){
 					addOctopusInfo(list, parm);

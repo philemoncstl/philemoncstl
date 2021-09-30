@@ -360,6 +360,7 @@ public class CtrlPanel extends CommonPanel implements CpWebSocketEventListener, 
 	
 	
 	private void initUI() {
+		logger.info("Vesion No: " + config.getVersion());
 		setLayout(new BorderLayout(0, 0));
 		Insets i = config.SCREEN_INSET;
 		setBorder(BorderFactory.createEmptyBorder(i.top, i.left, i.bottom, i.right));
