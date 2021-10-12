@@ -2,11 +2,13 @@ package hk.com.evpay.ct;
 
 import java.awt.Color;
 import java.awt.Font;
+import java.awt.Image;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.util.concurrent.TimeUnit;
 
 import javax.swing.BorderFactory;
+import javax.swing.ImageIcon;
 import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
 
@@ -170,6 +172,10 @@ public class Step2ProcessPayment extends CommonPanelOctopus{
 		fpAmount.getVal().setParm(tm.getTimeCharge());
 		
 		if(pnlCtrl.getPayMethod() == PayMethod.ContactlessGroup) {
+//			ImageIcon imageIcon = new ImageIcon("img/msg_box_L.png");
+//			Image image = imageIcon.getImage(); // transform it 
+//			Image newimg = image.getScaledInstance(744, 184,  Image.SCALE_SMOOTH); // scale it the smooth way  
+//			lblPayInst.setIcon(new ImageIcon(newimg));
 			lblPayInst.setMsgCode("stopChargingInstContactlessVerify");
 			handlePaymentContactless();
 		}

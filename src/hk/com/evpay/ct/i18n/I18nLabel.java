@@ -15,6 +15,7 @@ public class I18nLabel extends JLabel implements I18nSupport{
 	
 	protected String msgCode;
 	protected String[] parms;
+	protected boolean isHtmlString;
 	
 	public I18nLabel() {
 		UiUtil.debugUi(this);
@@ -35,13 +36,24 @@ public class I18nLabel extends JLabel implements I18nSupport{
 	@Override
 	public void langChanged() {
 		LangUtil.setFont(this, this.getFont().getStyle(), this.getFont().getSize());
-		updateText();
+		if(isHtmlString) {
+			updateTextWithHtml();
+		} else {
+			updateText();
+		}
 	}
 	
 	public void updateText() {
+		isHtmlString = false;
 		this.setText(msgCode == null ? super.getText() : 
 			(parms == null ? LangUtil.getMsg(msgCode) : String.format(LangUtil.getMsg(msgCode), this.parms)));
 		//logger.debug(msgCode + "=" + this.getText());
+	}
+	
+	public void updateTextWithHtml() {
+		isHtmlString = true;
+		this.setText(msgCode == null ? super.getText() : 
+			(parms == null ? LangUtil.getMsg(msgCode) : LangUtil.getMsg(msgCode).replace("%s", this.parms[0])));
 	}
 
 	public String getMsgCode() {
@@ -62,6 +74,11 @@ public class I18nLabel extends JLabel implements I18nSupport{
 	public void setParms(String[] parms) {
 		this.parms = parms;
 		updateText();
+	}
+	
+	public void setParmsWithHtml(String parm) {
+		setParms(new String[]{parm});
+		updateTextWithHtml();
 	}
 	
 	public void setParms(String parm) {

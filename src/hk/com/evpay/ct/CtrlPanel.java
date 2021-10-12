@@ -718,7 +718,11 @@ public class CtrlPanel extends CommonPanel implements CpWebSocketEventListener, 
 		showErrorMessage(msgCode, null);
 	}
 	
-	public void showErrorMessage(String msgCode, String parm) {		
+	public void showErrorMessage(String msgCode, String parm) {	
+		showErrorMessage(msgCode, parm, false);
+	}
+	
+	public void showErrorMessage(String msgCode, String parm, boolean html) {		
 		logger.info("Error:" + msgCode + ", parm:" + parm);
 		
 		if(msgCode.startsWith("ERR100001") || msgCode.startsWith("ERR100005") || msgCode.equals("ERROctopusOthers")){
@@ -737,7 +741,11 @@ public class CtrlPanel extends CommonPanel implements CpWebSocketEventListener, 
 			public void run() {
 				pnlError.getLblMsg().setMsgCode(msgCode);
 				if(!StringUtil.isEmpty(parm)) {
-					pnlError.getLblMsg().setParms(parm);
+					if(html) {
+						pnlError.getLblMsg().setParmsWithHtml(parm);
+					} else {
+						pnlError.getLblMsg().setParms(parm);
+					}
 				}
 				pnlError.onDisplay(null);	//CK @ 20180311, go back to home
 				showCard(pnlError);

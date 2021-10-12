@@ -2,9 +2,12 @@ package hk.com.evpay.ct;
 
 import java.awt.Color;
 import java.awt.Font;
+import java.awt.Image;
 import java.math.BigDecimal;
 import java.util.Date;
 
+import javax.swing.ImageIcon;
+import javax.swing.SwingConstants;
 import javax.swing.SwingUtilities;
 
 import org.apache.log4j.Logger;
@@ -38,6 +41,8 @@ public class PostStep5StopChargingTapCard extends CommonPanelOctopus{
 	private CpPanel pnlCp;
 	
 	private Thread stopThread;
+	
+	private Image contactlessFirstImg, contactlessSecondImg, contactlessFinishImg;
 
 	public PostStep5StopChargingTapCard(CtrlPanel pnlCtrl) {
 		super(pnlCtrl);
@@ -48,6 +53,20 @@ public class PostStep5StopChargingTapCard extends CommonPanelOctopus{
 		lblStopInst.setForeground(Color.WHITE);
 		LangUtil.setFont(lblStopInst, Font.PLAIN, 32);
 		add(lblStopInst);
+		
+		
+		//for Contactless new UI
+		ImageIcon imageIcon = new ImageIcon("img/payment_contactless_first.png");
+		Image image = imageIcon.getImage(); // transform it 
+		contactlessFirstImg = image.getScaledInstance(744, 300,  Image.SCALE_SMOOTH); // scale it the smooth way  
+		
+		imageIcon = new ImageIcon("img/payment_contactless_second.png");
+		image = imageIcon.getImage(); // transform it 
+		contactlessSecondImg = image.getScaledInstance(744, 300,  Image.SCALE_SMOOTH); // scale it the smooth way  
+		
+		imageIcon = new ImageIcon("img/payment_contactless_finish.png");
+		image = imageIcon.getImage(); // transform it 
+		contactlessFinishImg = image.getScaledInstance(744, 300,  Image.SCALE_SMOOTH); // scale it the smooth way 
 	}
 	
 	@Override
@@ -61,7 +80,9 @@ public class PostStep5StopChargingTapCard extends CommonPanelOctopus{
 		logger.info("Check Payment");
 		if(CtUtil.isPayByContactless(tran)) {
 			logger.info("isPayByContactless");
+			lblStopInst.setSize(744, 300);
 			lblStopInst.setMsgCode("stopChargingInstContactlessVerify");
+			lblStopInst.setIcon(new ImageIcon(contactlessFirstImg));
 			stopChargingContactless();
 		}
 		else if(CtUtil.isPayByOctopus(tran)){
@@ -171,13 +192,22 @@ public class PostStep5StopChargingTapCard extends CommonPanelOctopus{
 				if(responseStatus == Status.Approved) {
 					if(response.getString("CARDHASH").equals(tran.getCardHash())) {
 						lblStopInst.setMsgCode("stopChargingInstContactless");
+						lblStopInst.setIcon(new ImageIcon(contactlessSecondImg));
 						response = iUC285Util.doSale(tran, tran.getAmt().multiply(new BigDecimal("100")).intValue());
 						responseStatus = iUC285Util.getStatus(response);
 						tran.setTransactionTrace(response.getString("TRACE"));
 						if(responseStatus == Status.Approved) {
 							Step2ProcessPayment.setCardInfoContactless(tran, response);
 							logger.info("Contactless payment success");
-							stopChargingNow();
+							try {
+								lblStopInst.setMsgCode("finishChargingInstContactless");
+								lblStopInst.setIcon(new ImageIcon(contactlessFinishImg));
+								sleep(1000);
+							} catch (InterruptedException e) {
+								logger.error("Contactless display Error sleep Fail", e);
+							} finally {
+								stopChargingNow();
+							}
 						} else {
 							logger.info("Contactless payment fail");
 							pnlCtrl.showErrorMessage(responseStatus.toString());
