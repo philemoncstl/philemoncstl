@@ -42,22 +42,25 @@ public class PostStep5StopChargingTapCard extends CommonPanelOctopus{
 	
 	private Thread stopThread;
 	
-	private Image contactlessFirstImg, contactlessSecondImg, contactlessFinishImg;
+	private Image  defaultImg, contactlessFirstImg, contactlessSecondImg, contactlessFinishImg;
 
 	public PostStep5StopChargingTapCard(CtrlPanel pnlCtrl) {
 		super(pnlCtrl);
 
 		setLayout(null);
-		
+		ImageIcon imageIcon = new ImageIcon("img/msg_box.png");
+		Image image = imageIcon.getImage(); // transform it 
+		defaultImg = image.getScaledInstance(744, 184,  Image.SCALE_SMOOTH); // scale it the smooth way  
 		lblStopInst = createButton("stopChargingInstContactless", "img/msg_box.png", 270, 380, 744, 184);
 		lblStopInst.setForeground(Color.WHITE);
 		LangUtil.setFont(lblStopInst, Font.PLAIN, 32);
 		add(lblStopInst);
 		
 		
+		
 		//for Contactless new UI
-		ImageIcon imageIcon = new ImageIcon("img/payment_contactless_first.png");
-		Image image = imageIcon.getImage(); // transform it 
+		imageIcon = new ImageIcon("img/payment_contactless_first.png");
+		image = imageIcon.getImage(); // transform it 
 		contactlessFirstImg = image.getScaledInstance(744, 300,  Image.SCALE_SMOOTH); // scale it the smooth way  
 		
 		imageIcon = new ImageIcon("img/payment_contactless_second.png");
@@ -88,11 +91,13 @@ public class PostStep5StopChargingTapCard extends CommonPanelOctopus{
 		else if(CtUtil.isPayByOctopus(tran)){
 			logger.info("isPayByOctopus");
 			lblStopInst.setMsgCode("stopChargingInstPostpaid");
+			lblStopInst.setIcon(new ImageIcon(defaultImg));
 			stopChargingOctopus();
 		}
 		else if(CtUtil.isPayByQr(tran)){
 			logger.info("isPayByQr");
 			lblStopInst.setMsgCode("stopChargingInstPostpaidQR");
+			lblStopInst.setIcon(new ImageIcon(defaultImg));
 			stopChargingQr();
 		} else {
 			logger.info("trans getPayMethodCode" + tran.getPayMethodCode());
