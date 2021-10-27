@@ -108,6 +108,8 @@ take receipt.</entry>
 <entry key="receiptNo">Receipt no.</entry>
 <entry key="remainingChargingTime">Remaining Charging Time</entry>
 <entry key="stopCharging">Stop Charging</entry>
+<entry key="startChargingInstContactlessVerify">Please tap your card or mobile payment device 
+to the reader to verify.</entry>
 <entry key="stopChargingInstContactlessVerify">&lt;br&gt;&lt;span style=&quot;font-size: 70%;color:blue;&quot;&gt;Verification &lt;/span&gt;\t\t&lt;span style=&quot;font-size: 70%;color:gray;&quot;&gt; Payment&lt;/span&gt;
 &lt;br&gt;
 &lt;br&gt;
@@ -295,5 +297,16 @@ Error code: %s</entry>
 <entry key="instruction">Please restart CT to take effect.</entry>
 <entry key="maxServiceFeeDisplay">*</entry>
 
-<entry key="noStatus">Time Out</entry>
+<!-- iUC285 Message  -->
+<entry key="noStatus">Input timeout (Card insert/tap or host timeout)</entry>
+<entry key="Approved">Transaction Approve</entry>
+<entry key="Declined">Transaction Declined</entry>
+<entry key="Cancelled">Transaction Cancelled By Users</entry>
+<entry key="CommError">Communication Error</entry>
+<entry key="Rejected">Other Rejected Reason Not Listed</entry>
+<entry key="NotSupported">Function or card type not supported</entry>
+<entry key="Timeout">Input timeout (Card insert/tap or host timeout)</entry>
+<entry key="AlreadyVoided">Transaction already voided﻿﻿</entry>
+<entry key="Unconfirmed">The host response is not able to retrieve</entry>
+<entry key="doTranBad">無法連接讀卡器(IUC)</entry>
 </properties>

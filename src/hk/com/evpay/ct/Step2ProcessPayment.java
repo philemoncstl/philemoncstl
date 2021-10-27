@@ -176,7 +176,7 @@ public class Step2ProcessPayment extends CommonPanelOctopus{
 //			Image image = imageIcon.getImage(); // transform it 
 //			Image newimg = image.getScaledInstance(744, 184,  Image.SCALE_SMOOTH); // scale it the smooth way  
 //			lblPayInst.setIcon(new ImageIcon(newimg));
-			lblPayInst.setMsgCode("stopChargingInstContactlessVerify");
+			lblPayInst.setMsgCode("startChargingInstContactlessVerify");
 			handlePaymentContactless();
 		}
 		else if(pnlCtrl.getPayMethod() == PayMethod.Octopus){

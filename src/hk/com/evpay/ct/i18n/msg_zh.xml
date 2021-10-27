@@ -101,6 +101,8 @@
 <entry key="receiptNo">收據號碼</entry>
 <entry key="remainingChargingTime">餘下充電時間</entry>
 <entry key="stopCharging">停止充電</entry>
+<entry key="startChargingInstContactlessVerify">請將您的信用卡或移動支付設備輕放到
+閱讀器上確認。</entry>
 <entry key="stopChargingInstContactlessVerify">&lt;br&gt;&lt;span style=&quot;font-size: 70%;color:blue;&quot;&gt;確認 &lt;/span&gt;\t\t\t\t\t\t\t&lt;span style=&quot;font-size: 70%;color:gray;&quot;&gt; 支付&lt;/span&gt;
 &lt;br&gt;
 &lt;br&gt;
@@ -286,5 +288,17 @@ Retry please (Octopus no. %s)</entry>
 <entry key="instruction">請重新啟動CT生效。</entry>
 <entry key="maxServiceFeeDisplay">*</entry>
 
-<entry key="noStatus">超時</entry>
+<!-- iUC285 Message  -->
+<entry key="noStatus">操作逾時</entry>
+<entry key="Approved">已授權交易</entry>
+<entry key="Declined">交易被拒</entry>
+<entry key="Cancelled">使用者取消交易</entry>
+<entry key="CommError">無法連接讀卡器</entry>
+<entry key="Rejected">其他錯誤，﻿交易﻿取消</entry>
+<entry key="NotSupported">不支援此交易種類﻿﻿或操作</entry>
+<entry key="Timeout">操作逾時</entry>
+<entry key="AlreadyVoided">交易已被取消﻿﻿</entry>
+<entry key="Unconfirmed">讀卡器沒有回應</entry>
+<entry key="doTranBad">無法連接讀卡器(IUC)</entry>
+
 </properties>
