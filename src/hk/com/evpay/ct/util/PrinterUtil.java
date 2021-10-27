@@ -591,6 +591,9 @@ public class PrinterUtil {
 	}
 
 	public static String getPrinterStatusHelper() {
+		if("false".equals(CtUtil.getServConfig().getEnablePrinter())) {
+			return UNKNOWN;
+		}
 		StarIOPort port = null;
 		try {
 			port = StarIOPort.getPort(PORT_NAME, "", 5000); // Open Printer Port
