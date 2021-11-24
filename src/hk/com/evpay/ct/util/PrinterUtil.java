@@ -359,7 +359,11 @@ public class PrinterUtil {
 					SPACE.substring(0, 15 - parm.get(ReceiptCons.BATCH_NO).length()) + parm.get(ReceiptCons.BATCH_NO) + PAGE_NEW_LINE).getBytes()));
 		list.addAll(CopyArray(("ECR REF:\u0009" + parm.get(ReceiptCons.ECR_REF) + "\u0009APP CODE:\u0009" + 
 					SPACE.substring(0, 15 - parm.get(ReceiptCons.APP_CODE).length()) + parm.get(ReceiptCons.APP_CODE) + PAGE_NEW_LINE).getBytes()));
-		list.addAll(CopyArray(("TRACE NO.:" + parm.get(ReceiptCons.TRACE) + PAGE_NEW_LINE).getBytes()));
+		list.addAll(CopyArray(("TC:\u0009" + parm.get(ReceiptCons.TC) + "\u0009TRACE NO.:\u0009" + 
+					SPACE.substring(0, 15 - parm.get(ReceiptCons.TRACE).length()) + parm.get(ReceiptCons.TRACE) + PAGE_NEW_LINE).getBytes()));
+		list.addAll(CopyArray(("AID:\u0009" + parm.get(ReceiptCons.AID) + "\u0009TRANS TYPE:\u0009" + 
+				SPACE.substring(0, 15 - parm.get(ReceiptCons.CMD).length() - 1) + parm.get(ReceiptCons.CMD) + PAGE_NEW_LINE).getBytes()));
+//		list.addAll(CopyArray(("TRACE NO.:" + parm.get(ReceiptCons.TRACE) + PAGE_NEW_LINE).getBytes()));
 		
 	}
 	
@@ -557,6 +561,9 @@ public class PrinterUtil {
 	}
 
 	public static boolean isOnline() {
+		if("N".equals(CtUtil.getServConfig().getEnablePrinter())) {
+			return false;
+		}
 		String status = getPrinterStatusHelper();
 		
 		if(NOT_AVAILABLE.equals(status)) {
@@ -591,7 +598,7 @@ public class PrinterUtil {
 	}
 
 	public static String getPrinterStatusHelper() {
-		if("false".equals(CtUtil.getServConfig().getEnablePrinter())) {
+		if("N".equals(CtUtil.getServConfig().getEnablePrinter())) {
 			return UNKNOWN;
 		}
 		StarIOPort port = null;

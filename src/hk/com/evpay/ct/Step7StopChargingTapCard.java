@@ -50,7 +50,7 @@ public class Step7StopChargingTapCard extends CommonPanelOctopus{
 		
 		TranModel tran = cp.getCp().getTran();
 		if(CtUtil.isPayByContactless(tran)) {
-			lblStopInst.setMsgCode("stopChargingInstContactless");
+			lblStopInst.setMsgCode("stopChargingPreInstContactless");
 			stopChargingContactless();
 		}
 		else if(CtUtil.isPayByOctopus(tran)){

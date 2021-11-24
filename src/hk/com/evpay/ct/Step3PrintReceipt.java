@@ -127,6 +127,9 @@ public class Step3PrintReceipt extends CommonPanel{
 		map.put("cpNo", tm.getCpNo());
 		map.put("startDttm", DateUtil.formatDateTime(tm.getStartDttm()));
 		map.put("endDttm", DateUtil.formatDateTime(tm.getEndDttm()));
+		map.put("cmd", tm.getCmd());
+		map.put("tc", tm.getTc());
+		map.put("aid", tm.getAid());
 		BigDecimal duration = new BigDecimal(tm.getDurationMin()).divide(new BigDecimal(60), 2, RoundingMode.DOWN);
 		map.put("duration", String.valueOf(duration));
 		if(CtUtil.getServConfig().getFreeTimeUnit() != null && CtUtil.getServConfig().getFreeTimeUnit() > 0) {
@@ -226,6 +229,9 @@ public class Step3PrintReceipt extends CommonPanel{
 			map.put(ReceiptCons.BATCH_NO, tm.getBatchNo());
 			map.put(ReceiptCons.APP_CODE, tm.getApprovalCode());
 			map.put(ReceiptCons.TRACE, tm.getTransactionTrace());
+			map.put(ReceiptCons.AID, tm.getAid());
+			map.put(ReceiptCons.CMD, tm.getCmd());
+			map.put(ReceiptCons.TC, tm.getTc());
 		}
 		else if(CtUtil.isPayByQr(tm)) {
 			map.put(ReceiptCons.CARD_NO, tm.getCardNo());

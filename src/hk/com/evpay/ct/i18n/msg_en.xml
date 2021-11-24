@@ -81,6 +81,10 @@ HKD %s/%s mins, %s/kWH %s</entry>
 to the reader and start charging.
 &lt;span style=&quot;font-size: 60%;&quot;&gt;Please note that all service fee is non-refundable.
 Charging cable will be locked after starting charging.&lt;/span&gt;</entry>
+<entry key="payInstPostContactless">Please tap your card or mobile payment device 
+to the reader and start charging.
+&lt;span style=&quot;font-size: 60%;&quot;&gt;Please note that all service fee is non-refundable.
+Charging cable will be locked after starting charging.&lt;/span&gt;</entry>
 <entry key="payInstOct">Please tap your Octopus to pay and
 start charging.
 &lt;span style=&quot;font-size: 60%;&quot;&gt;Please note that all service fee is non-refundable.
@@ -128,6 +132,10 @@ to the reader to verify.</entry>
 &lt;span style=&quot;font-size: 80%;color:blue;&quot;&gt;Finish&lt;/span&gt;
 &lt;br&gt;
 </entry>
+<entry key="stopChargingPreInstContactless">Please tap your card or mobile payment device 
+to the reader to stop charging.
+&lt;span style=&quot;font-size: 60%;&quot;&gt;&lt;br&gt;Charging cable will be unlocked after stopping charging.&lt;/span&gt;</entry>
+
 <entry key="stopChargingInstOct">Please tap your Octopus to stop charging.
 &lt;span style=&quot;font-size: 60%;&quot;&gt;&lt;br&gt;Charging cable will be unlocked after stopping charging.&lt;/span&gt;</entry>
 <entry key="stopChargingInstQR">Please present your QR code to the 
@@ -176,7 +184,7 @@ Please tap the same Octopus in
 10 seconds to stop charging.
 Octopus number %s</entry>
 <entry key="presentSameCardContactless">Please tap the same card or mobile payment
-&lt;span style=&quot;font-size: 60%;&quot;&gt;&lt;br&gt;device in 10 seconds to stop charging.
+&lt;span style=&quot;font-size: 60%;&quot;&gt;&lt;br&gt;
 Card or mobile payment device number %s&lt;/span&gt;</entry>
 <entry key="presentSameQR">This is not the same QR code.
 Please present the same QR code in

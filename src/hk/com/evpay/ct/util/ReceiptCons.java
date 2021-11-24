@@ -41,5 +41,8 @@ public class ReceiptCons {
 	public static final String ECR_REF = "ecrRef";
 	public static final String APP_CODE = "appCode";
 	public static final String TRACE = "transactionTrace";
+	public static final String AID = "aid";
+	public static final String TC = "tc";
+	public static final String CMD = "cmd";
 
 }

@@ -60,7 +60,7 @@ public class CtConfig {
 	
 	private boolean lms = true;
 	
-	private String version = "v1.0.0";
+	private String version = "v1.2.0";
 	
 	public boolean isLms() {
 		return lms;

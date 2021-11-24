@@ -76,6 +76,10 @@
 閱讀器上付款及開始充電。
 &lt;span style=&quot;font-size: 60%;&quot;&gt;所有服務費用將不獲退還。
 開始充電後，充電線會被鎖上。&lt;/span&gt;</entry>
+<entry key="payInstPostContactless">請將您的信用卡或移動支付設備輕放到
+閱讀器上開始充電。
+&lt;span style=&quot;font-size: 60%;&quot;&gt;所有服務費用將不獲退還。
+開始充電後，充電線會被鎖上。&lt;/span&gt;</entry>
 <entry key="payInstOct">請拍您的八達通於閱卡器上付款及開始充電。
 &lt;span style=&quot;font-size: 60%;&quot;&gt;所有服務費用將不獲退還。
 開始充電後，充電線會被鎖上。&lt;/span&gt;</entry>
@@ -121,6 +125,9 @@
 &lt;span style=&quot;font-size: 80%;color:blue;&quot;&gt;完成&lt;/span&gt;
 &lt;br&gt;
 </entry>
+<entry key="stopChargingPreInstContactless">請將您的信用卡或移動支付設備輕放到
+閱讀器上付款以停始充電。
+&lt;span style=&quot;font-size: 60%;&quot;&gt;&lt;br&gt;停止充電後，充電線會被解鎖。&lt;/span&gt;</entry>
 <entry key="stopChargingInstOct">請拍你的八達通於閱卡器上以停止充電。
 &lt;span style=&quot;font-size: 60%;&quot;&gt;&lt;br&gt;停止充電後，充電線會被解鎖。&lt;/span&gt;</entry>
 <entry key="stopChargingInstQR">請將您的二維碼顯示在
@@ -168,7 +175,7 @@
 以確認停止充電程序。
 八達通號碼 %s</entry>
 <entry key="presentSameCardContactless">所出示之信用卡或移動支付設備與之前使用的不符。
-&lt;span style=&quot;font-size: 60%;&quot;&gt;&lt;br&gt;請於10秒內拍之前使用之信用卡或移動支付設備
+&lt;span style=&quot;font-size: 60%;&quot;&gt;&lt;br&gt;請拍之前使用之信用卡或移動支付設備
 以確認停止充電程序。
 信用卡或移動支付設備號碼 %s&lt;/span&gt;</entry>
 <entry key="presentSameQR">所出示之二維碼與之前使用的不符。

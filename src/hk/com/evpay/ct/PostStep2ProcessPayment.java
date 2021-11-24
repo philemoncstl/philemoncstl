@@ -89,7 +89,7 @@ public class PostStep2ProcessPayment extends CommonPanelOctopus{
 		}
 		
 		if(pnlCtrl.getPayMethod() == PayMethod.ContactlessGroup) {
-			lblInst.setMsgCode("payInstContactless");
+			lblInst.setMsgCode("payInstPostContactless");
 			handlePaymentContactless();
 		}
 		else if(pnlCtrl.getPayMethod() == PayMethod.Octopus){
@@ -145,6 +145,9 @@ public class PostStep2ProcessPayment extends CommonPanelOctopus{
 					tran.setCardType(response.getString("CARD"));
 					tran.setCardHash(response.getString("CARDHASH"));
 					tran.setCardNo(response.getString("PAN"));
+					tran.setCmd(response.getString("CMD"));
+					tran.setAid(response.getString("AID"));
+					tran.setTc(response.getString("TC"));
 					setReceiptNo(tran);
 //					Step2ProcessPayment.setDummyCardInfoContactless(tran);
 					cardDetected();

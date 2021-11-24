@@ -222,6 +222,9 @@ public class Step2ProcessPayment extends CommonPanelOctopus{
 		tran.setApprovalCode(response.getString("APPCODE"));
 		tran.setTransactionTrace(response.getString("TRACE"));
 		tran.setCardNo(response.getString("PAN"));
+		tran.setCmd(response.getString("CMD"));
+		tran.setAid(response.getString("AID"));
+		tran.setTc(response.getString("TC"));
 	}
 	
 	private void displayContactlessError(Status responseStatus) {
@@ -256,6 +259,9 @@ public class Step2ProcessPayment extends CommonPanelOctopus{
 					tran.setCardType(response.getString("CARD"));
 					tran.setCardHash(response.getString("CARDHASH"));
 					tran.setCardNo(response.getString("PAN"));
+					tran.setCmd(response.getString("CMD"));
+					tran.setAid(response.getString("AID"));
+					tran.setTc(response.getString("TC"));
 					response = null;
 					response = iUC285Util.doSale(tran, tran.getAmt().multiply(new BigDecimal("100")).intValue());
 					responseStatus = iUC285Util.getStatus(response);
