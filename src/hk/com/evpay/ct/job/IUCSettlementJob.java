@@ -34,12 +34,6 @@ public class IUCSettlementJob  implements Job{
 		CtrlPanel.goToErrorPage("cpStatusUnavailable");
 		JSONObject response = null;
 		response = iUC285Util.doSettlement("EDC");
-  		IucEventLogDto log = new IucEventLogDto();
-  		log.setEventDttm(new Date());
-  		log.setCtId(CtUtil.getCt().getCtId());
-  		log.setEventType("Settlement");
-  		log.setRemark(response == null ? "" : response.toString());
-		boolean res = CtWebSocketClient.uploadIUCEvent(log);
 		boolean hideContactlessButton = false;
 		if (response != null && response.has("BATCH")) {
 			JSONArray c = response.getJSONArray("BATCH");
@@ -61,7 +55,7 @@ public class IUCSettlementJob  implements Job{
 			logger.info("hideContactlessButton");
 			CtrlPanel.hideContactlessButton();
 		}
-		logger.info("Completed IUCSettlementJob: " + res);
+		logger.info("Completed IUCSettlementJob");
 		CtrlPanel.goToHomePage();
 	}
 }

@@ -9,8 +9,11 @@ import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
+import java.util.Date;
 
+import hk.com.cstl.evcs.ct.IucEventLogDto;
 import hk.com.cstl.evcs.model.TranModel;
+import hk.com.evpay.ct.ws.CtWebSocketClient;
 
 import org.apache.log4j.Logger;
 import org.json.JSONObject;
@@ -121,40 +124,55 @@ public class iUC285Util {
     }
     
     public static JSONObject doCardRead() {
-    	return asyncSendRequest("{\"AMT\":0,\"ECRREF\":\"\",\"CARDTYPE\":\"\",\"CMD\":\"READ_CARD\",\"TYPE\":\"EDC\"}");
+    	JSONObject jo = asyncSendRequest("{\"AMT\":0,\"ECRREF\":\"\",\"CARDTYPE\":\"\",\"CMD\":\"READ_CARD\",\"TYPE\":\"EDC\"}");
+    	updateIucEventLogDto("READ_CARD", jo);
+    	return jo;
     }
     
     public static JSONObject doSale(TranModel tran, long amount) {
 //    	 String request = String.format("{\"AMT\":%d,\"ECRREF\":\"%s\",\"CARDTYPE\":\"\",\"CMD\":\"SALE\",\"TYPE\":\"EDC\"}", amount, "AABB123123");
     	String request = String.format("{\"AMT\":%d,\"ECRREF\":\"%s\",\"CARDTYPE\":\"\",\"CMD\":\"SALE\",\"TYPE\":\"EDC\"}", amount, tran.getReceiptNo());
-    	return asyncSendRequest(request);
+    	JSONObject jo =  asyncSendRequest(request);
+    	updateIucEventLogDto("SALE", jo);
+    	return jo;
     }
     
     public static JSONObject doVoid(TranModel tran) {
         String request = String.format("{\"TRACE\":\"%s\",\"CMD\":\"VOID\",\"TYPE\":\"EDC\"}", tran.getReceiptNo());
-    	return asyncSendRequest(request);
+    	JSONObject jo =  asyncSendRequest(request);
+    	updateIucEventLogDto("VOID", jo);
+    	return jo;
     }
     
     public static JSONObject doVoid(String receiptNo) {
         String request = String.format("{\"TRACE\":\"%s\",\"CMD\":\"VOID\",\"TYPE\":\"EDC\"}", receiptNo);
-    	return asyncSendRequest(request);
+    	JSONObject jo =  asyncSendRequest(request);
+    	updateIucEventLogDto("VOID", jo);
+    	return jo;
     }
     
     // Get LAST Record
     public static JSONObject doRetrieval() {
-    	return asyncSendRequest("{\"TRACE\":\"LAST\",\"CMD\":\"RETRIEVAL\",\"TYPE\":\"EDC\"}");
+    	String request = "{\"TRACE\":\"LAST\",\"CMD\":\"RETRIEVAL\",\"TYPE\":\"EDC\"}";
+    	JSONObject jo =  asyncSendRequest(request);
+    	updateIucEventLogDto("RETRIEVAL", jo);
+    	return jo;
     }
     
     public static JSONObject doRetrieval(TranModel tran) {
         String request = String.format("{\"TRACE\":\"%s\",\"CMD\":\"RETRIEVAL\",\"TYPE\":\"EDC\"}", tran.getReceiptNo());
-    	return asyncSendRequest(request);
+    	JSONObject jo =  asyncSendRequest(request);
+    	updateIucEventLogDto("RETRIEVAL", jo);
+    	return jo;
     }
     
     public static JSONObject doRetrieval(String receiptNo) {
         String request = String.format("{\"TRACE\":\"%s\",\"CMD\":\"RETRIEVAL\",\"TYPE\":\"EDC\"}", receiptNo);
     	logger.info("iUC285Util doRetrieval receiptNo: " + receiptNo);
     	logger.info("iUC285Util doSale request: " + request);
-    	return asyncSendRequest(request);
+    	JSONObject jo =  asyncSendRequest(request);
+    	updateIucEventLogDto("RETRIEVAL", jo);
+    	return jo;
     }
     
     public static JSONObject doGetTotal(String type) {
@@ -166,7 +184,9 @@ public class iUC285Util {
     	 * "CUP" - for CUP acquirer only
     	 */
     	String request = String.format("{\"CMD\":\"TOTAL\",\"TYPE\":\"%s\"}", type);
-    	return asyncSendRequest(request);
+    	JSONObject jo =  asyncSendRequest(request);
+    	updateIucEventLogDto("TOTAL", jo);
+    	return jo;
     }
     
     public static JSONObject doSettlement(String type) {
@@ -178,7 +198,9 @@ public class iUC285Util {
     	 * "CUP" - for CUP acquirer only
     	 */
     	String request = String.format("{\"CMD\":\"SETTLEMENT\",\"TYPE\":\"%s\"}", type);
-    	return asyncSendRequest(request);
+    	JSONObject jo =  asyncSendRequest(request);
+    	updateIucEventLogDto("SETTLEMENT", jo);
+    	return jo;
     }
      
     public static void startListeningCallback(int servicePort, int callbackPort) {
@@ -336,6 +358,16 @@ public class iUC285Util {
 //			// TODO Auto-generated catch block
 //			logger.error("restartUsbAndEftpayment: ", e);
 		}
+    }
+    
+    private static void updateIucEventLogDto(String type, JSONObject remark) {
+  		IucEventLogDto log = new IucEventLogDto();
+  		log.setEventDttm(new Date());
+  		log.setCtId(CtUtil.getCt().getCtId());
+  		log.setEventType(type);
+  		log.setRemark(remark == null ? "" : remark.toString());
+  		boolean res = CtWebSocketClient.uploadIUCEvent(log);
+  		logger.info("updateIucEventLog: " + res);
     }
     
 }
