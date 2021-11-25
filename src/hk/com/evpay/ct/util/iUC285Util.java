@@ -44,7 +44,6 @@ public class iUC285Util {
     private static final char[] HEX_ARRAY = "0123456789ABCDEF".toCharArray();
     
     private static final HttpHandler myHttpHandler = exchange -> {
-    	waitSocketResponse = false;
         if (exchange.getRequestMethod().equals("POST")) {
             boolean fail = false;
             String expectChecksum = exchange.getRequestHeaders().getFirst("X-MD5");
@@ -83,6 +82,7 @@ public class iUC285Util {
             logger.info("iUC285Util Unsupported response method: " + exchange.getRequestMethod());
         }
         exchange.getResponseBody().close();
+    	waitSocketResponse = false;
     };
    
     private iUC285Util() {}
@@ -281,7 +281,7 @@ public class iUC285Util {
    
     private static JSONObject asyncSendRequest(String request) {
     	int count 		= 0;
-    	int maxCount 	= 150; // 150 * 100ms = 15s
+    	int maxCount 	= 300; // 300 * 100ms = 30s
 		JSONObject response = null;
       	if(!requestProcessing && !waitSocketResponse) {
 	    	try {
@@ -295,7 +295,6 @@ public class iUC285Util {
 					} catch (InterruptedException e) {
 						  logger.error("iUC285Util socket request thread sleep with InterruptedException: ", e);
 					}
-		        	
 		        	if(waitSocketResponse == false) {
 		        		response		= socketResponse != null ? new JSONObject(socketResponse) : null;
 		        		socketResponse	= null;

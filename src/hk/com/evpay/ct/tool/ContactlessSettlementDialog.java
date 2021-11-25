@@ -37,6 +37,7 @@ import hk.com.evpay.ct.util.LangUtil;
 import hk.com.evpay.ct.util.UiUtil;
 
 import hk.com.evpay.ct.util.iUC285Util;
+import hk.com.evpay.ct.ws.CtWebSocketClient;
 
 public class ContactlessSettlementDialog extends JDialog{
 	private Logger logger = Logger.getLogger(ContactlessSettlementDialog.class);
@@ -162,8 +163,10 @@ public class ContactlessSettlementDialog extends JDialog{
 	      		if(response != null &&  voidTarget.getText().equals(response.get("TRACE"))) {
 	      			for(TranModel t : TranHistCtrl.getTranHist().getTrans()) {
 	      				if(response.get("TRACE").equals(t.getTransactionTrace())) {
-			      			Step3PrintReceipt.printReceipt(t, false, true);
 			      			t.setTranStatusCode("Void");
+	      					t.setCmd(response.getString("CMD"));
+	      					CtWebSocketClient.uploadTran(t);
+			      			Step3PrintReceipt.printReceipt(t, false, true);
 			      			try {
 			      				TranHistCtrl.addHelp(t);
 			      			} catch (Exception ex) {

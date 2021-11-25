@@ -24,10 +24,17 @@ public class PostStep1SelectPayment extends CommonPanelOctopus{
 	private I18nButtonLabel btnBack;
 	
 	private PayButton[] paymentBtns;
+	
+	private boolean contactlessDisabled;
 
 	public PostStep1SelectPayment(CtrlPanel pnlCtrl) {
 		super(pnlCtrl);
-
+		contactlessDisabled = Step1SelectTime.isContactlessDisabled();
+		init();
+	}
+	
+	private void init() {
+		logger.info("init");
 		setLayout(null);
 		
 //		lblInst = createButton("selectPaymentMethodInst", "img/msg_box.png", 270, 380, 744, 184);
@@ -35,8 +42,6 @@ public class PostStep1SelectPayment extends CommonPanelOctopus{
 		lblInst.setForeground(Color.WHITE);
 		LangUtil.setFont(lblInst, Font.PLAIN, 30);
 		add(lblInst);
-		
-		boolean contactlessDisabled = Step1SelectTime.isContactlessDisabled();
 		
 		MouseAdapter ma = new MouseAdapter() {
 			@Override
@@ -80,6 +85,7 @@ public class PostStep1SelectPayment extends CommonPanelOctopus{
 				
 			}
 		};
+	
 		
 		btnBack = createButton("back", "img/btn_back.png", 180, 682);
 		add(btnBack);
@@ -97,13 +103,25 @@ public class PostStep1SelectPayment extends CommonPanelOctopus{
 		
 		paymentBtns = getPayButtons();
 		for(PayButton pb : paymentBtns) {
+			if(pb.getPmModel().getPayMethod() != PayMethod.ContactlessGroup || (pb.getPmModel().getPayMethod() == PayMethod.ContactlessGroup && !contactlessDisabled))
 			add(pb);
 			pb.addMouseListener(ma);
+			logger.info("add PayMethod: " + pb.getPmModel().getPayMethod());
 		}
-	
 		btnBack.addMouseListener(ma);
 	}
 	
+	public void hideContactless() {
+		contactlessDisabled = true;
+		logger.debug("contactlessDisabled: " + contactlessDisabled);
+	}
+	
+	public void showContactless() {
+		if(!Step1SelectTime.isContactlessDisabled()) {
+			contactlessDisabled = false;
+			logger.debug("contactlessDisabled: " + contactlessDisabled);
+		}
+	}
 	private void startCharging(PayMethod payMethod) {
 		logger.info("start charging, payMethod:" + payMethod);
 		pnlCtrl.setPayMethod(payMethod);
@@ -118,8 +136,20 @@ public class PostStep1SelectPayment extends CommonPanelOctopus{
 	@Override
 	public void onDisplay(CpPanel cp) {
 		super.onDisplay(cp);
+		logger.info("onDisplay contactlessDisabled: " + contactlessDisabled );
 		pnlCp = cp;
-		
+		for(PayButton pb : paymentBtns) {
+			if(pb.getPmModel().getPayMethod() == PayMethod.ContactlessGroup) {
+				if(contactlessDisabled) {
+					logger.info("ContactlessGroup set Visible to false");
+					pb.setVisible(false);
+				} else {
+					logger.info("ContactlessGroup set Visible to true");
+					pb.setVisible(true);
+				}
+				break;
+			}
+		}
 		HelpPanel.setRateInfo(lblInst);
 	}
 

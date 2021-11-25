@@ -135,6 +135,8 @@ public class CtrlPanel extends CommonPanel implements CpWebSocketEventListener, 
 	
 	public static long QR_THREAD_MS = -1;
 	
+	private static boolean homePage = true;
+	
 	public CtrlPanel() {
 		super(null);
 		initUI();
@@ -175,6 +177,25 @@ public class CtrlPanel extends CommonPanel implements CpWebSocketEventListener, 
 		}
 		
 		return null;
+	}
+	
+	public static void goToErrorPage(String msgCode) {
+		CURRENCT_INSTANCE.showErrorMessageWithOutHomeBtn(msgCode);
+	}
+	
+	public static void goToHomePage() {
+		CURRENCT_INSTANCE.goToHome();
+
+	}
+	
+	public static void hideContactlessButton() {
+		CURRENCT_INSTANCE.postStep1SelectPayment.hideContactless();
+		CURRENCT_INSTANCE.step1SelectTime.hideContactless();
+	}
+	
+	public static void showContactlessButton() {
+		CURRENCT_INSTANCE.postStep1SelectPayment.showContactless();
+		CURRENCT_INSTANCE.step1SelectTime.showContactless();
 	}
 	
 	public static void rebootCt() {
@@ -552,6 +573,7 @@ public class CtrlPanel extends CommonPanel implements CpWebSocketEventListener, 
 			lblHelp.setVisible(true);
 			lblHome.setVisible(true);
 			pnlEast.setVisible(true);
+			homePage = true;
 		}
 		else {
 			logger.info("Go to home ignored, locking now");
@@ -600,6 +622,7 @@ public class CtrlPanel extends CommonPanel implements CpWebSocketEventListener, 
 		logger.debug("step1 " + pnl.getCp().getCpNo() + " select payment");
 		lblHelp.setVisible(true);
 		lblHome.setVisible(true);
+		homePage = false;
 		displayPanel(postStep1SelectPayment);
 	}
 	
@@ -607,6 +630,7 @@ public class CtrlPanel extends CommonPanel implements CpWebSocketEventListener, 
 		logger.debug("step2 " + pnlSelectedCp.getCp().getCpNo() + " process payment");
 		lblHome.setVisible(false);
 		lblHelp.setVisible(false);
+		homePage = false;
 		displayPanel(postStep2ProcPayment);
 	}
 	
@@ -615,11 +639,13 @@ public class CtrlPanel extends CommonPanel implements CpWebSocketEventListener, 
 		logger.debug("step3 " + pnlSelectedCp.getCp().getCpNo() + " charging record");
 		lblHome.setVisible(true);
 		lblHelp.setVisible(true);
+		homePage = false;
 		displayPanel(postStep3ChargingRecord);
 	}
 	
 	public void goToPostStep4StopCharging(CpPanel pnlCp) {
 		pnlSelectedCp = pnlCp;
+		homePage = false;
 		logger.debug("step4 " + pnlSelectedCp.getCp().getCpNo() + " stop charging");
 		displayPanel(postStep4StopCharging);
 	}
@@ -627,6 +653,7 @@ public class CtrlPanel extends CommonPanel implements CpWebSocketEventListener, 
 	public void goToPostStep5StopChargingTapCard() {
 		lblHome.setVisible(false);
 		lblHelp.setVisible(false);
+		homePage = false;
 		logger.debug("step5 " + pnlSelectedCp.getCp().getCpNo() + " stop charging tap card");
 		displayPanel(postStep5StopChargingTapCard);
 	}
@@ -635,6 +662,7 @@ public class CtrlPanel extends CommonPanel implements CpWebSocketEventListener, 
 	public void goToPostStep6ShowReceipt() {
 		lblHome.setVisible(true);
 		lblHelp.setVisible(true);
+		homePage = false;
 		logger.debug("step6 " + pnlSelectedCp.getCp().getCpNo() + " print receipt");
 		displayPanel(postStep6PrintnReceipt);
 	}
@@ -645,11 +673,13 @@ public class CtrlPanel extends CommonPanel implements CpWebSocketEventListener, 
 		logger.debug("step1 " + pnl.getCp().getCpNo() + " select time");
 		lblHelp.setVisible(true);
 		lblHome.setVisible(true);
+		homePage = false;
 		displayPanel(step1SelectTime);
 	}
 	
 	public void goToStep2aReceiptNotAvailable() {
-		logger.debug("step2a receipt not available");	
+		logger.debug("step2a receipt not available");
+		homePage = false;
 		displayPanel(step2aReceiptNotAvailable);
 	}
 	
@@ -657,30 +687,35 @@ public class CtrlPanel extends CommonPanel implements CpWebSocketEventListener, 
 		logger.debug("step2 " + pnlSelectedCp.getCp().getCpNo() + " process payment");
 		lblHome.setVisible(false);
 		lblHelp.setVisible(false);
+		homePage = false;
 		displayPanel(step2ProcPayment);
 	}
 	
 	public void goToStep3PrintReceipt() {
 		lblHome.setVisible(true);
 		lblHelp.setVisible(true);
+		homePage = false;
 		logger.debug("step3 " + pnlSelectedCp.getCp().getCpNo() + " print receipt");
 		displayPanel(step3PrintReceipt);
 	}
 	
 	public void goToStep4GetReceipt() {
-		logger.debug("step4 " + pnlSelectedCp.getCp().getCpNo() + " get receipt");	
+		logger.debug("step4 " + pnlSelectedCp.getCp().getCpNo() + " get receipt");
+		homePage = false;
 		displayPanel(step4GetReceipt);
 	}
 	
 	public void goToStep5ChargingRecord() {
 		lblHome.setVisible(true);
 		lblHelp.setVisible(true);
+		homePage = false;
 		logger.debug("step5 " + pnlSelectedCp.getCp().getCpNo() + " charging record");
 		displayPanel(step5ChargingRecord);
 	}
 	
 	public void goToStep6StopCharging(CpPanel pnl) {
 		pnlSelectedCp = pnl;
+		homePage = false;
 		logger.debug("step6 " + pnl.getCp().getCpNo() + " stop charging");
 		displayPanel(step6StopCharging);
 	}
@@ -688,6 +723,7 @@ public class CtrlPanel extends CommonPanel implements CpWebSocketEventListener, 
 	public void goToStep7StopChargingTapCard() {
 		lblHome.setVisible(false);
 		lblHelp.setVisible(false);
+		homePage = false;
 		logger.debug("step7 " + getPnlSelectedCp().getCp().getCpNo() + " stop charging (tap card)");
 		displayPanel(step7StopChargingTapCard);
 	}
@@ -695,6 +731,7 @@ public class CtrlPanel extends CommonPanel implements CpWebSocketEventListener, 
 	public void goToStep8UnplugCable() {
 		lblHome.setVisible(true);
 		lblHelp.setVisible(true);
+		homePage = false;
 		logger.debug("step8 " + getPnlSelectedCp().getCp().getCpNo() + " unplug cable");
 		displayPanel(step8UnplugCable);
 	}
@@ -712,6 +749,12 @@ public class CtrlPanel extends CommonPanel implements CpWebSocketEventListener, 
 		showErrorMessage("ERR" + code, refNo);
 		goHomeCountDown(pnlError);
 		CtWebSocketClient.uploadAlert(uuid, refNo, cpNo, e);
+	}
+	
+	public void showErrorMessageWithOutHomeBtn(String msgCode) {
+		lblHome.setVisible(false);
+		lblHelp.setVisible(false);
+		showErrorMessage(msgCode, null);
 	}
 	
 	public void showErrorMessage(String msgCode) {
@@ -785,6 +828,7 @@ public class CtrlPanel extends CommonPanel implements CpWebSocketEventListener, 
 	public void goToHelp() {
 		if(this.unlockThread == null) {
 			logger.info("Go to help called");
+			homePage = false;
 			pnlHelp.onDisplay(null);
 			pnlEast.setVisible(false);
 			showCard(pnlHelp);
@@ -1044,6 +1088,10 @@ public class CtrlPanel extends CommonPanel implements CpWebSocketEventListener, 
 
 	public static boolean isSameQrThread(long ttm) {
 		return QR_THREAD_MS == ttm;
+	}
+	
+	public static boolean ishomePage() {
+		return homePage;
 	}
 	
 }

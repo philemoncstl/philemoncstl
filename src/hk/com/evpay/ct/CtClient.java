@@ -114,7 +114,7 @@ public class CtClient extends JFrame{
         
         // start listen contactless payment callback
 		iUC285Util.startListeningCallback(8888, 8889);
-//		iUC285Util.restartUsbAndEftpayment();
+		iUC285Util.restartUsbAndEftpayment();
 	}
 	
 	public CtClient() throws IOException {

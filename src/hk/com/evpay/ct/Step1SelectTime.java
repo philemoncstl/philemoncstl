@@ -40,13 +40,18 @@ public class Step1SelectTime extends CommonPanel{
 	
 	private TranModel tran;
 	private int chargingUnit;
-	
+	private boolean contactlessDisabled;
 
 	public Step1SelectTime(CtrlPanel pnlCtrl) {
 		super(pnlCtrl);
-		
 		setLayout(null);
+		contactlessDisabled = isContactlessDisabled();
+		init();
 		
+
+	}
+	
+	private void init() {
 		btnAddPeriod = createButton("img/period_add_sm.png", 590, 282, 43, 43);
 		add(btnAddPeriod);
 		btnMinusPeriod = createButton("img/period_minus_sm.png", 590, 330, 43, 43);
@@ -72,8 +77,6 @@ public class Step1SelectTime extends CommonPanel{
 		
 		//20190623, set to disable style
 		
-		
-		boolean contactlessDisabled = isContactlessDisabled();
 		 
 		paymentBtns = getPayButtons();
 		for(PayButton pb : paymentBtns) {
@@ -131,9 +134,13 @@ public class Step1SelectTime extends CommonPanel{
 		btnMinusPeriod.addMouseListener(ma);
 		btnBack.addMouseListener(ma);
 		
-		for(int i = 0; i < paymentBtns.length; i ++) {
-			paymentBtns[i].addMouseListener(ma);
+		for(PayButton pb : paymentBtns) {
+			if(pb.getPmModel().getPayMethod() != PayMethod.ContactlessGroup || (pb.getPmModel().getPayMethod() == PayMethod.ContactlessGroup && !contactlessDisabled))
+			add(pb);
+			pb.addMouseListener(ma);
+			logger.info("add PayMethod: " + pb.getPmModel().getPayMethod());
 		}
+		btnBack.addMouseListener(ma);
 	}
 	
 	public static boolean isContactless(Object src) {
@@ -158,7 +165,18 @@ public class Step1SelectTime extends CommonPanel{
 	@Override
 	public void onDisplay(CpPanel cp) {
 		super.onDisplay(cp);
-		
+		for(PayButton pb : paymentBtns) {
+			if(pb.getPmModel().getPayMethod() == PayMethod.ContactlessGroup) {
+				if(contactlessDisabled) {
+					logger.info("ContactlessGroup set Visible to false");
+					pb.setVisible(false);
+				} else {
+					logger.info("ContactlessGroup set Visible to true");
+					pb.setVisible(true);
+				}
+				break;
+			}
+		}
 		tran = new TranModel();
 		tran.setMode(EvCons.MODE_PREPAID);
 		RateUtil.setTimeEnergyMode(tran);
@@ -234,6 +252,18 @@ public class Step1SelectTime extends CommonPanel{
 		}
 		else {
 			pnlCtrl.goToStep2aReceiptNotAvailable();
+		}
+	}
+	
+	public void hideContactless() {
+		contactlessDisabled = true;
+		logger.debug("contactlessDisabled: " + contactlessDisabled);
+	}
+	
+	public void showContactless() {
+		if(!Step1SelectTime.isContactlessDisabled()) {
+			contactlessDisabled = false;
+			logger.debug("contactlessDisabled: " + contactlessDisabled);
 		}
 	}
 
