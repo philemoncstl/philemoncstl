@@ -31,6 +31,7 @@ public class iUC285Util {
 		Timeout,
 		NotSupported,
 		doTranBad,
+		Unconfirmed,
 		noStatus
 	}
 	
@@ -117,6 +118,8 @@ public class iUC285Util {
 	    			return Status.NotSupported;
 	    		case "doTranBad":
 	    			return Status.doTranBad;
+	    		case "Unconfirmed":
+	    			return Status.Unconfirmed;
     			default:
     				return Status.noStatus;
     		}
