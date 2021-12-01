@@ -350,9 +350,32 @@ public class CtWebSocketClient {
 	}
 	
 	public static void resendRequest() {
-		if(CtRequestPool.getRequestPool().size() > 0) {
+		if(CtRequestPool.getTranPool().size() > 0) {
 			ES.shutdown();
 			ES = Executors.newFixedThreadPool(1);
+			final LinkedHashMap<String, CtRequest> map = new LinkedHashMap<String, CtRequest>(CtRequestPool.getTranPool());
+			logger.info(getSessionId() + "Resending Tran, size:" + map.size());
+			new Thread() {
+				public void run() {
+					for(CtRequest r : map.values()) {
+						try {
+							logger.info("Resending " + r);
+							sendRequest(r, false);
+							
+							//CK @ 20180615, add some delay for sending messages
+							logger.info("Send next request after 1 sec");
+							Thread.sleep(1000);
+						}catch(Exception e) {
+							logger.error("Failed to resend " + r, e);
+						}
+					}
+				}
+			}.start();
+		}
+		else {
+			logger.info("resendRequest(), No Tran in pool");
+		}
+		if(CtRequestPool.getRequestPool().size() > 0) {
 			final LinkedHashMap<String, CtRequest> map = new LinkedHashMap<String, CtRequest>(CtRequestPool.getRequestPool());
 			logger.info(getSessionId() + "Resending request, size:" + map.size());
 			new Thread() {
