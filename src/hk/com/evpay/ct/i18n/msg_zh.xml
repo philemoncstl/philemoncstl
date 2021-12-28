@@ -214,17 +214,17 @@
 <entry key="ERR100017AfterRetry">請再次拍卡。
 請重試(八達通號碼 %s)</entry>
 <entry key="ERR100019">此卡失效。
-請使用另一張八達通。</entry>
+請使用另一張八達通卡。</entry>
 <entry key="ERR100019AfterRetry">此卡失效。
-請使用另一張八達通。
+請使用另一張八達通卡。
 請重試(八達通號碼 %s)</entry>
 <entry key="ERR100020">請再次拍卡。</entry>
 <entry key="ERR100020AfterRetry">請再次拍卡。
 請重試(八達通號碼 %s)</entry>
 <entry key="ERR100021">此卡失效。
-請使用另一張八達通。</entry>
+請使用另一張八達通卡。</entry>
 <entry key="ERR100021AfterRetry">此卡失效。
-請使用另一張八達通。
+請使用另一張八達通卡。
 請重試(八達通號碼 %s)</entry>
 <entry key="ERR100022">交易未能完成。
 請再次拍卡。</entry>
@@ -232,9 +232,9 @@
 請再次拍卡。
 請重試(八達通號碼 %s)</entry>
 <entry key="ERR100024">此卡失效。
-請使用另一張八達通。</entry>
+請使用另一張八達通卡。</entry>
 <entry key="ERR100024AfterRetry">此卡失效。
-請使用另一張八達通。
+請使用另一張八達通卡。
 請重試(八達通號碼 %s)</entry>
 <entry key="ERR100025">交易未能完成。
 請再次拍卡。</entry>
@@ -248,9 +248,9 @@
 <entry key="ERR100034AfterRetry">請再次拍卡。
 請重試(八達通號碼 %s)</entry>
 <entry key="ERR100035">此卡失效。
-請使用另一張八達通。</entry>
+請使用另一張八達通卡。</entry>
 <entry key="ERR100035AfterRetry">此卡失效。
-請使用另一張八達通。
+請使用另一張八達通卡。
 Retry please (Octopus no. %s)</entry>
 <entry key="ERR100048">卡內餘額不足，
 交易取消。
@@ -259,9 +259,9 @@ Retry please (Octopus no. %s)</entry>
 交易取消。
 請先行增值。</entry>
 <entry key="ERR100049">卡上儲值額超出上限，
-請使用另一張八達通</entry>
+請使用另一張八達通卡</entry>
 <entry key="ERR100049AfterRetry">卡上儲值額超出上限，
-請使用另一張八達通</entry>
+請使用另一張八達通卡</entry>
 <entry key="ERR100051">控制台識別號碼不正確。</entry>
 <entry key="ERROctopusOthers">機器故障。
 請與本店職員聯絡。</entry>

@@ -84,6 +84,11 @@ public class CommonPanelOctopus extends CommonPanel{
 							", Acc Balance:" + CtUtil.getAmountStr(octReturn.getReturnCode()) + ", Same Card:" + sameCard + 
 							", Smart Oct:" + pollData.isSmartOctopus());
 					
+					if(pollData.isSmartOctopus()) {
+						tran.setSmartOctopus("Y");
+					} else {
+						tran.setSmartOctopus("N");
+					}
 					//start charging
 					if(StringUtil.isEmpty(startCardNo)) {
 						tran.setOctopusNo(pollData.getNewCardId());

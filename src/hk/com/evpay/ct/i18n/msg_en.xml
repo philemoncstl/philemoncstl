@@ -283,7 +283,7 @@ Please contact staff for assistance.</entry>
 <entry key="number">No.</entry>
 <entry key="transactionDatetime">Transaction Date Time</entry>
 <entry key="amount">Amount</entry>
-<entry key="deviceId">Device ID</entry>
+<entry key="deviceId">Device no.</entry>
 <entry key="chargingServiceFee">Charging Service Fee
 HKD %s/hr (%s - %s)
 HKD %s/hr (%s - %s)</entry>
