@@ -270,7 +270,25 @@ public class Step2ProcessPayment extends CommonPanelOctopus{
 					if(responseStatus == Status.Approved) {
 						setCardInfoContactless(tran, response);
 						logger.info("Contactless payment success");
-						paymentSuccess();
+						paymentSuccess();						
+					} else if(responseStatus == Status.Timeout) {
+						logger.warn("Contactless Status Timeout get retrieval again...");
+						JSONObject res = iUC285Util.doRetrieval(tran);
+						if(iUC285Util.getStatus(res) == Status.Approved) {
+							setCardInfoContactless(tran, response);
+							logger.info("Contactless payment success");
+							paymentSuccess();
+						} else {
+							logger.info("Contactless payment fail");
+							pnlCtrl.showErrorMessage(responseStatus.toString());
+							try {
+								sleep(2000);
+							} catch (InterruptedException e) {
+								logger.error("Contactless display Error sleep Fail", e);
+							} finally {
+								pnlCtrl.goToStep1SelectTime(pnlCtrl.getPnlSelectedCp());
+							}
+						}
 					} else {
 						logger.info("Contactless payment fail");
 						pnlCtrl.showErrorMessage(responseStatus.toString());

@@ -213,7 +213,35 @@ public class PostStep5StopChargingTapCard extends CommonPanelOctopus{
 							} finally {
 								stopChargingNow();
 							}
-						} else {
+						}
+						else if(responseStatus == Status.Timeout) {
+							logger.warn("Contactless Status Timeout get retrieval again...");
+							JSONObject res = iUC285Util.doRetrieval(tran);
+							if(iUC285Util.getStatus(res) == Status.Approved) {
+								Step2ProcessPayment.setCardInfoContactless(tran, response);
+								logger.info("Contactless payment success");
+								try {
+									lblStopInst.setMsgCode("finishChargingInstContactless");
+									lblStopInst.setIcon(new ImageIcon(contactlessFinishImg));
+									sleep(1000);
+								} catch (InterruptedException e) {
+									logger.error("Contactless display Error sleep Fail", e);
+								} finally {
+									stopChargingNow();
+								}
+							} else {
+								logger.info("Contactless payment fail");
+								pnlCtrl.showErrorMessage(iUC285Util.getStatus(res).toString());
+								try {
+									sleep(2000);
+								} catch (InterruptedException e) {
+									logger.error("Contactless display Error sleep Fail", e);
+								} finally {
+									pnlCtrl.goToHome();
+								}
+							}
+						}
+						else {
 							logger.info("Contactless payment fail");
 							pnlCtrl.showErrorMessage(responseStatus.toString());
 							try {
@@ -239,8 +267,7 @@ public class PostStep5StopChargingTapCard extends CommonPanelOctopus{
 					logger.error("Contactless Status doTranBad.");
 					pnlCtrl.goToHome();
 				} else {
-					
-					logger.info("Not the same card, go to home now.");
+
 					pnlCtrl.showErrorMessage(responseStatus.toString());
 
  					try {
