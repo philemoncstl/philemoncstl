@@ -280,7 +280,7 @@ public class Step2ProcessPayment extends CommonPanelOctopus{
 							paymentSuccess();
 						} else {
 							logger.info("Contactless payment fail");
-							pnlCtrl.showErrorMessage(responseStatus.toString());
+							pnlCtrl.showErrorMessage(iUC285Util.getStatus(res).toString());
 							try {
 								sleep(2000);
 							} catch (InterruptedException e) {
