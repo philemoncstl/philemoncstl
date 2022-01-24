@@ -31,6 +31,7 @@ public class ReceiptCons {
 	
 	//Contactless
 	public static final String PAYMENT_TYPE = "paymentType";
+	public static final String APP = "app";
 	public static final String CARD_TYPE = "cardType";
 	public static final String CARD_NO = "cardNo";
 	public static final String EXP_DATE ="expDate";

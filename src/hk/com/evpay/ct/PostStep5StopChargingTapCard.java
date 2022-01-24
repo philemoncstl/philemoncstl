@@ -199,26 +199,11 @@ public class PostStep5StopChargingTapCard extends CommonPanelOctopus{
 						lblStopInst.setMsgCode("stopChargingInstContactless");
 						lblStopInst.setIcon(new ImageIcon(contactlessSecondImg));
 						response = iUC285Util.doSale(tran, tran.getAmt().multiply(new BigDecimal("100")).intValue());
-						responseStatus = iUC285Util.getStatus(response);
-						tran.setTransactionTrace(response.getString("TRACE"));
-						if(responseStatus == Status.Approved) {
-							Step2ProcessPayment.setCardInfoContactless(tran, response);
-							logger.info("Contactless payment success");
-							try {
-								lblStopInst.setMsgCode("finishChargingInstContactless");
-								lblStopInst.setIcon(new ImageIcon(contactlessFinishImg));
-								sleep(1000);
-							} catch (InterruptedException e) {
-								logger.error("Contactless display Error sleep Fail", e);
-							} finally {
-								stopChargingNow();
-							}
-						}
-						else if(responseStatus == Status.Timeout) {
-							logger.warn("Contactless Status Timeout get retrieval again...");
-							JSONObject res = iUC285Util.doRetrieval(tran);
-							if(iUC285Util.getStatus(res) == Status.Approved) {
-								Step2ProcessPayment.setCardInfoContactless(tran, response);
+						if(response == null) {
+							logger.warn("no response! get retrieval again...");
+							JSONObject res = iUC285Util.doRetrieval();
+							if(res != null && iUC285Util.getStatus(res) == Status.Approved && tran.getReceiptNo().equals(res.getString("ECRREF"))) {
+								Step2ProcessPayment.setCardInfoContactless(tran, res);
 								logger.info("Contactless payment success");
 								try {
 									lblStopInst.setMsgCode("finishChargingInstContactless");
@@ -239,6 +224,22 @@ public class PostStep5StopChargingTapCard extends CommonPanelOctopus{
 								} finally {
 									pnlCtrl.goToHome();
 								}
+							}
+							return;
+						}
+						responseStatus = iUC285Util.getStatus(response);
+						tran.setTransactionTrace(response.getString("TRACE"));
+						if(responseStatus == Status.Approved) {
+							Step2ProcessPayment.setCardInfoContactless(tran, response);
+							logger.info("Contactless payment success");
+							try {
+								lblStopInst.setMsgCode("finishChargingInstContactless");
+								lblStopInst.setIcon(new ImageIcon(contactlessFinishImg));
+								sleep(1000);
+							} catch (InterruptedException e) {
+								logger.error("Contactless display Error sleep Fail", e);
+							} finally {
+								stopChargingNow();
 							}
 						}
 						else {

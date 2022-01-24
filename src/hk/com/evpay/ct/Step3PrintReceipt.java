@@ -232,6 +232,7 @@ public class Step3PrintReceipt extends CommonPanel{
 			map.put(ReceiptCons.AID, tm.getAid());
 			map.put(ReceiptCons.CMD, tm.getCmd());
 			map.put(ReceiptCons.TC, tm.getTc());
+			map.put(ReceiptCons.APP, tm.getEmvApp());
 		}
 		else if(CtUtil.isPayByQr(tm)) {
 			map.put(ReceiptCons.CARD_NO, tm.getCardNo());

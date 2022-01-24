@@ -348,9 +348,11 @@ public class PrinterUtil {
 	
 	private static void addContactlessInfo(List<Byte> list, Map<String, String> parm) throws UnsupportedEncodingException {
 //		list.addAll(CopyArray((parm.get(ReceiptCons.PAYMENT_TYPE) + PAGE_NEW_LINE).getBytes()));
-		list.addAll(CopyArray((parm.get(ReceiptCons.CARD_TYPE) + PAGE_NEW_LINE + PAGE_NEW_LINE).getBytes()));
+//		list.addAll(CopyArray((parm.get(ReceiptCons.CARD_TYPE) + PAGE_NEW_LINE + PAGE_NEW_LINE).getBytes()));
 		list.addAll(Arrays.asList(ALIGNMENT_LEFT));
 		list.addAll(Arrays.asList(new Byte[]{0x1b, 0x44, 0x0A, 0x20, 0x2A, 0x00})); //Set horizontal tab
+		list.addAll(CopyArray(("APP:\u0009" + parm.get(ReceiptCons.APP) + 
+				"\u0009CARD:\u0009" + SPACE.substring(0, 15 - parm.get(ReceiptCons.CARD_TYPE).length()) + parm.get(ReceiptCons.CARD_TYPE) + PAGE_NEW_LINE).getBytes()));
 		list.addAll(CopyArray(("CARD NO.:\u0009" + parm.get(ReceiptCons.CARD_NO) + 
 				"\u0009EXP DATE:\u0009" + SPACE.substring(0, 15 - parm.get(ReceiptCons.EXP_DATE).length()) + parm.get(ReceiptCons.EXP_DATE) + PAGE_NEW_LINE).getBytes()));
 		list.addAll(CopyArray(("MID:\u0009" + parm.get(ReceiptCons.MID) + "\u0009TID:\u0009" + 

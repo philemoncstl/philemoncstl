@@ -225,6 +225,7 @@ public class Step2ProcessPayment extends CommonPanelOctopus{
 		tran.setCmd(response.getString("CMD"));
 		tran.setAid(response.getString("AID"));
 		tran.setTc(response.getString("TC"));
+		tran.setEmvApp(response.getString("APP"));
 	}
 	
 	private void displayContactlessError(Status responseStatus) {
@@ -266,16 +267,12 @@ public class Step2ProcessPayment extends CommonPanelOctopus{
 					response = iUC285Util.doSale(tran, tran.getAmt().multiply(new BigDecimal("100")).intValue());
 					responseStatus = iUC285Util.getStatus(response);
 					logger.info("setTransactionTrace");
-					
-					if(responseStatus == Status.Approved) {
-						setCardInfoContactless(tran, response);
-						logger.info("Contactless payment success");
-						paymentSuccess();						
-					} else if(responseStatus == Status.Timeout) {
-						logger.warn("Contactless Status Timeout get retrieval again...");
-						JSONObject res = iUC285Util.doRetrieval(tran);
-						if(iUC285Util.getStatus(res) == Status.Approved) {
-							setCardInfoContactless(tran, response);
+					if(response == null) {
+						logger.warn("no response! get retrieval again...");
+						JSONObject res = iUC285Util.doRetrieval();
+						if(res != null && iUC285Util.getStatus(res) == Status.Approved & tran.getReceiptNo().equals(res.getString("ECRREF"))) {
+							tran.setEmvApp(res.getString("APP"));
+							setCardInfoContactless(tran, res);
 							logger.info("Contactless payment success");
 							paymentSuccess();
 						} else {
@@ -289,6 +286,17 @@ public class Step2ProcessPayment extends CommonPanelOctopus{
 								pnlCtrl.goToStep1SelectTime(pnlCtrl.getPnlSelectedCp());
 							}
 						}
+						return;
+					}
+					
+					if(responseStatus == Status.Approved) {
+						tran.setEmvApp(response.getString("APP"));
+						setCardInfoContactless(tran, response);
+						logger.info("Contactless payment success");
+						paymentSuccess();						
+					} else if(responseStatus == Status.Timeout) {
+						logger.warn("Contactless Status Timeout get retrieval again...");
+
 					} else {
 						logger.info("Contactless payment fail");
 						pnlCtrl.showErrorMessage(responseStatus.toString());
