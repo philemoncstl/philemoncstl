@@ -25,6 +25,7 @@ public class CtConfig {
 	private int cpVgap = 30;
 	private int cpWidth = 163;
 	private int cpHeight = 182;
+	private String contactlessPagePassword = "evpay";
 	
 	private long checkOperationResultTimeoutMs = 10000;
 	
@@ -350,7 +351,16 @@ public class CtConfig {
 
 	public void setVersion(String version) {
 		this.version = version;
+	}
+
+	public String getContactlessPagePassword() {
+		return contactlessPagePassword;
+	}
+
+	public void setContactlessPagePassword(String contactlessPagePassword) {
+		this.contactlessPagePassword = contactlessPagePassword;
 	}	
+	
 	
 	
 }

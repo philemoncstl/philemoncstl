@@ -4,6 +4,10 @@ import java.awt.event.ActionEvent;
 
 import javax.swing.AbstractAction;
 import javax.swing.JDialog;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JPasswordField;
 
 import org.apache.log4j.Logger;
 
@@ -24,16 +28,32 @@ public class ContactlessSettlementAction extends AbstractAction{
 		CtClient c = CtClient.CUR_INST;
 		CommonPanel pnlCur = c.getPnlCt().getCurrentPanel();
 		if(pnlCur != null && (pnlCur instanceof CpSelectionPanel || pnlCur instanceof HelpPanel)) {		
-			ContactlessSettlementDialog  dialog = new ContactlessSettlementDialog(c, false);
-	
-			dialog.setSize(980, 700);
-			dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
-			dialog.setLocationRelativeTo(c);
-			if(CtUtil.getConfig().isFullScreen()) {
-				UiUtil.setEmptyCursor(dialog);
+			JPanel panel = new JPanel();
+			JLabel label = new JLabel("Enter a password:");
+			JPasswordField pass = new JPasswordField(10);
+			panel.add(label);
+			panel.add(pass);
+			String[] options = new String[]{"OK", "Cancel"};
+			int option = JOptionPane.showOptionDialog(null, panel, "Contactless",
+			                         JOptionPane.NO_OPTION, JOptionPane.PLAIN_MESSAGE,
+			                         null, options, options[1]);
+			if(option == 0) // pressing OK button
+			{
+			    char[] password = pass.getPassword();
+			    if(CtUtil.getConfig().getContactlessPagePassword().equals(new String(password))) {
+					ContactlessSettlementDialog  dialog = new ContactlessSettlementDialog(c, false);
+					
+					dialog.setSize(980, 700);
+					dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
+					dialog.setLocationRelativeTo(c);
+					if(CtUtil.getConfig().isFullScreen()) {
+						UiUtil.setEmptyCursor(dialog);
+					}
+					dialog.setVisible(true);
+					dialog.setAlwaysOnTop(true);
+			    } 
 			}
-			dialog.setVisible(true);
-			dialog.setAlwaysOnTop(true);
+
 		}
 		else {
 			logger.info(pnlCur == null ? "Cur panel is null" : "Cur panel:" + pnlCur.getClass());

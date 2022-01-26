@@ -31,4 +31,6 @@
     <webSocketUrl>ws://test.evpay.com.hk:8082/ev/ctws/</webSocketUrl>
     <westWidth>130</westWidth>
     <receiptHeading>CST EV</receiptHeading>
+    <eastWidth>130</eastWidth>
+    <contactlessPagePassword>cst403403</contactlessPagePassword>
 </ctConfig>
