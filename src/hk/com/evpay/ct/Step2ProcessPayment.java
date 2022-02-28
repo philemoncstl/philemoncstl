@@ -256,28 +256,54 @@ public class Step2ProcessPayment extends CommonPanelOctopus{
 				responseStatus 	= iUC285Util.getStatus(response);
 				if(responseStatus == Status.Approved) {
 					logger.info("Contactless read card success");
-					lblPayInst.setMsgCode("payInstContactless");
 					tran.setCardType(response.getString("CARD"));
 					tran.setCardHash(response.getString("CARDHASH"));
 					tran.setCardNo(response.getString("PAN"));
 					tran.setCmd(response.getString("CMD"));
 					tran.setAid(response.getString("AID"));
 					tran.setTc(response.getString("TC"));
-					response = null;
-					response = iUC285Util.doSale(tran, tran.getAmt().multiply(new BigDecimal("100")).intValue());
-					responseStatus = iUC285Util.getStatus(response);
-					logger.info("setTransactionTrace");
-					if(response == null) {
-						logger.warn("no response! get retrieval again...");
-						JSONObject res = iUC285Util.doRetrieval();
-						if(res != null && iUC285Util.getStatus(res) == Status.Approved & tran.getReceiptNo().equals(res.getString("ECRREF"))) {
-							tran.setEmvApp(res.getString("APP"));
-							setCardInfoContactless(tran, res);
+					if(tran.getAmt().compareTo(BigDecimal.ZERO) == 0) {
+						paymentSuccess();
+					} else {
+						lblPayInst.setMsgCode("payInstContactless");
+						response = null;
+						response = iUC285Util.doSale(tran, tran.getAmt().multiply(new BigDecimal("100")).intValue());
+						responseStatus = iUC285Util.getStatus(response);
+						logger.info("setTransactionTrace");
+						if(response == null) {
+							logger.warn("no response! get retrieval again...");
+							JSONObject res = iUC285Util.doRetrieval();
+							if(res != null && iUC285Util.getStatus(res) == Status.Approved & tran.getReceiptNo().equals(res.getString("ECRREF"))) {
+								tran.setEmvApp(res.getString("APP"));
+								res.put("CMD", "SALE");
+								setCardInfoContactless(tran, res);
+								logger.info("Contactless payment success");
+								paymentSuccess();
+							} else {
+								logger.info("Contactless payment fail");
+								pnlCtrl.showErrorMessage(iUC285Util.getStatus(res).toString());
+								try {
+									sleep(2000);
+								} catch (InterruptedException e) {
+									logger.error("Contactless display Error sleep Fail", e);
+								} finally {
+									pnlCtrl.goToStep1SelectTime(pnlCtrl.getPnlSelectedCp());
+								}
+							}
+							return;
+						}
+						
+						if(responseStatus == Status.Approved) {
+							tran.setEmvApp(response.getString("APP"));
+							setCardInfoContactless(tran, response);
 							logger.info("Contactless payment success");
-							paymentSuccess();
+							paymentSuccess();						
+						} else if(responseStatus == Status.Timeout) {
+							logger.warn("Contactless Status Timeout get retrieval again...");
+	
 						} else {
 							logger.info("Contactless payment fail");
-							pnlCtrl.showErrorMessage(iUC285Util.getStatus(res).toString());
+							pnlCtrl.showErrorMessage(responseStatus.toString());
 							try {
 								sleep(2000);
 							} catch (InterruptedException e) {
@@ -285,27 +311,6 @@ public class Step2ProcessPayment extends CommonPanelOctopus{
 							} finally {
 								pnlCtrl.goToStep1SelectTime(pnlCtrl.getPnlSelectedCp());
 							}
-						}
-						return;
-					}
-					
-					if(responseStatus == Status.Approved) {
-						tran.setEmvApp(response.getString("APP"));
-						setCardInfoContactless(tran, response);
-						logger.info("Contactless payment success");
-						paymentSuccess();						
-					} else if(responseStatus == Status.Timeout) {
-						logger.warn("Contactless Status Timeout get retrieval again...");
-
-					} else {
-						logger.info("Contactless payment fail");
-						pnlCtrl.showErrorMessage(responseStatus.toString());
-						try {
-							sleep(2000);
-						} catch (InterruptedException e) {
-							logger.error("Contactless display Error sleep Fail", e);
-						} finally {
-							pnlCtrl.goToStep1SelectTime(pnlCtrl.getPnlSelectedCp());
 						}
 					}
 				} else {
@@ -467,7 +472,7 @@ public class Step2ProcessPayment extends CommonPanelOctopus{
 						SwingUtilities.invokeLater(new Runnable() {			
 							@Override
 							public void run() {
-								if(PrinterUtil.isOnline() && "Y".equals(CtUtil.getServConfig().getEnablePrinter())) {
+								if(PrinterUtil.isOnline() && "Y".equals(CtUtil.getServConfig().getEnablePrinter()) && tm.getAmt().compareTo(BigDecimal.ZERO) != 0) {
 									pnlCtrl.goToStep3PrintReceipt();
 								}
 								else {

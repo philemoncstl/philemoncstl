@@ -117,13 +117,13 @@ to the reader to verify.</entry>
 <entry key="stopChargingInstContactlessVerify">&lt;br&gt;&lt;span style=&quot;font-size: 70%;color:blue;&quot;&gt;Verification &lt;/span&gt;\t\t&lt;span style=&quot;font-size: 70%;color:gray;&quot;&gt; Payment&lt;/span&gt;
 &lt;br&gt;
 &lt;br&gt;
-&lt;span style=&quot;font-size: 80%;color:blue;&quot;&gt;Tap Card First Time For Verification&lt;/span&gt;
+&lt;span style=&quot;font-size: 80%;color:blue;&quot;&gt;Tap Or Insert Card For Verification&lt;/span&gt;
 &lt;br&gt;
 </entry>
 <entry key="stopChargingInstContactless">&lt;br&gt;&lt;span style=&quot;font-size: 70%;color:blue;&quot;&gt;Verification &lt;/span&gt;\t\t&lt;span style=&quot;font-size: 70%;color:blue;&quot;&gt; Payment&lt;/span&gt;
 &lt;br&gt;
 &lt;br&gt;
-&lt;span style=&quot;font-size: 80%;color:blue;&quot;&gt;Tap Card Second Time For Payment&lt;/span&gt;
+&lt;span style=&quot;font-size: 80%;color:blue;&quot;&gt;Tap Or Insert Card Again For Payment&lt;/span&gt;
 &lt;br&gt;
 </entry>
 <entry key="finishChargingInstContactless">&lt;br&gt;&lt;span style=&quot;font-size: 70%;color:blue;&quot;&gt;Verification &lt;/span&gt;\t\t&lt;span style=&quot;font-size: 70%;color:blue;&quot;&gt; Payment&lt;/span&gt;
