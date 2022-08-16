@@ -6,7 +6,9 @@ import java.io.StringWriter;
 import java.math.BigDecimal;
 import java.net.URI;
 import java.net.URLEncoder;
+import java.util.Calendar;
 import java.util.LinkedHashMap;
+import java.util.UUID;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
@@ -32,6 +34,7 @@ import hk.com.cstl.evcs.lms.LmsServEventType;
 import hk.com.cstl.evcs.model.AlertModel;
 import hk.com.cstl.evcs.model.CpModel;
 import hk.com.cstl.evcs.model.CtModel;
+import hk.com.cstl.evcs.model.EvCons;
 import hk.com.cstl.evcs.model.ServConfig;
 import hk.com.cstl.evcs.model.TranModel;
 import hk.com.cstl.evcs.ocpp.CpWebSocket;
@@ -44,6 +47,7 @@ import hk.com.evpay.ct.CpPanel;
 import hk.com.evpay.ct.CtClient;
 import hk.com.evpay.ct.CtrlPanel;
 import hk.com.evpay.ct.util.CtUtil;
+import hk.com.evpay.ct.util.RateUtil;
 
 @ClientEndpoint
 public class CtWebSocketClient {
@@ -64,6 +68,8 @@ public class CtWebSocketClient {
 	private static final String OCPP_TEXT = "CSTEV2020";
 	
 	private static String encryptedOCPPText = "";
+	
+	private static boolean tryConnecting = false;
 	
 	// init cipher here	
 	static {
@@ -195,6 +201,23 @@ public class CtWebSocketClient {
 					break;
 				case StartCharging:
 					if(pnlCp != null) {
+						TranModel tran = new TranModel();
+						tran.setMode(EvCons.MODE_POSTPAID);
+						RateUtil.setTimeEnergyMode(tran);
+						tran.setCpNo(pnlCp.getCp().getCpNo());
+						tran.setIdTag(UUID.randomUUID().toString().substring(0, 19));
+						Calendar cal = Calendar.getInstance();
+						tran.setStartDttm(cal.getTime());
+						tran.setTranDttm(tran.getStartDttm());
+						int duration = RateUtil.getMaxChargingDurationMin();
+//						cal.add(Calendar.MINUTE, 5);
+//						tran.setDurationMin(5);
+						cal.add(Calendar.MINUTE, duration);
+						tran.setDurationMin(duration);
+						tran.setEndDttm(cal.getTime());
+						tran.setMode(EvCons.MODE_PREPAID);
+						tran.setTranId(CtUtil.getReceiptNo());
+						pnlCp.getCp().setTran(tran);
 						pnlCp.remoteStartTransaction();
 					}
 					else {
@@ -320,11 +343,11 @@ public class CtWebSocketClient {
 		return res;
 	}
 	
-	private static synchronized void connect() {
-		if(isConnected(false)) {
+	private static void connect() {
+		if(isConnected(false) || tryConnecting) {
 			return ;
 		}
-		
+		tryConnecting = true;
 		logger.info("Connecting to server...");
 		WebSocketContainer container = null;//
 		String url = CtUtil.getConfig().getWebSocketUrl() + CtUtil.getConfig().getCtId() + "?cipher=" + encryptedOCPPText;
@@ -346,6 +369,14 @@ public class CtWebSocketClient {
 			resendRequest();
 		} catch (Exception e) {
 			logger.error("Failed to open web socket to backend:" + url + ", error:" + e.getMessage());
+		} finally {
+			try {
+				Thread.sleep(5000);
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				logger.warn(e.getMessage());
+			}
+			tryConnecting = false;
 		}
 	}
 	
@@ -495,7 +526,7 @@ public class CtWebSocketClient {
 	
 	public static void sendRequest(CtRequest req, boolean checkConnect) throws IOException {
 		if(checkConnect) {
-			if(!isConnected()) {
+			if(!isConnected() && !tryConnecting) {
 				//CK @ 20190625 Move to thread to avoid network instable issues caused CP disconnected. 
 				new Thread() {
 					@Override
