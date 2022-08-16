@@ -63,7 +63,7 @@ public class CtClient extends JFrame{
 	
 	private LmsSpecAdapter lmsAdapter = null;
 	
-	public static final String VER = "v1.1.2 (2020-01-16)";
+	public static final String VER = "v1.3.2 (2022-08-16)";
 	
 	public static CtClient CUR_INST = null;
 	

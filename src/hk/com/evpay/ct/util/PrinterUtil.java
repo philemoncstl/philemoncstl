@@ -351,9 +351,9 @@ public class PrinterUtil {
 //		list.addAll(CopyArray((parm.get(ReceiptCons.CARD_TYPE) + PAGE_NEW_LINE + PAGE_NEW_LINE).getBytes()));
 		list.addAll(Arrays.asList(ALIGNMENT_LEFT));
 		list.addAll(Arrays.asList(new Byte[]{0x1b, 0x44, 0x0A, 0x20, 0x2A, 0x00})); //Set horizontal tab
-		list.addAll(CopyArray(("APP:\u0009" + parm.get(ReceiptCons.APP) + 
+		list.addAll(CopyArray(("APP:\u0009" + parm.get(ReceiptCons.APP) +
 				"\u0009CARD:\u0009" + SPACE.substring(0, 15 - parm.get(ReceiptCons.CARD_TYPE).length()) + parm.get(ReceiptCons.CARD_TYPE) + PAGE_NEW_LINE).getBytes()));
-		list.addAll(CopyArray(("CARD NO.:\u0009" + parm.get(ReceiptCons.CARD_NO) + 
+		list.addAll(CopyArray(("CARD NO.:\u0009" + parm.get(ReceiptCons.CARD_NO) + "(" + parm.get(ReceiptCons.ENTRYMODE) + ")" +
 				"\u0009EXP DATE:\u0009" + SPACE.substring(0, 15 - parm.get(ReceiptCons.EXP_DATE).length()) + parm.get(ReceiptCons.EXP_DATE) + PAGE_NEW_LINE).getBytes()));
 		list.addAll(CopyArray(("MID:\u0009" + parm.get(ReceiptCons.MID) + "\u0009TID:\u0009" + 
 					SPACE.substring(0, 15 - parm.get(ReceiptCons.TID).length()) +  parm.get(ReceiptCons.TID) + PAGE_NEW_LINE).getBytes()));
@@ -375,7 +375,7 @@ public class PrinterUtil {
 			case "VISA" :
 			case "MASTERCARD":
 			case "JCB":
-				msg = "I ACKNOWLEDGE SATISFACTORY RECEIPT OF RELATIVE\nGOODS/SERVICES. I confirm that I have read and understood\nthe Teams and Conditions for Interest-free Instalment\nPlan and agree to be bound by them.";
+				msg = "I ACKNOWLEDGE SATISFACTORY RECEIPT OF RELATIVE\nGOODS/SERVICES.";
 				break;
 			case "CUP":
 				msg = "本人確認以上交易，同意將其計入本帳戶";

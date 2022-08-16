@@ -72,7 +72,7 @@ public class CtRequestPool {
 		}
 	}
 	
-	public static synchronized void loadRequest(boolean isTran) {
+	public static void loadRequest(boolean isTran) {
 		String fileName = POOL_FILE_NAME;
 		if(isTran) {
 			fileName = TRAN_FILE_NAME;

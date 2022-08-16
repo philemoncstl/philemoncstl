@@ -19,6 +19,7 @@ import org.apache.log4j.Logger;
 import com.ckzone.util.DateUtil;
 
 import hk.com.cstl.evcs.model.TranModel;
+import hk.com.cstl.evcs.ocpp.eno.TranStatus;
 import hk.com.evpay.ct.i18n.FieldPanel;
 import hk.com.evpay.ct.i18n.FieldPanel2Label;
 import hk.com.evpay.ct.i18n.I18nButtonLabel;
@@ -164,7 +165,12 @@ public class PostStep4StopCharging extends CommonPanel{
 			pnlCtrl.getPnlSelectedCp().repaint();
 			return;
 		}
-		
+		TranModel tranModel = CtUtil.getCp(pnlCtrl.getPnlSelectedCp().getCp().getCpNo()).getTran();
+		if(tranModel == null || String.valueOf(TranStatus.Stopped).equals(tranModel.getTranStatusCode() )) {
+			pnlCtrl.showErrorMessage("ERR9200", pnlCtrl.getPnlSelectedCp().getCp().getCpNo());
+			pnlCtrl.getPnlSelectedCp().repaint();
+			return;
+		}
 		pnlCtrl.goToPostStep5StopChargingTapCard();
 	}
 	

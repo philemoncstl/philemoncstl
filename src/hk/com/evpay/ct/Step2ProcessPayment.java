@@ -226,6 +226,7 @@ public class Step2ProcessPayment extends CommonPanelOctopus{
 		tran.setAid(response.getString("AID"));
 		tran.setTc(response.getString("TC"));
 		tran.setEmvApp(response.getString("APP"));
+		tran.setEntryMode(response.getString("ENTRYMODE"));
 	}
 	
 	private void displayContactlessError(Status responseStatus) {
@@ -262,6 +263,7 @@ public class Step2ProcessPayment extends CommonPanelOctopus{
 					tran.setCmd(response.getString("CMD"));
 					tran.setAid(response.getString("AID"));
 					tran.setTc(response.getString("TC"));
+					tran.setEntryMode(response.getString("ENTRYMODE"));
 					if(tran.getAmt().compareTo(BigDecimal.ZERO) == 0) {
 						paymentSuccess();
 					} else {

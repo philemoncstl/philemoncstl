@@ -162,6 +162,7 @@ public class Step3PrintReceipt extends CommonPanel{
 			map.put(ReceiptCons.TIME_CHARGE_ON_PEAK, CtUtil.bigDecimalToString(tm.getTimeChargeOnPeak()));
 			//Total
 			map.put(ReceiptCons.TIME_CHARGE, CtUtil.bigDecimalToString(tm.getTimeCharge()));
+			
 		}
 		
 		//Energy charge
@@ -233,6 +234,7 @@ public class Step3PrintReceipt extends CommonPanel{
 			map.put(ReceiptCons.CMD, tm.getCmd());
 			map.put(ReceiptCons.TC, tm.getTc());
 			map.put(ReceiptCons.APP, tm.getEmvApp());
+			map.put(ReceiptCons.ENTRYMODE, tm.getEntryMode());
 		}
 		else if(CtUtil.isPayByQr(tm)) {
 			map.put(ReceiptCons.CARD_NO, tm.getCardNo());

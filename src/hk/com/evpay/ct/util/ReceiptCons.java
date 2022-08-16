@@ -45,5 +45,6 @@ public class ReceiptCons {
 	public static final String AID = "aid";
 	public static final String TC = "tc";
 	public static final String CMD = "cmd";
+	public static final String ENTRYMODE = "entryMode";
 
 }

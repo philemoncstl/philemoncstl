@@ -61,7 +61,7 @@ public class CtConfig {
 	
 	private boolean lms = true;
 	
-	private String version = "v1.3.0";
+	private String version = CtClient.VER;
 	
 	public boolean isLms() {
 		return lms;
