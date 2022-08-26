@@ -132,6 +132,12 @@ public class iUC285Util {
     	return jo;
     }
     
+    public static JSONObject doCardRead(int amt) {
+    	JSONObject jo = asyncSendRequest("{\"AMT\": " + amt + ",\"ECRREF\":\"\",\"CARDTYPE\":\"\",\"CMD\":\"READ_CARD\",\"TYPE\":\"EDC\"}");
+    	updateIucEventLogDto("READ_CARD", jo);
+    	return jo;
+    }
+    
     public static JSONObject doSale(TranModel tran, long amount) {
 //    	 String request = String.format("{\"AMT\":%d,\"ECRREF\":\"%s\",\"CARDTYPE\":\"\",\"CMD\":\"SALE\",\"TYPE\":\"EDC\"}", amount, "AABB123123");
     	String request = String.format("{\"AMT\":%d,\"ECRREF\":\"%s\",\"CARDTYPE\":\"\",\"CMD\":\"SALE\",\"TYPE\":\"EDC\"}", amount, tran.getReceiptNo());
@@ -306,7 +312,7 @@ public class iUC285Util {
    
     private static JSONObject asyncSendRequest(String request) {
     	int count 		= 0;
-    	int maxCount 	= 300; // 300 * 100ms = 30s
+    	int maxCount 	= 460; // 300 * 100ms = 30s
 		JSONObject response = null;
       	if(!requestProcessing && !waitSocketResponse) {
 	    	try {
@@ -315,6 +321,7 @@ public class iUC285Util {
 	      		sendRequest(request);
 		        while(true) {
 		        	count++;
+//		        	logger.info("count: " + count);
 		        	try {
 						Thread.sleep(100);
 					} catch (InterruptedException e) {

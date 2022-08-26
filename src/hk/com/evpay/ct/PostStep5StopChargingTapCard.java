@@ -192,7 +192,7 @@ public class PostStep5StopChargingTapCard extends CommonPanelOctopus{
 		logger.info("stopChargingContactless");
 		stopThread = new Thread() {
 			public void run() {
-				JSONObject response 	= iUC285Util.doCardRead();
+				JSONObject response 	= iUC285Util.doCardRead(100);
 				Status responseStatus 	= iUC285Util.getStatus(response);
 				if(responseStatus == Status.Approved) {
 					if(response.getString("CARDHASH").equals(tran.getCardHash())) {

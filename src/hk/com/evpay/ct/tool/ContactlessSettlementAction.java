@@ -34,7 +34,7 @@ public class ContactlessSettlementAction extends AbstractAction{
 			panel.add(label);
 			panel.add(pass);
 			String[] options = new String[]{"OK", "Cancel"};
-			int option = JOptionPane.showOptionDialog(null, panel, "Contactless",
+			int option = JOptionPane.showOptionDialog(CtClient.CUR_INST, panel, "Contactless",
 			                         JOptionPane.NO_OPTION, JOptionPane.PLAIN_MESSAGE,
 			                         null, options, options[1]);
 			if(option == 0) // pressing OK button
