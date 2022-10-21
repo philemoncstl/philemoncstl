@@ -59,7 +59,7 @@ public class CtConfig {
 	private String qrScannerPort;
 	private long qrScanTimeoutMs = 600000;
 	
-	private boolean lms = true;
+	private boolean lms = false;
 	
 	private String version = CtClient.VER;
 	

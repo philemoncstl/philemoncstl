@@ -386,7 +386,7 @@ public class RateUtil {
 		boolean meterReady = tran.getMeterStart() != null && tran.getMeterStop() != null;
 		logger.info("energyEnabled:" + tran.getEnergyEnabled() + ", meter start:" + tran.getMeterStart() + ", stop:" + tran.getMeterStop());
 		
-		if(CtUtil.isEnergyEnabled(tran) && meterReady) {
+		if(meterReady) {
 			BigDecimal tot = tran.getMeterStop().subtract(tran.getMeterStart());
 			//CK @ 20191205, handle negative value cases
 			if(tot.intValue() < 0) {
@@ -400,31 +400,34 @@ public class RateUtil {
 				}
 			}
 			tot = tot.divide(new BigDecimal(1000, MathContext.DECIMAL32));
-			
-			BigDecimal durationOn = new BigDecimal(tran.getDurationOnPeak());
-			BigDecimal durationTot = new BigDecimal(tran.getDurationMin());
-			 
-			if(durationTot.compareTo(BigDecimal.ZERO) > 0) {
-				tran.setEnergyConsumedOnPeak(roundDown(tot.multiply(durationOn.divide(durationTot, MathContext.DECIMAL32))));
-				tran.setEnergyConsumedOffPeak(tot.subtract(tran.getEnergyConsumedOnPeak()));
-				tran.setEnergyConsumed(tot);
-				logger.info("kwh tot:" + tot + ", on:" + tran.getEnergyConsumedOnPeak() + ", off:" + tran.getEnergyConsumedOffPeak());
-				
-				tran.setEnergyChargeOnPeak(roundDown(tran.getEnergyConsumedOnPeak().multiply(tran.getEnergyRateOnPeak())));
-				if(CtUtil.isOnOffPeakSameEnergyRate(tran)) {
-					tran.setEnergyCharge(roundDown(tot.multiply(tran.getEnergyRateOnPeak())));
-					tran.setEnergyChargeOffPeak(tran.getEnergyCharge().subtract(tran.getEnergyChargeOnPeak()));
+			logger.info("energyConsumed:"+ tot + " kWh" );
+			tran.setEnergyConsumed(tot);
+			if(CtUtil.isEnergyEnabled(tran)) {
+				BigDecimal durationOn = new BigDecimal(tran.getDurationOnPeak());
+				BigDecimal durationTot = new BigDecimal(tran.getDurationMin());
+				 
+				if(durationTot.compareTo(BigDecimal.ZERO) > 0) {
+					tran.setEnergyConsumedOnPeak(roundDown(tot.multiply(durationOn.divide(durationTot, MathContext.DECIMAL32))));
+					tran.setEnergyConsumedOffPeak(tot.subtract(tran.getEnergyConsumedOnPeak()));
+					
+					logger.info("kwh tot:" + tot + ", on:" + tran.getEnergyConsumedOnPeak() + ", off:" + tran.getEnergyConsumedOffPeak());
+					
+					tran.setEnergyChargeOnPeak(roundDown(tran.getEnergyConsumedOnPeak().multiply(tran.getEnergyRateOnPeak())));
+					if(CtUtil.isOnOffPeakSameEnergyRate(tran)) {
+						tran.setEnergyCharge(roundDown(tot.multiply(tran.getEnergyRateOnPeak())));
+						tran.setEnergyChargeOffPeak(tran.getEnergyCharge().subtract(tran.getEnergyChargeOnPeak()));
+					}
+					else {
+						tran.setEnergyChargeOffPeak(roundDown(tran.getEnergyConsumedOffPeak().multiply(tran.getEnergyRateOffPeak())));
+						tran.setEnergyCharge(tran.getEnergyChargeOffPeak().add(tran.getEnergyChargeOnPeak()));
+					}
+					
+					logger.info("$ tot:" + tran.getEnergyCharge() + ", on:" + tran.getEnergyChargeOnPeak() + ", off:" + tran.getEnergyChargeOffPeak());
 				}
 				else {
-					tran.setEnergyChargeOffPeak(roundDown(tran.getEnergyConsumedOffPeak().multiply(tran.getEnergyRateOffPeak())));
-					tran.setEnergyCharge(tran.getEnergyChargeOffPeak().add(tran.getEnergyChargeOnPeak()));
-				}
-				
-				logger.info("$ tot:" + tran.getEnergyCharge() + ", on:" + tran.getEnergyChargeOnPeak() + ", off:" + tran.getEnergyChargeOffPeak());
+					logger.warn("durationTot is zero");
+				}		
 			}
-			else {
-				logger.warn("durationTot is zero");
-			}		
 		}
 	}
 	
