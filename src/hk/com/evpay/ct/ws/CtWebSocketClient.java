@@ -1,5 +1,6 @@
 package hk.com.evpay.ct.ws;
 
+import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.io.StringWriter;
@@ -71,17 +72,25 @@ public class CtWebSocketClient {
 	
 	private static boolean tryConnecting = false;
 	
+	private static boolean disableUpdateCt = false;
+	
 	// init cipher here	
 	static {
 		try {
-			String ct = CtUtil.getConfig().getCtId();
-			String plainText = ct + "_" + OCPP_TEXT + System.currentTimeMillis();
-			ClientEncryptUtil.setKEY_PUBLIC("./rsa_512.pub");
-			encryptedOCPPText = ClientEncryptUtil.encryptWithBase64URLSafeString(plainText);
-			encryptedOCPPText = URLEncoder.encode(encryptedOCPPText, "UTF-8");
-			logger.info("encryptedOCPPText:"+ encryptedOCPPText);
+			File key = new File("./rsa_512.pub");
+			if(key == null || !key.exists()) {
+				disableUpdateCt = true;
+				logger.info("key not exist disable cipher.");
+			}else {
+				String ct = CtUtil.getConfig().getCtId();
+				String plainText = ct + "_" + OCPP_TEXT + System.currentTimeMillis();
+				ClientEncryptUtil.setKEY_PUBLIC("./rsa_512.pub");
+				encryptedOCPPText = ClientEncryptUtil.encryptWithBase64URLSafeString(plainText);
+				encryptedOCPPText = URLEncoder.encode(encryptedOCPPText, "UTF-8");
+				logger.info("encryptedOCPPText:"+ encryptedOCPPText);
+			}
 		} catch (Exception e2) {
-			logger.error("Error in Initialize encryptedOCPPText" + e2);			
+			logger.error("Error in Initialize encryptedOCPPText" + e2.getMessage());			
 		}
 	}
 	
@@ -350,19 +359,18 @@ public class CtWebSocketClient {
 		tryConnecting = true;
 		logger.info("Connecting to server...");
 		WebSocketContainer container = null;//
-		String url = CtUtil.getConfig().getWebSocketUrl() + CtUtil.getConfig().getCtId() + "?cipher=" + encryptedOCPPText;
+		String url = CtUtil.getConfig().getWebSocketUrl() + CtUtil.getConfig().getCtId() +( "".equals(encryptedOCPPText) ? "" : "?cipher=" + encryptedOCPPText);
 		//url = "ws://test.evpay.com.hk:8082/ev/ctws/2?cipher=WB0raack68vPtxskGyOAKoeUSZDKiVdxd8ywnbRNWGYxej241RQbBuAmViywlDKpP2GLZixvxIJoucX6oKiGlA==";
 		logger.info("URL:" + url);
 		try {
 			// Tyrus is plugged via ServiceLoader API. See notes above
 			container = ContainerProvider.getWebSocketContainer();
-
+			closeSession();
 			session = container.connectToServer(CtWebSocketClient.class, URI.create(url));
 			lastMsgDttm = System.currentTimeMillis();
 			logger.info(getSessionId() + "Connected, bufferSize:" + session.getMaxTextMessageBufferSize());
 			//send the CT status
 			updateCt();
-			
 			//also get the latest config
 			getConfig();
 			
@@ -388,14 +396,20 @@ public class CtWebSocketClient {
 			logger.info(getSessionId() + "Resending Tran, size:" + map.size());
 			new Thread() {
 				public void run() {
+					int resendRequestCount = 0;
 					for(CtRequest r : map.values()) {
 						try {
 							logger.info("Resending " + r);
 							sendRequest(r, false);
+							resendRequestCount ++;
 							
 							//CK @ 20180615, add some delay for sending messages
 							logger.info("Send next request after 1 sec");
 							Thread.sleep(1000);
+							if(resendRequestCount%5==0 && !isConnected(false)) {
+								logger.warn("resendTranRequest Failed.resendRequestCount: " + resendRequestCount + " ,Connected is false break now" );
+								break;
+							}
 						}catch(Exception e) {
 							logger.error("Failed to resend " + r, e);
 						}
@@ -411,6 +425,7 @@ public class CtWebSocketClient {
 			logger.info(getSessionId() + "Resending request, size:" + map.size());
 			new Thread() {
 				public void run() {
+					int resendRequestCount = 0;
 					for(CtRequest r : map.values()) {
 						try {
 							logger.info("Resending " + r);
@@ -419,6 +434,10 @@ public class CtWebSocketClient {
 							//CK @ 20180615, add some delay for sending messages
 							logger.info("Send next request after 1 sec");
 							Thread.sleep(1000);
+							if(resendRequestCount%5==0 && !isConnected(false)) {
+								logger.warn("resendRequest Failed.resendRequestCount: " + resendRequestCount + " ,Connected is false break now" );
+								break;
+							}
 						}catch(Exception e) {
 							logger.error("Failed to resend " + r, e);
 						}
@@ -429,6 +448,7 @@ public class CtWebSocketClient {
 		else {
 			logger.info("resendRequest(), No request in pool");
 		}
+
 	}
 	
 	public static void closeSession() {
@@ -449,7 +469,10 @@ public class CtWebSocketClient {
 	}
 	
 	public static boolean updateCt() {
-		return sendRequest(WsAction.UpdateCt, CtUtil.getCt());
+		if(!disableUpdateCt) {
+			return sendRequest(WsAction.UpdateCt, CtUtil.getCt());
+		}
+		return true;
 	}
 	
 	public static boolean uploadIUCEvent(IucEventLogDto log) {
