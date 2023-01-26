@@ -324,7 +324,9 @@ public class CtUtil {
 	}
 	
 	public static boolean isCpStatusStopped(ChargePointStatus status) {
-		return status == ChargePointStatus.Finishing;
+		return status == ChargePointStatus.Finishing ||
+				status == ChargePointStatus.Available ||
+				status == ChargePointStatus.Preparing;
 	}
 	
 	public static int getReceiptNo() {
